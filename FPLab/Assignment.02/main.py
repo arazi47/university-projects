@@ -1,22 +1,22 @@
 from math import sqrt
 
 def readInt(text):
-    """
+    '''
     Function that makes sure we read an integer
     Without crashing the program
-    """
+    '''
 
-    """
+    '''
     we have to declare option before getting the input
     in case we catch ValueError
     otherwise, the program will crash
-    """
+    '''
     num = -1
 
-    """
+    '''
     Error comes in handy when reading list values in function readList()
     If it's False, we won't append num to the list
-    """
+    '''
     error = False
 
     try:
@@ -49,9 +49,10 @@ def printList(lst):
 
 
 def printListFromIToJ(lst, startIndex, endIndex):
-    """
+    '''
     Prints lst's elements from startIndex to endIndex
-    """
+    '''
+
     while startIndex <= endIndex:
         print(lst[startIndex], end=' ')
         startIndex += 1
@@ -172,7 +173,8 @@ def printPrimeNumSeq(lst):
             while jCurr < len(lst) - 1 and prime(lst[jCurr + 1]):
                 jCurr = jCurr + 1
 
-            if jCurr - iCurr > jMax - iMax:
+            # >=, because for 0, 0, 3, 4, 3, it would only print 0
+            if jCurr - iCurr >= jMax - iMax:
                 iMax = iCurr
                 jMax = jCurr
 
@@ -184,8 +186,9 @@ def printPrimeNumSeq(lst):
 
 
 def printProperties(lst):
+    printLongestIncNumSeq(lst)
     # printConsecNumPairsHaveGCD1Seq()
-    printPrimeNumSeq(lst)
+    # printPrimeNumSeq(lst)
 
 
 def testPrime():
@@ -227,13 +230,13 @@ def showMenu(menuOptions):
         print(i[0])
 
 
-def menuTest():
+def menu2():
     lst = []
     menuOptions = {
         0: ["0. Exit", exit],
         1: ["1. Read list of integers", readList],
         2: ["2. Print the list", printList],
-        3: ["3. Print properties #1 and #2", printProperties]
+        3: ["3. Print sequences", printProperties]
     }
 
     while True:
@@ -249,27 +252,26 @@ def menuTest():
 def menu():
     lst = []
 
-    print("1. Read list of integers")
-    print("2. Print the list")
-    print("3. Print properties #1 and #2")
-    print("4. Exit")
+    while True:
+        print("0. Exit")
+        print("1. Read list of integers")
+        print("2. Print the list")
+        print("3. Print sequence")
 
-    option = readInt(">> ")
+        option = readInt(">> ")
 
-    if option == 1:
-        readList(lst)
-    elif option == 2:
-        printList(lst)
-    elif option == 3:
-        printProperties(lst)
-    elif option == 4:
-        exit()
-    else:
-        print("Uknown option selected!")
-
-    menu()
+        if option == 0:
+            exit()
+        elif option == 1:
+            readList(lst)
+        elif option == 2:
+            printList(lst)
+        elif option == 3:
+            printProperties(lst)
+        else:
+            print("Invalid option selected!")
 
 
 runTests()
-menuTest()
-# menu()
+menu2()
+#menu()
