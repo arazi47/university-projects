@@ -1,5 +1,5 @@
 from utilities import readCommand
-from testingUtils import testInsertValues
+from testingUtils import *
 from commands import *
 
 
@@ -8,7 +8,7 @@ def main():
     scoreList = []
 
     # for testing purposes
-    testInsertValues(scoreList)
+    testInsertValuesNoOrder(scoreList)
 
     commands = {
         "add" : addScore,

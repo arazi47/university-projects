@@ -23,19 +23,22 @@ remove [ < | = | > ] <score>
 undo
 '''
 
-from utilities import checkScores
+from utilities import checkArgsLength, checkScore, checkScores
 
 def addScore(scoreList, args):
     '''
     Append (at the end of scoreList) new scores for problems P1, P2 and P3
     '''
     # check if we're within bounds
-    assert(len(args) == 3)
-    checkScores(int(args[0]), int(args[1]), int(args[2]))
+    if not checkArgsLength(args, 3):
+        print("Incorrect number of arguments given!")
+        return
+
+    if not checkScores(int(args[0]), int(args[1]), int(args[2])):
+        print("Scores are not within range!")
+        return
 
     scoreList.append([int(args[0]), int(args[1]), int(args[2])])
-    #print(scoreList)
-    #print(args)
 
 
 def insertAtPosition(scoreList, args):
@@ -99,6 +102,8 @@ def removeCommand(scoreList, args):
     # remove <start position> to <end position>
     elif len(args) == 3:
         removeFromIToJ(scoreList, int(args[0]), int(args[2]))
+    else:
+        print("Incorrect number of arguments given!")
 
 
 def replaceScore(scoreList, args):
@@ -126,16 +131,50 @@ def replaceScore(scoreList, args):
 def listScores(scoreList):
     print(scoreList)
 
+def sortScores(scoreList):
+    '''
+    :param scoreList: unsorted score list
+    :return: score list in decreasing order, based on their score
+    '''
+
+    sortedScores = scoreList[:]
+    sortedScores.sort(key = sum)
+
+    return sortedScores
 
 def listSortedScores(scoreList):
     '''
     Print participants sorted in decreasing order of their average score
     '''
-    sortedScores = scoreList[:]
+
+    listScores(sortScores(scoreList))
 
 
-def listScoresLessEquBiggerThan(scoreList, sign):
-    pass
+def listScoresLessEquBiggerThan(scoreList, args):
+    sign = args[0]
+    givenScore = int(args[1])
+
+    if not checkScore(givenScore):
+        print("Score must be between 0 and 10!")
+        return
+
+    if sign == '<':
+        for lst in scoreList:
+            if sum(lst) < givenScore:
+                print(lst, end = ' ')
+        print()
+    elif sign == '=':
+        for lst in scoreList:
+            if sum(lst) == givenScore:
+                print(lst, end  = ' ')
+        print()
+    elif sign == '>':
+        for lst in scoreList:
+            if sum(lst) > givenScore:
+                print(lst, end = ' ')
+        print()
+    else:
+        print("Incorrect sign given!")
 
 
 def listCommand(scoreList, args):
@@ -146,12 +185,16 @@ def listCommand(scoreList, args):
     list [ < | = | > ] <score>
     '''
 
+    print(len(args))
+
     if len(args) == 0:
         listScores(scoreList)
-    elif len(args) == 1:
+    elif len(args) == 1 and args[0] == "sorted":
         listSortedScores(scoreList)
-    else: # == 3
-        listScoresLessEquBiggerThan(scoreList, args[0])
+    elif len(args) == 2 and args[0] in "<=>" and args[1].isdigit():
+        listScoresLessEquBiggerThan(scoreList, args)
+    else:
+        print("Incorrect arguments or number of arguments given!")
 
 
 def sumOfScores(scores):
