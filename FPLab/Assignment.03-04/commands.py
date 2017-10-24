@@ -10,11 +10,11 @@ commands:
 [DONE] replace <old score> <P1 | P2 | P3> with <new score>
 
 [DONE] list
-list sorted
-list [ < | = | > ] <score>
+[DONE] list sorted
+[DONE] list [ < | = | > ] <score>
 
 [DONE] avg <start position> to <end position>
-min <start position> to <end position>
+[DONE] min <start position> to <end position>
 
 top <number>
 top <number> <P1 | P2 | P3>
@@ -23,7 +23,9 @@ remove [ < | = | > ] <score>
 undo
 '''
 
-from utilities import checkArgsLength, checkScore, checkScores
+#from utilities import checkArgsLength, checkScore, checkScores, checkArgIsInt, errorCodesVars, errorCodes
+# We need to import everything from utilities, otherwise we can't print error codes
+from utilities import *
 
 def addScore(scoreList, args):
     '''
@@ -31,14 +33,14 @@ def addScore(scoreList, args):
     '''
     # check if we're within bounds
     if not checkArgsLength(args, 3):
-        print("Incorrect number of arguments given!")
-        return
+        return INVALID_NUM_OF_ARGS
 
     if not checkScores(int(args[0]), int(args[1]), int(args[2])):
-        print("Scores are not within range!")
-        return
+        return SCORES_NOT_WITHIN_RANGE
 
     scoreList.append([int(args[0]), int(args[1]), int(args[2])])
+
+    return True
 
 
 def insertAtPosition(scoreList, args):
@@ -47,10 +49,17 @@ def insertAtPosition(scoreList, args):
     Syntax: insert <p1 score> <p2 score> <p3 score> at <position>
     '''
 
-    assert(len(args) == 5)
+    if not checkArgsLength(args, 5):
+        return INVALID_NUM_OF_ARGS
+
+    if not checkArgIsInt(args[0]) or not checkArgIsInt(args[1]) or not checkArgIsInt(args[2]) or not checkArgIsInt(args[4]):
+        return INVALID_ARGS
+
     checkScores(int(args[0]), int(args[1]), int(args[2]))
 
     scoreList.insert(int(args[4]), [ int(args[0]), int(args[1]), int(args[2]) ])
+
+    return True
 
 
 def removeFromPosition(scoreList, position):
@@ -63,7 +72,9 @@ def removeFromPosition(scoreList, position):
         #del(scoreList[position])
         scoreList.pop(position)
     else:
-        print("Entered index is not valid!")
+        return INVALID_INDEX
+
+    return True
 
 
 def removeFromIToJ(scoreList, startIndex, endIndex):
@@ -86,6 +97,8 @@ def removeFromIToJ(scoreList, startIndex, endIndex):
     for i in range(0, endIndex - startIndex + 1):
         scoreList.pop(startIndex)
 
+    return True
+
 
 def removeCommand(scoreList, args):
     '''
@@ -93,17 +106,23 @@ def removeCommand(scoreList, args):
     remove <position>
     remove <start position> to <end position>
     '''
-    #print("args are " + str(args))
-    #print("LEN ARGS " + str(len(args)))
 
     # remove <position>
     if len(args) == 1:
+        if not checkArgIsInt(args[0]):
+            return INVALID_ARGS
+
         removeFromPosition(scoreList, int(args[0]))
     # remove <start position> to <end position>
     elif len(args) == 3:
+        if not checkArgIsInt(args[0]) or not checkArgIsInt(args[2]):
+            return INVALID_ARGS
+
         removeFromIToJ(scoreList, int(args[0]), int(args[2]))
     else:
-        print("Incorrect number of arguments given!")
+        return INVALID_NUM_OF_ARGS
+
+    return True
 
 
 def replaceScore(scoreList, args):
@@ -120,16 +139,18 @@ def replaceScore(scoreList, args):
     newScore = int(args[3])
 
     if newScore < 0 or newScore > 10:
-        print("The new score is invalid!")
-        return
+        return INVALID_NEW_SCORE
 
     #print(str(idToReplace) + " " + str(problemNo) + " " + str(newScore))
 
     scoreList[idToReplace][problemNo] = newScore
 
+    return True
+
 
 def listScores(scoreList):
     print(scoreList)
+
 
 def sortScores(scoreList):
     '''
@@ -138,9 +159,10 @@ def sortScores(scoreList):
     '''
 
     sortedScores = scoreList[:]
-    sortedScores.sort(key = sum)
+    sortedScores.sort(key = sum, reverse = True)
 
     return sortedScores
+
 
 def listSortedScores(scoreList):
     '''
@@ -155,8 +177,7 @@ def listScoresLessEquBiggerThan(scoreList, args):
     givenScore = int(args[1])
 
     if not checkScore(givenScore):
-        print("Score must be between 0 and 10!")
-        return
+        return SCORE_NOT_WITHIN_BOUNDS
 
     if sign == '<':
         for lst in scoreList:
@@ -174,7 +195,9 @@ def listScoresLessEquBiggerThan(scoreList, args):
                 print(lst, end = ' ')
         print()
     else:
-        print("Incorrect sign given!")
+        return INVALID_SIGN
+
+    return True
 
 
 def listCommand(scoreList, args):
@@ -185,16 +208,16 @@ def listCommand(scoreList, args):
     list [ < | = | > ] <score>
     '''
 
-    print(len(args))
-
     if len(args) == 0:
         listScores(scoreList)
     elif len(args) == 1 and args[0] == "sorted":
         listSortedScores(scoreList)
-    elif len(args) == 2 and args[0] in "<=>" and args[1].isdigit():
+    elif len(args) == 2 and args[0] in "<=>" and checkArgIsInt(args[1]):
         listScoresLessEquBiggerThan(scoreList, args)
     else:
-        print("Incorrect arguments or number of arguments given!")
+        return INVALID_ARGS_OR_NUM_OF_ARGS
+
+    return True
 
 
 def sumOfScores(scores):
@@ -206,13 +229,12 @@ def sumOfScores(scores):
     return sum(scores)
 
 
-def averageScores(scores):
+def averageScore(scores):
     '''
     Return the average score of a participant
     The returned value is an integer
     '''
 
-    #print("sum: " + str(sumOfScores(scores)))
     return int(sumOfScores(scores) / len(scores))
 
 
@@ -223,27 +245,131 @@ def avgScores(scoreList, args):
     Syntax: avg <start position> to <end position>
     '''
 
-    #print("ARGS ARE " + str(args))
-
     sumOfTheAverages = 0
     for i in range(int(args[0]), int(args[2]) + 1):
-        sumOfTheAverages += averageScores(scoreList[i])
-
-    #print(sumOfTheAverages)
+        sumOfTheAverages += averageScore(scoreList[i])
 
     print("The sum of the average scores for participants " + args[0] + " to " + args[2] + " is " + str(int(sumOfTheAverages / (int(args[2]) - int(args[0]) + 1))))
+
+
+def determineLowestAverage(scoreList, startIndex, endIndex):
+    '''
+    :param scoreList: list
+    :param startIndex: starting index for determining the lowest average
+    :param endIndex: ending index for determining the lowest average
+    :return: the lowest average of the scores for the participants found in scoreList between indices startIndex and endIndex
+    '''
+    lowestAvg = averageScore(scoreList[startIndex])
+
+    # we increment startIndex because we have already calculated
+    # the average score for the participant found on the intial starting index
+    startIndex += 1
+
+    while (startIndex <= endIndex):
+        currentAvg = averageScore(scoreList[startIndex])
+        if currentAvg < lowestAvg:
+            lowestAvg = currentAvg
+
+        startIndex += 1
+
+    return lowestAvg
 
 
 def minScores(scoreList, args):
     '''
     Print the lowest average score of the participants between two given positions
+
+    Syntax: min <start position> to <end position>
     '''
 
-    pass
+    if not checkArgsLength(args, 3):
+        return INVALID_NUM_OF_ARGS
+
+    if not checkArgIsInt(args[0]) or not checkArgIsInt(args[2]):
+        return INVALID_ARGS
+
+    startIndex = int(args[0])
+    endIndex = int(args[2])
+    lowestAvg = determineLowestAverage(scoreList, startIndex, endIndex)
+
+    output = "The lowest average score of the participants between the given positions is " + str(lowestAvg) + "."
+    return output
 
 
-def topCommand():
+def topParticipants(scoreList, args):
     '''
-    ciu ciu
+    :param scoreList: unordered list
+    :param args: string -  contains the number of participants to print
+    :return: top n participants
+
+    Syntax: top <number>
     '''
-    pass
+
+    if not checkArgIsInt(args[0]):
+        return INVALID_ARGS
+
+    sortedScores = sortScores(scoreList)
+
+    outputString = ""
+
+    for i in range(int(args[0])):
+        outputString += str(i + 1) + ": " + str(sortedScores[i]) + '\n'
+
+    return outputString
+
+
+def sortScoreListByProblem(scoreList, problemNo):
+    '''
+    :param scoreList: unordered list
+    :param problemNo: the problem number that we sort the score list by
+    :return: ordered score list in descending order, the key being the given problem number
+    '''
+    sortedScores = sortScores(scoreList)
+    # sort the score list by the problem number in reverse
+    sortedScores.sort(key = lambda lst: lst[problemNo], reverse = True)
+
+    return sortedScores
+
+
+def topParticipantsForProblem(scoreList, args):
+    '''
+    :param scoreList: unordered list
+    :param args: string - contains the number of participants to print and the problem numer
+    :return: top n participants for given problem
+
+    Syntax: top <number> <P1 | P2 | P3>
+    '''
+    # stupid case, if we write "1" instead of "P1", for example
+    if not checkArgsLength(args[1], 2):
+        return INVALID_ARGS
+
+    if not checkArgIsInt(args[0]) or not checkArgIsInt(args[1][1]):
+        return INVALID_ARGS
+
+    if not checkProblemNoIsWithinBounds(int(args[1][1])):
+        return INVALID_PROBLEM_NO
+
+    sortedScores = sortScoreListByProblem(scoreList, int(args[1][1]) - 1)
+
+    outputString = ""
+    for i in range(int(args[0])):
+        outputString += str(i + 1) + ": " + str(sortedScores[i]) + '\n'
+
+    return outputString
+
+
+def topCommand(scoreList, args):
+    '''
+    Determine what the user meant
+
+    Syntax:
+    top <number>
+    top <number> <P1 | P2 | P3>
+    '''
+
+    if len(args) == 1:
+        return topParticipants(scoreList, args)
+    elif len(args) == 2:
+        return topParticipantsForProblem(scoreList, args)
+    else:
+        return INVALID_NUM_OF_ARGS

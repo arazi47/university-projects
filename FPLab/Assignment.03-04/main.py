@@ -1,33 +1,10 @@
-from utilities import readCommand
-from testingUtils import *
-from commands import *
+'''
+The program starts here
+'''
 
+import userinterface
 
 def main():
-    # this will be a list of lists
-    scoreList = []
-
-    # for testing purposes
-    testInsertValuesNoOrder(scoreList)
-
-    commands = {
-        "add" : addScore,
-        "insert" : insertAtPosition,
-        "remove" : removeCommand,
-        "replace" : replaceScore,
-        "list" : listCommand,
-        "avg" : avgScores,
-        "min" : minScores,
-    }
-
-    while True:
-        command = readCommand()
-        #print(str(command[0]) + " -- " + str(command[1]))
-
-        if command[0] in commands.keys():
-            commands[command[0]](scoreList, command[1])
-        else:
-            print("Unknown command!")
-
+    userinterface.run()
 
 main()

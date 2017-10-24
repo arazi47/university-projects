@@ -2,6 +2,42 @@
 This module contains functions that help the main program, but are not part of what we need to output
 '''
 
+errorCodesVars = [
+    INVALID_NUM_OF_ARGS,
+    INVALID_ARGS,
+    INVALID_ARGS_OR_NUM_OF_ARGS,
+    INVALID_SIGN,
+    SCORE_NOT_WITHIN_BOUNDS,
+    INVALID_NEW_SCORE,
+    INVALID_INDEX,
+    SCORES_NOT_WITHIN_RANGE,
+    INVALID_PROBLEM_NO
+] = range(2, 11)
+
+errorCodes = {
+    None                         : "CHANGE ME - LAST FUNCTION RETURNED NONE",
+    INVALID_NUM_OF_ARGS          : "Invalid number of arguments given!",
+    INVALID_ARGS                 : "Invalid arguments given!",
+    INVALID_ARGS_OR_NUM_OF_ARGS  : "Invalid arguments or number of arguments given!",
+    INVALID_SIGN                 : "Invalid sign given!",
+    SCORE_NOT_WITHIN_BOUNDS      : "Score must be between 0 and 10!",
+    INVALID_NEW_SCORE            : "The new score is invalid!",
+    INVALID_INDEX                : "Invalid given index!",
+    SCORES_NOT_WITHIN_RANGE      : "Scores are not within range!",
+    INVALID_PROBLEM_NO           : "Problem number must be between 1 and 3!"
+}
+
+def checkProblemNoIsWithinBounds(problemNo):
+    return problemNo >= 1 and problemNo <= 3
+
+def checkArgIsInt(arg):
+    '''
+    :param arg: string
+    :return: True if the string only contains digits
+             False otherwise
+    '''
+    return arg.isdigit()
+
 def checkArgsLength(args, length):
     '''
     :param args: list of strings
@@ -9,6 +45,7 @@ def checkArgsLength(args, length):
     :return: True if the number of arguments is equal to the given length
              False otherwise
     '''
+
     try:
         assert(len(args) == length)
     except AssertionError:
@@ -20,6 +57,7 @@ def checkScores(score1, score2, score3):
     '''
     Check if scores are within range (>= 0 and <= 10)
     '''
+
     try:
         assert (score1 >= 0 and score1 <= 10 and
                 score2 >= 0 and score2 <= 10 and
@@ -51,8 +89,9 @@ def checkScore(score):
 
 def readCommand():
     cmd = input(">> ")
-    #commandName = cmd.split(' ')[0]
-    #if firstWord in commands.keys():
+
+    # fix "     list" which would return unknown command otherwise
+    cmd = cmd.lstrip(' ')
 
     if cmd.find(' ') == -1:
         # cmd is command name and there are no arguments
@@ -72,23 +111,7 @@ def readCommand():
     for i in range(len(args)):
         args[i] = args[i].strip(' ')
 
-    # for the first case "remove 1 to 3"
-    # arguments would be ['', '1', 'to', '3']
-    # we need to remove the ''
-    #if cmd.find(',') == -1:
-    #    args.pop(0)
-
-    #for i in range(len(args)):
-    #    if len(args[i]) == 0:
-    #        args.pop(i)
-
     # remove spaces (ex: "list      sorted")
     args = [arg for arg in args if len(arg) > 0]
-
-    print(args)
-
-    #commands[firstWord]()
-    #else:
-    #    print("Unknown command given!")
 
     return commandName, args
