@@ -2,6 +2,8 @@
 This module contains functions that help the main program, but are not part of what we need to output
 '''
 
+commandList = []
+
 errorCodesVars = [
     INVALID_NUM_OF_ARGS,
     INVALID_ARGS,
@@ -11,8 +13,9 @@ errorCodesVars = [
     INVALID_NEW_SCORE,
     INVALID_INDEX,
     SCORES_NOT_WITHIN_RANGE,
-    INVALID_PROBLEM_NO
-] = range(2, 11)
+    INVALID_PROBLEM_NO,
+    NO_COMMANDS_GIVEN_YET
+] = range(2, 12)
 
 errorCodes = {
     None                         : "CHANGE ME - LAST FUNCTION RETURNED NONE",
@@ -22,13 +25,15 @@ errorCodes = {
     INVALID_SIGN                 : "Invalid sign given!",
     SCORE_NOT_WITHIN_BOUNDS      : "Score must be between 0 and 10!",
     INVALID_NEW_SCORE            : "The new score is invalid!",
-    INVALID_INDEX                : "Invalid given index!",
+    INVALID_INDEX                : "The given index/indices is/are out of range!",
     SCORES_NOT_WITHIN_RANGE      : "Scores are not within range!",
-    INVALID_PROBLEM_NO           : "Problem number must be between 1 and 3!"
+    INVALID_PROBLEM_NO           : "Problem number must be between 1 and 3!",
+    NO_COMMANDS_GIVEN_YET        : "There are no commands that can be undone!"
 }
 
 def checkProblemNoIsWithinBounds(problemNo):
     return problemNo >= 1 and problemNo <= 3
+
 
 def checkArgIsInt(arg):
     '''
@@ -37,6 +42,7 @@ def checkArgIsInt(arg):
              False otherwise
     '''
     return arg.isdigit()
+
 
 def checkArgsLength(args, length):
     '''
@@ -53,6 +59,7 @@ def checkArgsLength(args, length):
 
     return True
 
+
 def checkScores(score1, score2, score3):
     '''
     Check if scores are within range (>= 0 and <= 10)
@@ -66,6 +73,7 @@ def checkScores(score1, score2, score3):
         return False
 
     return True
+
 
 def checkScore(score):
     '''
@@ -87,8 +95,20 @@ def checkScore(score):
     return True
 
 
-def readCommand():
-    cmd = input(">> ")
+def readInteger(text):
+    while True:
+        try:
+           option = input(text)
+
+           assert checkArgIsInt(option) == True
+
+           return int(option)
+        except AssertionError:
+            continue
+
+
+def readCommand(text):
+    cmd = input(text)
 
     # fix "     list" which would return unknown command otherwise
     cmd = cmd.lstrip(' ')
