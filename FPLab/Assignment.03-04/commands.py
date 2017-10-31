@@ -35,6 +35,8 @@ counter functions:
 # We need to import everything from utilities, otherwise we can't print error codes
 from utilities import *
 
+commandList = []
+
 #**********************************************************************************************#
 '''
 Counterfunctions begin here

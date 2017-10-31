@@ -2,8 +2,6 @@
 This module contains functions that help the main program, but are not part of what we need to output
 '''
 
-commandList = []
-
 errorCodesVars = [
     INVALID_NUM_OF_ARGS,
     INVALID_ARGS,

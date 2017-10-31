@@ -28,6 +28,10 @@ def runTests():
     testLowestAverage()
     testReplaceScore()
     testRemoveParticipant()
+    testRemoveLessEquGreaterThan()
+    testRemoveFromIToJ()
+
+    commands.commandList = []
 
 def printMenu():
     print("1. Add participant to list")
@@ -45,6 +49,7 @@ def printMenu():
     print("13. Remove participants with a score less/equal/greater than a given score")
     print("14. Undo")
     print("15. Exit")
+
 
 def menuAddParticipantToList(scoreList):
     s1 = utilities.readInteger("Score 1: ")
@@ -79,35 +84,41 @@ def menuRemoveFromIToJ(scoreList):
 def menuRemoveLessEquGreaterThan(scoreList):
     sign = readCommand("Sign (<, =, >): ")
     score = utilities.readInteger("Score: ")
+
     printCommandResult(commands.removeLessEquGreaterThan(scoreList, sign[0], score))
 
 
 def menuTopNCommandByProblemId(scoreList):
     participantsLimit = utilities.readInteger("How many participants do you want to see? ")
     problemNo = utilities.readInteger("Problem number (1, 2, 3): ")
+
     printCommandResult(commands.topCommand(scoreList, [str(participantsLimit), 'P' + str(problemNo)]))
 
 
 def menuTopNCommand(scoreList):
     participantsLimit = utilities.readInteger("How many participants do you want to see? ")
+
     printCommandResult(commands.topCommand(scoreList, [str(participantsLimit)]))
 
 
 def menuMinScores(scoreList):
     pos1 = utilities.readInteger("Position 1: ")
     pos2 = utilities.readInteger("Position 2: ")
+
     printCommandResult(commands.minScores(scoreList, [str(pos1), 'to', str(pos2)]))
 
 
 def menuAvgScores(scoreList):
     pos1 = utilities.readInteger("Position 1: ")
     pos2 = utilities.readInteger("Position 2: ")
+
     printCommandResult(commands.avgScores(scoreList, [str(pos1), 'to', str(pos2)]))
 
 
 def menuListCommand(scoreList):
     sign = readCommand("Sign (<, =, >): ")
     score = utilities.readInteger("Score: ")
+
     # sign[0], because readCommand returns a command name and the arguments
     # hacks everywhere
     printCommandResult(commands.listCommand(scoreList, [sign[0], str(score)]))
@@ -117,6 +128,7 @@ def menuReplaceScore(scoreList):
     pos = utilities.readInteger("Position: ")
     problemNo = utilities.readInteger("Problem number (1, 2, 3): ")
     score = utilities.readInteger("Score: ")
+
     printCommandResult(commands.replaceScore(scoreList, [str(pos), 'P' + str(problemNo), 'with', str(score)]))
 
 
@@ -169,7 +181,7 @@ def run():
     scoreList = []
 
     # for testing purposes
-    testInsertValuesNoOrder(scoreList)
+    #testInsertValuesNoOrder(scoreList)
 
     commandsDict = {
         "add" : commands.addScore,

@@ -6,7 +6,7 @@ import userinterface
 
 def main():
     userinterface.runTests()
-    userinterface.run()
-    #userinterface.runMenu()
+    #userinterface.run()
+    userinterface.runMenu()
 
 main()

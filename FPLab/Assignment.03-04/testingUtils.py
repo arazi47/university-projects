@@ -53,11 +53,11 @@ def testInsertValuesNoOrder(scoreList):
 def testAddScore(scoreList):
     scoreList = []
     addScore(scoreList, ['3', '4', '5'])
-    assert list(scoreList) == [[3, 4, 5]]
+    assert scoreList == [[3, 4, 5]]
 
     scoreList = []
     addScore(scoreList, ['1', '1', '7'])
-    assert list(scoreList) == [[1, 1, 7]]
+    assert scoreList == [[1, 1, 7]]
 
 
 def testSumOfScores():
@@ -65,10 +65,12 @@ def testSumOfScores():
     assert sumOfScores([0, 1, 2]) == 3
     assert sumOfScores([10, 10, 10]) == 30
 
+
 def testAverageScore():
     assert averageScore([0, 0, 0]) == 0
     assert averageScore([1, 2, 3]) == 2
     assert averageScore([9, 9, 3]) == 7
+
 
 def testLowestAverage():
     scoreList = [[5, 3, 7]]
@@ -81,24 +83,34 @@ def testLowestAverage():
 def testReplaceScore():
     scoreList = [[1, 2, 3]]
     replaceScore(scoreList, ['0', 'P1', 'with', '5'])
-    assert list(scoreList) == [[5, 2, 3]]
+    assert scoreList == [[5, 2, 3]]
 
     scoreList = [[0, 0, 0], [5, 6, 7]]
     replaceScore(scoreList, ['1', 'P3', 'with', '1'])
-    assert list(scoreList) == [[0, 0, 0], [5, 6, 1]]
+    assert scoreList == [[0, 0, 0], [5, 6, 1]]
 
 
 def testRemoveParticipant():
     scoreList = [[1, 2, 3]]
     removeFromPosition(scoreList, 0)
-    assert list(scoreList) == []
+    assert scoreList == []
 
     scoreList = [[0, 0, 0], [5, 6, 7]]
     removeFromPosition(scoreList, 1)
-    assert list(scoreList) == [[0, 0, 0]]
+    assert scoreList == [[0, 0, 0]]
+
 
 def testRemoveLessEquGreaterThan():
-    pass
+    scoreList = [ [0, 0, 0], [1, 2, 3], [3, 4, 5], [4, 4, 4] ]
+    removeLessEquGreaterThan(scoreList, '<', 100)
+    assert scoreList == []
 
-def removeFromIToJ():
-    pass
+
+def testRemoveFromIToJ():
+    scoreList = [ [1, 2, 3], [3, 4, 5], [4, 5, 6], [0, 1, 1] ]
+    removeFromIToJ(scoreList, 1, 2)
+    assert scoreList == [ [1, 2, 3], [0, 1, 1] ]
+
+    scoreList = [[0, 0, 0]]
+    removeFromIToJ(scoreList, 0, 0)
+    assert scoreList == []
