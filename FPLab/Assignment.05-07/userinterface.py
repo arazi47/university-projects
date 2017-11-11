@@ -101,27 +101,29 @@ class UserInterface:
 
         clientId = self.ctrl.getClientIdByName(result[0])
 
-        movies = self.ctrl.getMovies()
-        movieAvailable = False
-        for movie in movies:
-            if not movie.isRented():
-                movieAvailable = True
-                break
-
-        if not movieAvailable:
-            print("There are no available movies to rent!")
-            return
-
-        print("Movies available for renting: ")
+        for rental in self.ctrl.getRentedMovies():
+            # if we have previously rented a movie
+            if rental.getClientId() == clientId:
+                # we have rented a movie, and we have returned it
+                if not self.ctrl.getMovies()[rental.getMovieId() - 1].isRented():
+                    # if we returned it after its due date, we cannot rent another movie
+                    if rental.getReturnedDate() > rental.getDueDate():
+                        print("You cannot rent any movie, since you have returned the movie " + self.ctrl.getMovies()[rental.getMovieId() - 1].getTitle() + " after its due date!")
+                        return
 
         # we need this to make sure the user does not enter
         # some invalid movie id
         movieIds = []
 
+        movies = self.ctrl.getMovies()
         for movie in movies:
             if not movie.isRented():
                 movieIds.append(movie.getId())
                 print("[" + str(movie.getId()) + " - " + movie.getTitle() + " - " + movie.getDescription() + " - " + movie.getGenre() + "]")
+
+        if len(movieIds) == 0:
+            print("You have not rented any movies!")
+            return
 
         option = self.utils.readInteger("Which movie would you like to rent? ")
 
@@ -133,6 +135,44 @@ class UserInterface:
             print("The movie you are trying to rent is already rented!")
         else:
             self.ctrl.addRental(movies[option - 1].getId(), clientId, datetime.datetime.now())
+
+
+    def returnMovie(self):
+        name = self.utils.readString("Who are you? (input name): ")
+        result = self.ctrl.searchClientMatch(name)
+        if len(result) > 0:
+            print("Assuming you are " + result[0] + ". If you are not, please input \"0\" and reenter your correct name! If this is you, enter any other number then press enter to continue")
+            tmp = self.utils.readInteger(">> ")
+            if tmp == 0:
+                return
+        else:
+            print("Couldn't find your name! Returning.")
+            return
+
+        clientId = self.ctrl.getClientIdByName(result[0])
+
+        movieIds = []
+        for rental in self.ctrl.getRentedMovies():
+            if rental.getClientId() == clientId and not rental.isReturned():
+                movie = self.ctrl.getMovies()[rental.getMovieId() - 1]
+                movieIds.append(movie.getId())
+                print("[" + str(movie.getId()) + " - " + movie.getTitle() + " - " + movie.getDescription() + " - " + movie.getGenre() + "]")
+
+        if len(movieIds) == 0:
+            print("You have not rented any movies!")
+            return
+
+        option = self.utils.readInteger("Which movie would you like to return? ")
+
+        if option not in movieIds:
+            print("Invalid movie id chosen!")
+            return
+
+        returnDate = datetime.datetime.today()
+        if returnDate > self.ctrl.getRentalByMovieId(option).getDueDate():
+            print("Please note that you will not be able to rent any other movies, as you have exceeded the due date for this one!")
+
+        self.ctrl.returnMovie(option, returnDate)
 
 
     def updateClient(self):
@@ -175,7 +215,7 @@ class UserInterface:
     def printRentalList(self):
         rlist = self.ctrl.getRentedMovies()
         for rental in rlist:
-            print(str(rental.getRentalId()) + " - " + str(rental.getMovieId()) + " - " + str(rental.getClientId()) + " - "  + str(rental.getRentedDate()) + " - " + str(rental.getDueDate()))
+            print("Rental id: " + str(rental.getRentalId()) + " - movie id: " + str(rental.getMovieId()) + " - client id: " + str(rental.getClientId()) + " - rented date: "  + str(rental.getRentedDate()) + " - due date: " + str(rental.getDueDate()) + " - returned date: " + str(rental.getReturnedDate()))
 
 
     def run(self):
@@ -235,7 +275,8 @@ class UserInterface:
                 self.rentMovie()
 
             elif option == 6:
-                pass
+                self.returnMovie()
+
             elif option == 7:
                 clientOrMovie = self.clientsOrMovies()
 

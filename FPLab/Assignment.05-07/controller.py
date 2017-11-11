@@ -1,6 +1,7 @@
 from client import Client
 from movie import Movie
 from rental import Rental
+import datetime
 
 class Controller:
     def __init__(self):
@@ -160,9 +161,8 @@ class Controller:
         '''
 
         outputList = []
-        # @todo change name == ... to client.getName() == ... (reverse order)
         for client in self.clients:
-            if name == client.getName() or name in client.getName():
+            if client.getName() == name or name in client.getName():
                 outputList.append(client.getName())
 
         return outputList
@@ -185,6 +185,30 @@ class Controller:
         self.movies[movieId - 1].setRented(True)
 
         self.rentedMovies.append(rental)
+
+
+    def returnMovie(self, movieId, returnDate):
+        '''
+        :param movieId: integer
+        :return: None
+        Set the returned date of the rental of the movie with the specified movieId to today
+        '''
+
+        for rental in self.rentedMovies:
+            if rental.getMovieId() == movieId:
+                rental.setReturnedDate(returnDate)
+
+                # the movie is not rented anymore
+                self.movies[movieId- 1].setRented(False)
+
+
+    def getRentalByMovieId(self, movieId):
+        for rental in self.rentedMovies:
+            if rental.getMovieId() == movieId:
+                return rental
+
+        return -1
+
 
     # obsolete, most likely we can delete this!
     def isMovieRented(self, movie):
