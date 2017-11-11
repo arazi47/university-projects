@@ -1,5 +1,8 @@
 #import userinterface as ui
 from userinterface import UserInterface
+from runtests import *
+from utilities import Utilities
+from controller import Controller
 
 '''
 class main:
@@ -11,7 +14,12 @@ class main:
 '''
 
 def start():
-    ui = UserInterface()
+    utils = Utilities()
+    ctrl = Controller()
+    rt = RunTester(ctrl)
+    rt.run()
+
+    ui = UserInterface(utils, ctrl)
     ui.run()
 
 start()

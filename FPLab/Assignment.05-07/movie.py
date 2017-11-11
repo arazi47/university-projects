@@ -4,6 +4,7 @@ class Movie:
         self._title = title
         self._description = description
         self._genre = genre
+        self._isRented = False
 
 
     def setId(self, id):
@@ -36,3 +37,11 @@ class Movie:
 
     def getGenre(self):
         return self._genre
+
+
+    def setRented(self, isRented):
+        self._isRented = isRented
+
+
+    def isRented(self):
+        return self._isRented

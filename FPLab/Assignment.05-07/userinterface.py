@@ -1,14 +1,11 @@
-from utilities import Utilities
-from controller import Controller
-
 import datetime
 
 
 class UserInterface:
-    utils = Utilities()
-    ctrl = Controller()
+    def __init__(self, utils, ctrl):
+        self.utils = utils
+        self.ctrl = ctrl
 
-    def __init__(self):
         self.menuOptions = {
             0 : "0. Exit",
             1 : "1. Add clients or movies",
@@ -19,6 +16,7 @@ class UserInterface:
             6 : "6. Return a movie",
             7 : "7. Search for clients or movies",
             8 : "8. Statistics",
+            9 : "9. Print rental list [DEBUG]"
         }
 
 
@@ -89,6 +87,54 @@ class UserInterface:
             print("[" + str(movie.getId()) + " - " + movie.getTitle() + " - " + movie.getDescription() + " - " + movie.getGenre() + "]")
 
 
+    def rentMovie(self):
+        name = self.utils.readString("Who are you? (input name): ")
+        result = self.ctrl.searchClientMatch(name)
+        if len(result) > 0:
+            print("Assuming you are " + result[0] + ". If you are not, please input \"0\" and reenter your correct name! If this is you, enter any other number then press enter to continue")
+            tmp = self.utils.readInteger(">> ")
+            if tmp == 0:
+                return
+        else:
+            print("Couldn't find your name! Returning.")
+            return
+
+        clientId = self.ctrl.getClientIdByName(result[0])
+
+        movies = self.ctrl.getMovies()
+        movieAvailable = False
+        for movie in movies:
+            if not movie.isRented():
+                movieAvailable = True
+                break
+
+        if not movieAvailable:
+            print("There are no available movies to rent!")
+            return
+
+        print("Movies available for renting: ")
+
+        # we need this to make sure the user does not enter
+        # some invalid movie id
+        movieIds = []
+
+        for movie in movies:
+            if not movie.isRented():
+                movieIds.append(movie.getId())
+                print("[" + str(movie.getId()) + " - " + movie.getTitle() + " - " + movie.getDescription() + " - " + movie.getGenre() + "]")
+
+        option = self.utils.readInteger("Which movie would you like to rent? ")
+
+        if option not in movieIds:
+            print("Invalid movie id chosen!")
+            return
+
+        if movies[option - 1].isRented():
+            print("The movie you are trying to rent is already rented!")
+        else:
+            self.ctrl.addRental(movies[option - 1].getId(), clientId, datetime.datetime.now())
+
+
     def updateClient(self):
         oldName = self.utils.readString("Input the name you want to replace: ")
         newName = self.utils.readString("Input new name: ")
@@ -124,6 +170,12 @@ class UserInterface:
             print(result)
         else:
             print("No matching result found")
+
+
+    def printRentalList(self):
+        rlist = self.ctrl.getRentedMovies()
+        for rental in rlist:
+            print(str(rental.getRentalId()) + " - " + str(rental.getMovieId()) + " - " + str(rental.getClientId()) + " - "  + str(rental.getRentedDate()) + " - " + str(rental.getDueDate()))
 
 
     def run(self):
@@ -180,7 +232,8 @@ class UserInterface:
                     self.listMovies()
 
             elif option == 5:
-                pass
+                self.rentMovie()
+
             elif option == 6:
                 pass
             elif option == 7:
@@ -195,5 +248,7 @@ class UserInterface:
 
             elif option == 8:
                 pass
+            elif option == 9:
+                self.printRentalList()
             else:
-                print("Unknown commands!")
+                print("Unknown option!")

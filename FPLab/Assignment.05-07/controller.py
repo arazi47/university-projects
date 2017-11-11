@@ -160,15 +160,33 @@ class Controller:
         '''
 
         outputList = []
+        # @todo change name == ... to client.getName() == ... (reverse order)
         for client in self.clients:
             if name == client.getName() or name in client.getName():
                 outputList.append(client.getName())
 
         return outputList
 
+    def getClientIdByName(self, name):
+        for client in self.clients:
+            if client.getName() == name:
+                return client.getId()
+
+        return -1
+
 
     # *************************************************** #
+    # Rental functions
 
+    def addRental(self, movieId, clientId, rentedDate):
+        rental = Rental(len(self.rentedMovies) + 1, movieId, clientId, rentedDate)
+
+        # woop, we rented a movie
+        self.movies[movieId - 1].setRented(True)
+
+        self.rentedMovies.append(rental)
+
+    # obsolete, most likely we can delete this!
     def isMovieRented(self, movie):
         '''
         :param movie: an object of class Movie

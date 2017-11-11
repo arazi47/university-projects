@@ -2,17 +2,17 @@ import datetime
 
 
 class Rental:
-    def __init__(self, rentalId, movieId, clientId, rentedDate, returnedDate):
-        _rentalId = rentalId
-        _movieId = movieId
-        _clientId = clientId
+    def __init__(self, rentalId, movieId, clientId, rentedDate):
+        self._rentalId = rentalId
+        self._movieId = movieId
+        self._clientId = clientId
 
         # @todo datetime, not string!
-        _rentedDate = rentedDate
-        _dueDate = returnedDate
+        self._rentedDate = rentedDate
+        self._dueDate = rentedDate + datetime.timedelta(days = 1)
 
         # -1 if the movie has not been returned
-        _returnedDate = -1
+        self._returnedDate = -1
 
 
     def setRentalId(self, rentalId):
@@ -51,7 +51,7 @@ class Rental:
         self._dueDate = dueDate
 
 
-    def getDuteDate(self):
+    def getDueDate(self):
         return self._dueDate
 
 
