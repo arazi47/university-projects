@@ -6,18 +6,43 @@ class UserInterface:
         self.utils = utils
         self.ctrl = ctrl
 
+        self.addClients()
+        self.addMovies()
+
         self.menuOptions = {
-            0 : "0. Exit",
-            1 : "1. Add clients or movies",
-            2 : "2. Remove clients or movies",
-            3 : "3. Update clients or movies",
-            4 : "4. List clients or movies",
-            5 : "5. Rent a movie",
-            6 : "6. Return a movie",
-            7 : "7. Search for clients or movies",
-            8 : "8. Statistics",
-            9 : "9. Print rental list [DEBUG]"
+            0  : "0. Exit",
+            1  : "1. Add clients or movies",
+            2  : "2. Remove clients or movies",
+            3  : "3. Update clients or movies",
+            4  : "4. List clients or movies",
+            5  : "5. Rent a movie",
+            6  : "6. Return a movie",
+            7  : "7. Search for clients or movies",
+            8  : "8. Statistics",
+            9  : "9. Undo",
+            10 : "10. Redo",
+            11 : "11. Print rental list [DEBUG]",
+            12 : "12. Print undo list [DEBUG]",
+            13 : "13. Print redo list [DEBUG]"
         }
+
+
+    def addClients(self):
+        self.ctrl.addClient("Aa")
+        self.ctrl.addClient("Bb")
+        self.ctrl.addClient("Xx")
+        self.ctrl.addClient("Hh")
+        self.ctrl.addClient("Qz")
+        self.ctrl.addClient("Kl")
+
+
+    def addMovies(self):
+        self.ctrl.addMovie("t1", "d1", "g1")
+        self.ctrl.addMovie("t2", "d2", "g2")
+        self.ctrl.addMovie("t3", "d3", "g3")
+        self.ctrl.addMovie("t4", "d4", "g4")
+        self.ctrl.addMovie("t5", "d5", "g5")
+        self.ctrl.addMovie("t6", "d6", "g6")
 
 
     def clientsOrMovies(self):
@@ -122,19 +147,16 @@ class UserInterface:
                 print("[" + str(movie.getId()) + " - " + movie.getTitle() + " - " + movie.getDescription() + " - " + movie.getGenre() + "]")
 
         if len(movieIds) == 0:
-            print("You have not rented any movies!")
+            print("There are no movies available for renting!")
             return
 
-        option = self.utils.readInteger("Which movie would you like to rent? ")
+        option = self.utils.readInteger("Which movie would you like to rent? (input 0 to exit)")
 
         if option not in movieIds:
             print("Invalid movie id chosen!")
             return
 
-        if movies[option - 1].isRented():
-            print("The movie you are trying to rent is already rented!")
-        else:
-            self.ctrl.addRental(movies[option - 1].getId(), clientId, datetime.datetime.now())
+        self.ctrl.addRental(movies[option - 1].getId(), clientId, datetime.datetime.now())
 
 
     def returnMovie(self):
@@ -212,10 +234,69 @@ class UserInterface:
             print("No matching result found")
 
 
+    def printMostRentedMovies(self):
+        if len(self.ctrl.getRentedMovies()) == 0:
+            print("There are no rented movies!")
+        else:
+            print("Most rented movies: ")
+            # @todo move this sort out of UI
+            movs = self.ctrl.getMovies()
+            movs.sort(key = lambda mov: mov.getTotalRentalDays(), reverse = True)
+            for movie in movs:
+                print("[" + str(
+                    movie.getId()) + " - " + movie.getTitle() + " - " + movie.getDescription() + " - " + movie.getGenre() + "]")
+
+
+    def printRentedMovies(self):
+        if len(self.ctrl.getRentedMovies()) == 0:
+            print("There are no rented movies!")
+        else:
+            print("Rented movies: ")
+            for rental in self.ctrl.getRentedMovies():
+                print(self.ctrl.getMovies()[rental.getMovieId() - 1].getTitle() + " rented by " + self.ctrl.getClients()[rental.getClientId() - 1].getName())
+
+
+    def printMostActiveClients(self):
+        mac = self.ctrl.getMostActiveClients()
+
+        for client in mac:
+            print("[" + str(client.getId()) + " - " + client.getName() + " - Total rental days: " + str(client.getTotalRentalDays()) + "]")
+
+
+    def showStatistics(self):
+        self.printMostRentedMovies()
+        self.printMostActiveClients()
+        self.printRentedMovies()
+
+
+    def undo(self):
+        # undo list is empty
+        if not self.ctrl.getUndoList():
+            print("There is no command to undo!")
+            return
+
+        self.ctrl.undo()
+
+
+    def redo(self):
+        if not self.ctrl.getRedoList():
+            print("There is no command to redo!")
+            return
+
+        self.ctrl.redo()
+
+
     def printRentalList(self):
         rlist = self.ctrl.getRentedMovies()
         for rental in rlist:
             print("Rental id: " + str(rental.getRentalId()) + " - movie id: " + str(rental.getMovieId()) + " - client id: " + str(rental.getClientId()) + " - rented date: "  + str(rental.getRentedDate()) + " - due date: " + str(rental.getDueDate()) + " - returned date: " + str(rental.getReturnedDate()))
+
+    def printUndoList(self):
+        print(self.ctrl.getUndoList())
+
+
+    def printRedoList(self):
+        print(self.ctrl.getRedoList())
 
 
     def run(self):
@@ -288,8 +369,16 @@ class UserInterface:
                     print("Invalid input")
 
             elif option == 8:
-                pass
+                self.showStatistics()
             elif option == 9:
+                self.undo()
+            elif option == 10:
+                self.redo()
+            elif option == 11:
                 self.printRentalList()
+            elif option == 12:
+                self.printUndoList()
+            elif option == 13:
+                self.printRedoList()
             else:
                 print("Unknown option!")

@@ -5,6 +5,7 @@ class Movie:
         self._description = description
         self._genre = genre
         self._isRented = False
+        self.__totalRentalDays = 0
 
 
     def setId(self, id):
@@ -45,3 +46,11 @@ class Movie:
 
     def isRented(self):
         return self._isRented
+
+
+    def setTotalRentalDays(self, val):
+        self.__totalRentalDays = val
+
+
+    def getTotalRentalDays(self):
+        return self.__totalRentalDays

@@ -1,23 +1,15 @@
-#import userinterface as ui
-from userinterface import UserInterface
-from runtests import *
-from utilities import Utilities
 from controller import Controller
+from tests.TestController import TestController
+from userinterface import UserInterface
+from utilities import Utilities
 
-'''
-class main:
-    def __init__(self):
-        pass
-
-    def start(self):
-        ui.run()
-'''
 
 def start():
     utils = Utilities()
     ctrl = Controller()
-    rt = RunTester(ctrl)
-    rt.run()
+
+    testctrl = TestController()
+    testctrl.runTests()
 
     ui = UserInterface(utils, ctrl)
     ui.run()

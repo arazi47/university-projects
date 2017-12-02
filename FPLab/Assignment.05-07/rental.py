@@ -9,7 +9,7 @@ class Rental:
 
         # @todo datetime, not string!
         self._rentedDate = rentedDate
-        self._dueDate = rentedDate #+ datetime.timedelta(days = 7)
+        self._dueDate = rentedDate + datetime.timedelta(days = 7)
 
         # -1 if the movie has not been returned
         self._returnedDate = -1
