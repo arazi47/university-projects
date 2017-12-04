@@ -1,5 +1,9 @@
 import datetime
 
+# for pickle
+from client import Client
+from movie import Movie
+from rental import Rental
 
 class UserInterface:
     def __init__(self, utils, ctrl):
@@ -37,6 +41,13 @@ class UserInterface:
         :return: None
         '''
 
+        if clientList == []:
+            return
+
+        if type(clientList[0]) == Client:
+            self.ctrl.setClientList(clientList)
+            return
+
         for client in clientList:
             self.ctrl.addClient(client[1])
 
@@ -47,6 +58,13 @@ class UserInterface:
         :return: None
         '''
 
+        if movieList == []:
+            return
+
+        if type(movieList[0]) == Movie:
+            self.ctrl.setMovieList(movieList)
+            return
+
         for movie in movieList:
             self.ctrl.addMovie(movie[1], movie[2], movie[3])
 
@@ -56,6 +74,13 @@ class UserInterface:
         :param rentalList: List of lists
         :return: None
         '''
+
+        if rentalList == []:
+            return
+
+        if type(rentalList[0]) == Rental:
+            self.ctrl.setRentalList(rentalList)
+            return
 
         for rental in rentalList:
             self.ctrl.addRental(int(rental[1]), int(rental[2]), rental[3])

@@ -3,13 +3,15 @@ from movie import Movie
 from rental import Rental
 from external_input_output.mysql_io import  MySQL_IO
 from external_input_output.file_io import File_IO
+from external_input_output.binary_file_io import Binary_File_IO
 import datetime
 
 
 class Controller:
     def __init__(self):
         #self.db = MySQL_IO()
-        self.db = File_IO()
+        #self.db = File_IO()
+        self.db = Binary_File_IO()
 
         self.clients = []
         self.movies = []
@@ -45,6 +47,19 @@ class Controller:
 
     def clearRedoList(self):
         self.redoList.clear()
+
+
+    # for pickle
+    def setClientList(self, clientList):
+        self.clients = clientList
+
+
+    def setMovieList(self, movieList):
+        self.movies = movieList
+
+
+    def setRentalList(self, rentalList):
+        self.rentedMovies = rentalList
 
 
     # *************************************************** #

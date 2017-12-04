@@ -49,6 +49,7 @@ class File_IO():
             line = line.split(';')
 
             # 3, 4, 5 => datetime
+            # convert from string to datetime
             for i in range(3, 6):
                 date = line[i].split('-')
                 line[i] = datetime.datetime(int(date[0]), int(date[1]), int(date[2]))
