@@ -12,7 +12,7 @@ class Rental:
         self._dueDate = rentedDate + datetime.timedelta(days = 7)
 
         # -1 if the movie has not been returned
-        self._returnedDate = -1
+        self._returnedDate = rentedDate - datetime.timedelta(days = 1)
 
 
     def setRentalId(self, rentalId):

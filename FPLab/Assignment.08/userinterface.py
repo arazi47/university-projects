@@ -6,8 +6,12 @@ class UserInterface:
         self.utils = utils
         self.ctrl = ctrl
 
-        self.addClients()
-        self.addMovies()
+        #self.addClients()
+        #self.addMovies()
+
+        self.importClientsFromDB(self.ctrl.db.readClients())
+        self.importMoviesFromDB(self.ctrl.db.readMovies())
+        self.importRentalsFromDB(self.ctrl.db.readRentals())
 
         self.menuOptions = {
             0  : "0. Exit",
@@ -25,6 +29,38 @@ class UserInterface:
             12 : "12. Print undo list [DEBUG]",
             13 : "13. Print redo list [DEBUG]"
         }
+
+
+    def importClientsFromDB(self, clientList):
+        '''
+        :param clientList: List of lists
+        :return: None
+        '''
+
+        for client in clientList:
+            self.ctrl.addClient(client[1])
+
+
+    def importMoviesFromDB(self, movieList):
+        '''
+        :param movieList: List of lists
+        :return: None
+        '''
+
+        for movie in movieList:
+            self.ctrl.addMovie(movie[1], movie[2], movie[3])
+
+
+    def importRentalsFromDB(self, rentalList):
+        '''
+        :param rentalList: List of lists
+        :return: None
+        '''
+
+        for rental in rentalList:
+            self.ctrl.addRental(int(rental[1]), int(rental[2]), rental[3])
+            self.ctrl.getRentalByMovieId(int(rental[1])).setDueDate(rental[4])
+            self.ctrl.getRentalByMovieId(int(rental[1])).setReturnedDate(rental[5])
 
 
     def addClients(self):
@@ -91,6 +127,7 @@ class UserInterface:
 
         if not self.ctrl.removeClient(name):
             print("Command was not executed.")
+            return
 
 
     def removeMovie(self):
@@ -98,6 +135,7 @@ class UserInterface:
 
         if not self.ctrl.removeMovie(title):
             print("Command was not executed.")
+            return
 
 
     def listClients(self):
@@ -150,7 +188,7 @@ class UserInterface:
             print("There are no movies available for renting!")
             return
 
-        option = self.utils.readInteger("Which movie would you like to rent? (input 0 to exit)")
+        option = self.utils.readInteger("Which movie would you like to rent? (input 0 to exit) ")
 
         if option not in movieIds:
             print("Invalid movie id chosen!")
@@ -382,3 +420,10 @@ class UserInterface:
                 self.printRedoList()
             else:
                 print("Unknown option!")
+                continue
+
+            # probably not very efficient to keep these here
+            # laziness tho
+            self.ctrl.db.writeClients(self.ctrl.getClients())
+            self.ctrl.db.writeMovies(self.ctrl.getMovies())
+            self.ctrl.db.writeRentals(self.ctrl.getRentedMovies())

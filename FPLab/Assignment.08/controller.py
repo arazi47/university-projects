@@ -1,11 +1,14 @@
 from client import Client
 from movie import Movie
 from rental import Rental
+from external_input_output.mysql_io import  MySQL_IO
 import datetime
 
 
 class Controller:
     def __init__(self):
+        self.db = MySQL_IO()
+
         self.clients = []
         self.movies = []
         self.rentedMovies = []
@@ -264,7 +267,7 @@ class Controller:
         :return: None
         '''
 
-        rental.setReturnedDate(-1)
+        rental.setReturnedDate(rental.getRentedDate() - datetime.timedelta(days = 1))
         self.rentedMovies.append(rental)
         self.clients[rental.getClientId() - 1].setTotalRentalDays(self.clients[rental.getClientId() - 1].getTotalRentalDays() + 7)
         self.movies[rental.getMovieId() - 1].setRented(True)
@@ -296,7 +299,7 @@ class Controller:
 
 
     def undoReturnMovie(self, rental):
-        rental.setReturnedDate(-1)
+        rental.setReturnedDate(rental.getRentedDate() - datetime.timedelta(days = 1))
         self.movies[rental.getMovieId() - 1].setRented(True)
 
 
