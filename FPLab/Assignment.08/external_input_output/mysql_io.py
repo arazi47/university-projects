@@ -39,6 +39,7 @@ class MySQL_IO():
         :param clientList: A list of clients (objects of Client)
         :return: None
         '''
+
         self.cur.execute('truncate Clients')
         for client in clientList:
             self.cur.execute('INSERT INTO Clients (id, name, total_rental_days) VALUES (\'{0}\', \'{1}\', \'{2}\')'.format(client.getId(), client.getName(), client.getTotalRentalDays()))
@@ -49,6 +50,7 @@ class MySQL_IO():
         :param clientList: A list of movies (objects of Movie)
         :return: None
         '''
+
         self.cur.execute('truncate Movies')
         for movie in movieList:
 
@@ -66,6 +68,7 @@ class MySQL_IO():
         :param clientList: A list of rentals (objects of Rental)
         :return: None
         '''
+
         self.cur.execute('truncate Rentals')
         for rental in rentalList:
             self.cur.execute('INSERT INTO Rentals (id, movie_id, client_id, rented_date, due_date, returned_date) VALUES (\'{0}\', \'{1}\', \'{2}\', \'{3}\', \'{4}\', \'{5}\')'.format(rental.getRentalId(), rental.getMovieId(), rental.getClientId(), rental.getRentedDate().strftime('%Y-%m-%d'), rental.getDueDate().strftime('%Y-%m-%d'), rental.getReturnedDate().strftime('%Y-%m-%d')))

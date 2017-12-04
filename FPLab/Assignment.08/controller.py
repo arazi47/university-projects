@@ -2,12 +2,14 @@ from client import Client
 from movie import Movie
 from rental import Rental
 from external_input_output.mysql_io import  MySQL_IO
+from external_input_output.file_io import File_IO
 import datetime
 
 
 class Controller:
     def __init__(self):
-        self.db = MySQL_IO()
+        #self.db = MySQL_IO()
+        self.db = File_IO()
 
         self.clients = []
         self.movies = []
