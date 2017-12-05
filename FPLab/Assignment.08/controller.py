@@ -4,6 +4,7 @@ from rental import Rental
 from external_input_output.mysql_io import  MySQL_IO
 from external_input_output.file_io import File_IO
 from external_input_output.binary_file_io import Binary_File_IO
+from external_input_output.json_io import JSON_IO
 import datetime
 
 
@@ -11,7 +12,8 @@ class Controller:
     def __init__(self):
         #self.db = MySQL_IO()
         #self.db = File_IO()
-        self.db = Binary_File_IO()
+        #self.db = Binary_File_IO()
+        self.db = JSON_IO()
 
         self.clients = []
         self.movies = []
