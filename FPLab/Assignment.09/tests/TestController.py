@@ -63,6 +63,6 @@ class TestController(unittest.TestCase):
         # create a new controller for testing purposes
         self.ctrl = Controller()
 
-        self.testClientFunctions()
-        self.testMovieFunctions()
-        self.testRental()
+        #self.testClientFunctions()
+        #self.testMovieFunctions()
+        #self.testRental()

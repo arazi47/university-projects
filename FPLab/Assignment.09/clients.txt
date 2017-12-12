@@ -1,5 +1,4 @@
-1;nume1
-2;nume2
-3;nume3
-4;morti
-5;asdmka
+1;asdada
+2;dudedude
+3;aakdmska
+4;ciutko

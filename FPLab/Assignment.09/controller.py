@@ -5,19 +5,21 @@ from external_input_output.mysql_io import  MySQL_IO
 from external_input_output.file_io import File_IO
 from external_input_output.binary_file_io import Binary_File_IO
 from external_input_output.json_io import JSON_IO
+from Repository import Repository
+from NewRepo import NewRepository
 import datetime
 
 
 class Controller:
     def __init__(self):
         #self.db = MySQL_IO()
-        #self.db = File_IO()
+        self.db = File_IO()
         #self.db = Binary_File_IO()
-        self.db = JSON_IO()
+        #self.db = JSON_IO()
 
-        self.clients = []
-        self.movies = []
-        self.rentedMovies = []
+        self.clients = NewRepository()
+        self.movies = NewRepository()
+        self.rentedMovies = NewRepository()
 
         self.undoList = []
         self.redoList = []
@@ -76,7 +78,8 @@ class Controller:
         '''
 
         movie = Movie(len(self.movies) + 1, title, description, genre)
-        self.movies.append(movie)
+
+        self.movies[self.movies.get_index()] = movie
 
         self.undoList.append(['addMovie', title, description, genre])
 
@@ -90,7 +93,8 @@ class Controller:
 
         for movie in self.movies:
             if movie.getTitle() == title:
-                self.movies.remove(movie)
+                #self.movies.remove_by_index(movie.getId() - 1)
+                del self.movies[movie.getId() - 1]
                 self.fixIndices(self.movies)
 
                 self.undoList.append(['removeMovie', title])
@@ -152,7 +156,8 @@ class Controller:
         '''
 
         newClient = Client(len(self.clients) + 1, name)
-        self.clients.append(newClient)
+
+        self.clients[newClient.getId()] = newClient
 
         self.undoList.append(['addClient', name])
 
@@ -166,7 +171,9 @@ class Controller:
 
         for client in self.clients:
             if client.getName() == name:
-                self.clients.remove(client)
+                #self.clients.remove_by_index(client.getId() - 1)
+                del self.clients[client.getId() - 1]
+
                 self.fixIndices(self.clients)
 
                 self.undoList.append(['removeClient', name])
@@ -253,16 +260,11 @@ class Controller:
         rental = Rental(len(self.rentedMovies) + 1, movieId, clientId, rentedDate)
 
         # mark the movie as rented
+
         self.movies[movieId - 1].setRented(True)
         self.movies[movieId - 1].setTotalRentalDays(self.movies[movieId - 1].getTotalRentalDays() + 7)
-
-        # add to client rental days
-        # 7 - total rental days
-        # @todo change the days so that the user says how much they want to rent the movie
-        # @todo min 1 day, max 7
         self.clients[clientId - 1].setTotalRentalDays(self.clients[clientId - 1].getTotalRentalDays() + 7)
-
-        self.rentedMovies.append(rental)
+        self.rentedMovies[rental.getRentalId()] = rental
 
         #self.undoList.append(['addRental', movieId, clientId, rentedDate])
         self.undoList.append(['addRental', rental])
@@ -274,7 +276,9 @@ class Controller:
         :return: None
         '''
 
-        self.rentedMovies.remove(rental)
+        #self.rentedMovies.remove_by_index(rental.getRentalId() - 1)
+        #self.rentedMovies.pop(rental.getRentalId() - 1)
+        del self.rentedMovies[rental.getRentalId() - 1]
         self.clients[rental.getClientId() - 1].setTotalRentalDays(self.clients[rental.getClientId() - 1].getTotalRentalDays() - 7)
         self.movies[rental.getMovieId() - 1].setRented(False)
         self.movies[rental.getMovieId() - 1].setTotalRentalDays(self.movies[rental.getMovieId() - 1].getTotalRentalDays() - 7)
@@ -287,7 +291,7 @@ class Controller:
         '''
 
         rental.setReturnedDate(rental.getRentedDate() - datetime.timedelta(days = 1))
-        self.rentedMovies.append(rental)
+        self.rentedMovies[rental.getRentalId()] = rental
         self.clients[rental.getClientId() - 1].setTotalRentalDays(self.clients[rental.getClientId() - 1].getTotalRentalDays() + 7)
         self.movies[rental.getMovieId() - 1].setRented(True)
         self.movies[rental.getMovieId() - 1].setTotalRentalDays(self.movies[rental.getMovieId() - 1].getTotalRentalDays() + 7)
@@ -357,6 +361,46 @@ class Controller:
 
     # *************************************************** #
     # Misc functions
+
+    def filter(self, lst, checkFct, value = None):
+        filteredLst = []
+        for elem in lst:
+            if value != None:
+                if elem.checkFct() == value:
+                    filteredLst.append(elem)
+            else:
+                if elem.checkFct():
+                    filteredLst.append(elem)
+
+        return filteredLst
+
+
+    def lessThanCmp(self, a, b):
+        return a < b
+
+
+    def greaterThanCmp(self, a, b):
+        return a > b
+
+
+    def sort(self, lst, cmp):
+        # Counting sort
+
+        copyLst = lst[:]
+        indexLst = [0] * len(lst)
+
+        for i in range(len(lst) - 1):
+            for j in range(i + 1, len(lst)):
+                if cmp(lst[i], lst[j]):
+                    indexLst[i] += 1
+                else:
+                    indexLst[j] += 1
+
+        for i in range(len(lst)):
+            lst[indexLst[i]] = copyLst[i]
+
+        return lst
+
     def getMostActiveClients(self):
         '''
         :return: The client list sorted in decreasing order by their total rental days
