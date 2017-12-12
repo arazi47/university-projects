@@ -6,6 +6,9 @@ class Utils:
         :return:
         '''
 
+        if type(coords) != str:
+            return coords[0][0], coords[0][1]
+
         coords = coords.split()
 
         try:
@@ -13,5 +16,6 @@ class Utils:
             coord_y = int(coords[1])
 
             return coord_x - 1, coord_y - 1
-        except:
+        except Exception as e:
+            print(e)
             return False

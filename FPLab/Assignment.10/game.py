@@ -1,5 +1,6 @@
 from board import Board
 from utils import Utils
+import random
 
 class Game:
     def __init__(self):
@@ -30,3 +31,17 @@ class Game:
             self.__turn = 'O'
         else:
             self.__turn = 'X'
+
+    def ai_move(self):
+        empty_spaces = self.__board.get_empty_spaces()
+        #print(empty_spaces)
+
+        result_coords = random.sample(empty_spaces, 1)
+
+        self.make_play(result_coords)
+
+    def check_win(self):
+        if self.__board.get_empty_spaces() == []:
+            return True
+
+        return False
