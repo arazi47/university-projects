@@ -1,0 +1,6 @@
+1;which number is the largest;1;4;3;4;easy
+7;which Apollo mission did not make it to the moon;11;13;17;13;hard
+8;a mole can be;animal;quantity;both;both;hard
+9;name El Cid's horse;Babieca;Abu;Santiago;Babieca;hard
+10;the western roman empire fell in;654;546;476;476;hard
+11;test question;t1;t2;t3;t2;hard
