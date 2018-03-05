@@ -1,0 +1,156 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  extern printf
+    12                                  import printf msvcrt.dll
+    13                                  
+    14                                  extern scanf
+    15                                  import scanf msvcrt.dll
+    16                                  
+    17                                  extern fopen
+    18                                  import fopen msvcrt.dll
+    19                                  
+    20                                  extern fprintf
+    21                                  import fprintf msvcrt.dll
+    22                                  
+    23                                  extern fclose
+    24                                  import fclose msvcrt.dll
+    25                                  
+    26                                  
+    27                                  ; our data is declared here (the variables needed by our program)
+    28                                  segment data use32 class=data
+    29 00000000 00000000                    n dd 0 ; numarul ce trebuie citit
+    30 00000004 00<rept>                    cuvant times 21 db 0
+    31                                      
+    32 00000019 256400                      format_int db "%d", 0
+    33 0000001C 257300                      format_str db "%s", 0
+    34 0000001F 256300                      format_chr db "%c", 0
+    35 00000022 2000                        format_spatiu db " ", 0
+    36                                      
+    37 00000024 6669732E74787400            fileName db "fis.txt", 0
+    38 0000002C 7700                        accessRights db "w", 0
+    39 0000002E FFFFFFFF                    descriptor dd -1
+    40                                      
+    41 00000032 7465737400                  testtext db "test", 0
+    42                                  
+    43                                  ; our code starts here
+    44                                  segment code use32 class=code
+    45                                      start:
+    46 00000000 68[00000000]                    push dword n
+    47 00000005 68[19000000]                    push dword format_int
+    48 0000000A FF15[00000000]                  call [scanf]
+    49 00000010 83C408                          add esp, 8
+    50                                          
+    51                                          ;push dword [n]
+    52                                          ;push dword format_int
+    53                                          ;call [printf]
+    54                                          ;add esp, 8
+    55                                          
+    56 00000013 68[2C000000]                    push dword accessRights
+    57 00000018 68[24000000]                    push dword fileName
+    58 0000001D FF15[00000000]                  call [fopen]
+    59 00000023 83C408                          add esp, 8
+    60                                          
+    61 00000026 83F800                          cmp eax, 0
+    62 00000029 0F848A000000                    je final
+    63                                          
+    64 0000002F A3[2E000000]                    mov [descriptor], eax
+    65                                          
+    66                                          citesteCuvant:
+    67 00000034 68[04000000]                        push dword cuvant
+    68 00000039 68[1C000000]                        push dword format_str
+    69 0000003E FF15[00000000]                      call [scanf]
+    70 00000044 83C408                              add esp, 8
+    71                                              
+    72 00000047 803D[04000000]23                    cmp byte [cuvant], '#'
+    73 0000004E 7469                                je final
+    74                                              
+    75 00000050 BE[04000000]                        mov esi, cuvant
+    76 00000055 BB00000000                          mov ebx, 0
+    77                                              
+    78                                              loopCuvant:
+    79 0000005A AC                                      lodsb
+    80                                                     
+    81 0000005B 3C00                                    cmp al, 0
+    82 0000005D 7423                                    je continua
+    83                                                  
+    84                                                  
+    85 0000005F 3C61                                    cmp al, 'a'
+    86 00000061 7503                                    jne cont1
+    87                                                  
+    88 00000063 43                                      inc ebx
+    89 00000064 EBF4                                    jmp loopCuvant
+    90                                                  
+    91                                                  cont1:
+    92 00000066 3C65                                    cmp al, 'e'
+    93 00000068 7503                                    jne cont2
+    94                                                  
+    95 0000006A 43                                      inc ebx
+    96 0000006B EBED                                    jmp loopCuvant
+    97                                                  
+    98                                                  cont2:
+    99 0000006D 3C69                                    cmp al, 'i'
+   100 0000006F 7503                                    jne cont3
+   101                                                  
+   102 00000071 43                                      inc ebx
+   103 00000072 EBE6                                    jmp loopCuvant
+   104                                                  
+   105                                                  cont3:
+   106 00000074 3C6F                                    cmp al, 'o'
+   107 00000076 7503                                    jne cont4
+   108                                                  
+   109 00000078 43                                      inc ebx
+   110 00000079 EBDF                                    jmp loopCuvant
+   111                                                  
+   112                                                  cont4:
+   113 0000007B 3C75                                    cmp al, 'u'
+   114 0000007D 75DB                                    jne loopCuvant
+   115                                                  
+   116 0000007F 43                                      inc ebx
+   117 00000080 EBD8                                jmp loopCuvant
+   118                                              
+   119                                              continua:
+   120                                              
+   121                                              ;pushad
+   122                                              
+   123                                              ;push dword ebx
+   124                                              ;push dword format_int
+   125                                              ;call [printf]
+   126                                              ;add esp, 8
+   127                                              
+   128                                              ;popad
+   129                                              
+   130 00000082 3B1D[00000000]                      cmp ebx, [n]
+   131 00000088 72AA                                jb citesteCuvant
+   132                                              
+   133 0000008A 60                                  pushad
+   134                                              
+   135 0000008B 68[04000000]                        push dword cuvant
+   136 00000090 FF35[2E000000]                      push dword [descriptor]
+   137 00000096 FF15[00000000]                      call [fprintf]
+   138 0000009C 83C408                              add esp, 8
+   139                                              
+   140 0000009F 68[22000000]                        push dword format_spatiu
+   141 000000A4 FF35[2E000000]                      push dword [descriptor]
+   142 000000AA FF15[00000000]                      call [fprintf]
+   143 000000B0 83C408                              add esp, 8
+   144                                              
+   145 000000B3 61                                  popad
+   146                                              
+   147 000000B4 E97BFFFFFF                      jmp citesteCuvant
+   148                                              
+   149                                          final:
+   150 000000B9 FF35[2E000000]                      push dword [descriptor]
+   151 000000BF FF15[00000000]                      call [fclose]
+   152 000000C5 83C404                              add esp, 4
+   153                                          
+   154                                              ; exit(0)
+   155 000000C8 6A00                                push    dword 0      ; push the parameter for exit onto the stack
+   156 000000CA FF15[00000000]                      call    [exit]       ; call exit to terminate the program

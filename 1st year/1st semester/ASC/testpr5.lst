@@ -1,0 +1,125 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  ; our data is declared here (the variables needed by our program)
+    11                                  extern fread
+    12                                  import fread msvcrt.dll
+    13                                  
+    14                                  extern fprintf
+    15                                  import fprintf msvcrt.dll
+    16                                  
+    17                                  extern fopen
+    18                                  import fopen msvcrt.dll
+    19                                  
+    20                                  extern fclose
+    21                                  import fclose msvcrt.dll
+    22                                  
+    23                                  extern scanf
+    24                                  import scanf msvcrt.dll
+    25                                  
+    26                                  extern printf
+    27                                  import printf msvcrt.dll
+    28                                  
+    29                                  segment data use32 class=data
+    30 00000000 6100                        char_to_replace db "a", 0
+    31 00000002 2300                        char_to_be_replaced_with db "#", 0
+    32 00000004 FFFFFFFF                    descriptor dd -1
+    33 00000008 6669732E74787400            fisier db "fis.txt", 0
+    34 00000010 7700                        mod_acces db "w", 0
+    35 00000012 00<rept>                    sir times 100 db 0
+    36 00000076 257300                      format_str db "%s", 0
+    37 00000079 256400                      format_dec db "%d", 0
+    38 0000007C 256300                      format_char db "%c", 0
+    39                                  
+    40                                  ; our code starts here
+    41                                  segment code use32 class=code
+    42                                      start:
+    43 00000000 68[12000000]                    push dword sir
+    44 00000005 68[76000000]                    push dword format_str
+    45 0000000A FF15[00000000]                  call [scanf]
+    46 00000010 83C408                          add esp, 8
+    47                                              
+    48 00000013 68[10000000]                    push dword mod_acces
+    49 00000018 68[08000000]                    push dword fisier
+    50 0000001D FF15[00000000]                  call [fopen]
+    51 00000023 83C408                          add esp, 8
+    52                                              
+    53 00000026 83F800                          cmp eax, 0
+    54 00000029 7454                            je continua
+    55                                              
+    56 0000002B A3[04000000]                    mov [descriptor], eax
+    57                                              
+    58 00000030 B900000000                      mov ecx, 0
+    59                                          lungime:
+    60 00000035 80B9[12000000]00                    cmp byte[sir + ecx], 0
+    61 0000003C 7403                                je gatalungime
+    62                                              
+    63 0000003E 41                                  inc ecx
+    64 0000003F EBF4                            jmp lungime
+    65                                          
+    66                                          ;gatalng1:
+    67                                          
+    68                                          ;push ecx
+    69                                          
+    70                                          ;push dword ecx
+    71                                          ;push dword format
+    72                                          ;call [printf]
+    73                                          ;add esp, 8
+    74                                          
+    75                                          ;pop ecx
+    76                                          
+    77                                          ;jmp continua
+    78                                          
+    79                                          gatalungime:
+    80 00000041 BE[12000000]                        mov esi, sir
+    81 00000046 FC                                  cld
+    82                                              
+    83                                              repeta:
+    84 00000047 AC                                      lodsb
+    85                                                  
+    86 00000048 3C61                                    cmp al, 97
+    87 0000004A 7518                                    jne scrie_eax
+    88                                                  
+    89 0000004C 51                                      push ecx
+    90                                                  
+    91 0000004D 68[02000000]                            push dword char_to_be_replaced_with
+    92 00000052 FF35[04000000]                          push dword [descriptor]
+    93 00000058 FF15[00000000]                          call [fprintf]
+    94 0000005E 83C408                                  add esp, 8
+    95                                                  
+    96 00000061 59                                      pop ecx
+    97                                                  
+    98 00000062 EB19                                    jmp cont_repeta
+    99                                                  
+   100                                                  scrie_eax:
+   101 00000064 660FB6C0                                    movzx ax, al
+   102 00000068 0FB7C0                                      movzx eax, ax
+   103                                                      
+   104 0000006B 51                                          push ecx
+   105                                                      
+   106 0000006C 50                                          push dword eax
+   107 0000006D FF35[04000000]                              push dword [descriptor]
+   108 00000073 FF15[00000000]                              call [fprintf]
+   109 00000079 83C408                                      add esp, 8
+   110                                                      
+   111 0000007C 59                                          pop ecx
+   112                                                      
+   113                                                      cont_repeta:
+   114 0000007D E2C8                                loop repeta
+   115                                              
+   116                                          continua:
+   117                                              ; inchide fisier
+   118 0000007F FF35[04000000]                      push dword [descriptor]
+   119 00000085 FF15[00000000]                      call [fclose]
+   120 0000008B 83C404                              add esp, 4
+   121                                          
+   122                                              final:
+   123                                                  ; exit(0)
+   124 0000008E 6A00                                    push    dword 0      ; push the parameter for exit onto the stack
+   125 00000090 FF15[00000000]                          call    [exit]       ; call exit to terminate the program

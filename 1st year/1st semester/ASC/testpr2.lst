@@ -1,0 +1,95 @@
+     1                                  ;Problema. Se da un sir de valori numerice intregi reprezentate pe quadworduri.
+     2                                  ;Sa se determine suma cifrelor numarului multiplilor de 8 din sirul octetilor 
+     3                                  ;inferiori ai cuvintelor superioare ai dublucuvintelor superioare din elementele sirului de quadworduri.
+     4                                  
+     5                                  bits 32 ; assembling for the 32 bits architecture
+     6                                  
+     7                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     8                                  global start        
+     9                                  
+    10                                  ; declare external functions needed by our program
+    11                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+    12                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    13                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    14                                  extern printf
+    15                                  import printf msvcrt.dll
+    16                                  
+    17                                  ; our data is declared here (the variables needed by our program)
+    18                                  segment data use32 class=data
+    19 00000000 B0BC0A1110311200D2-         sir  dq  123110110abcb0h,1116adcb5a051ad2h,4120ca11d730cbb0h
+    19 00000009 1A055ACBAD1611B0CB-
+    19 00000012 30D711CA2041       
+    20                                      len equ ($ - sir) / 8
+    21                                      
+    22 00000018 255800                      format db "%X", 0
+    23                                      
+    24 0000001B 08                          opt db 8
+    25 0000001C 00000000                    suma dd 0
+    26 00000020 0A000000                    zece dd 10
+    27                                      
+    28                                      ; B0 BC 0A 11  10 31 12 00
+    29                                  
+    30                                  ; our code starts here
+    31                                  segment code use32 class=code
+    32                                      start:
+    33 00000000 BE[00000000]                    mov esi, sir
+    34 00000005 B903000000                      mov ecx, len
+    35                                          
+    36 0000000A BB00000000                      mov ebx, 0 ; contorul de multiplii
+    37                                          
+    38 0000000F FC                              cld
+    39                                          
+    40                                          repeta:
+    41 00000010 AD                                  lodsd
+    42 00000011 66AD                                lodsw
+    43 00000013 AC                                  lodsb
+    44                                              
+    45                                              ;cbw
+    46                                              ;cwd
+    47                                              ;cwde
+    48                                              
+    49                                              ;push ecx
+    50                                              
+    51                                              ;push dword eax
+    52                                              ;push dword format
+    53                                              ;call [printf]
+    54                                              ;add esp, 8
+    55                                              
+    56                                              ;pop ecx
+    57                                              
+    58 00000014 6698                                cbw ; ax = al
+    59                                              
+    60 00000016 F635[1B000000]                      div byte [opt]
+    61                                              
+    62 0000001C 80FC00                              cmp ah, 0
+    63 0000001F 7501                                jnz continua_repeta
+    64                                              
+    65 00000021 43                                  inc ebx
+    66                                              
+    67                                              continua_repeta:
+    68 00000022 AC                                  lodsb
+    69 00000023 E2EB                            loop repeta
+    70                                          
+    71 00000025 89D8                            mov eax, ebx ; pentru impartire
+    72 00000027 BA00000000                      mov edx, 0
+    73                                          suma_cifre:
+    74 0000002C F735[20000000]                      div dword [zece]
+    75                                              
+    76 00000032 0115[1C000000]                      add dword [suma], edx
+    77                                              
+    78 00000038 83F800                              cmp eax, 0
+    79 0000003B 7407                                je finish
+    80 0000003D BA00000000                          mov edx, 0
+    81                                             
+    82 00000042 EBE8                            jmp suma_cifre
+    83                                              
+    84                                          
+    85                                          finish:
+    86 00000044 FF35[1C000000]                      push dword [suma]
+    87 0000004A 68[18000000]                        push dword format
+    88 0000004F FF15[00000000]                      call [printf]
+    89 00000055 83C408                              add esp, 8
+    90                                              
+    91                                              ; exit(0)
+    92 00000058 6A00                                push    dword 0      ; push the parameter for exit onto the stack
+    93 0000005A FF15[00000000]                      call    [exit]       ; call exit to terminate the program

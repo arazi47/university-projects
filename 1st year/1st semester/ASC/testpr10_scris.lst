@@ -1,0 +1,103 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  ; our data is declared here (the variables needed by our program)
+    12                                  extern printf
+    13                                  import printf msvcrt.dll
+    14                                  segment data use32 class=data
+    15 00000000 8CA634B2C870845270-         sir dd 0B234A68Ch, 528470C8h, 1AB3C470h, 0F9DC9886h
+    15 00000009 C4B31A8698DCF9     
+    16                                      
+    17                                      ; 8C A6 34 B2
+    18                                      len equ ($ - sir) / 4
+    19 00000010 00<rept>                    sir_rank times (len + 1) db 0
+    20                                      
+    21 00000015 256300                      format_chr db "%c", 0
+    22 00000018 257300                      format_str db "%s", 0
+    23 0000001B 0A0D00                      format_newline db "", 10, 13, 0
+    24 0000001E 256400                      format_suma db "%d", 0
+    25 00000021 72616E6B3100                rank1 db "rank1", 0
+    26 00000027 72616E6B3200                rank2 db "rank2", 0
+    27 0000002D 255800                      format_hex db "%X", 0
+    28                                      
+    29                                  ; our code starts here
+    30                                  segment code use32 class=code
+    31                                      start:
+    32 00000000 B904000000                      mov ecx, len
+    33 00000005 E37F                            jecxz final
+    34                                          
+    35 00000007 BD00000000                      mov ebp, 0 ; contor sir rankuri
+    36 0000000C BA00000000                      mov edx, 0 ; suma
+    37                                      
+    38 00000011 BE[00000000]                    mov esi, sir
+    39                                          
+    40                                          mainLoop:
+    41 00000016 66AD                                lodsw
+    42                                              
+    43 00000018 0FB7C0                              movzx eax, ax
+    44 0000001B 50                                  push dword eax
+    45 0000001C 68[2D000000]                        push dword format_hex
+    46 00000021 FF15[00000000]                      call [printf]
+    47                                              ;add esp, 8
+    48 00000027 EB5D                                jmp final
+    49                                              
+    50 00000029 6689C3                              mov bx, ax ; bx - rank 2
+    51                                              
+    52 0000002C 66AD                                lodsw
+    53                                              ; ax - rank 1
+    54                                              
+    55 0000002E 6639C3                              cmp bx, ax
+    56 00000031 770E                                ja rank2mare
+    57                                              
+    58                                              rank1mare:
+    59 00000033 C685[10000000]32                        mov byte [sir_rank + ebp], "2"
+    60 0000003A 0FB7C0                                  movzx eax, ax
+    61 0000003D 01C2                                    add edx, eax    
+    62 0000003F EB0C                                jmp mainLoopCont
+    63                                              
+    64                                              rank2mare:
+    65 00000041 C685[10000000]31                        mov byte [sir_rank + ebp], "1"
+    66 00000048 0FB7DB                                  movzx ebx, bx
+    67 0000004B 01DA                                    add edx, ebx
+    68                                              
+    69                                              mainLoopCont:
+    70 0000004D 45                                  inc ebp
+    71 0000004E E2C6                            loop mainLoop
+    72                                          
+    73 00000050 60                              pushad
+    74                                          
+    75 00000051 68[10000000]                    push dword sir_rank
+    76 00000056 68[18000000]                    push dword format_str
+    77 0000005B FF15[00000000]                  call [printf]
+    78 00000061 83C408                          add esp, 8
+    79                                          
+    80 00000064 61                              popad
+    81                                          
+    82 00000065 60                              pushad
+    83                                          
+    84 00000066 68[1B000000]                    push dword format_newline
+    85 0000006B FF15[00000000]                  call [printf]
+    86 00000071 83C404                          add esp, 4
+    87                                          
+    88 00000074 61                              popad
+    89                                          
+    90 00000075 60                              pushad
+    91                                          
+    92 00000076 52                              push dword edx
+    93 00000077 68[1E000000]                    push dword format_suma
+    94 0000007C FF15[00000000]                  call [printf]
+    95 00000082 83C408                          add esp, 8
+    96                                          
+    97 00000085 61                              popad
+    98                                      
+    99                                          final:
+   100                                              ; exit(0)
+   101 00000086 6A00                                push    dword 0      ; push the parameter for exit onto the stack
+   102 00000088 FF15[00000000]                      call    [exit]       ; call exit to terminate the program

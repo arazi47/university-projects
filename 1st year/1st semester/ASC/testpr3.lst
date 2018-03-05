@@ -1,0 +1,100 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  extern printf
+    11                                  import printf msvcrt.dll
+    12                                  ; our data is declared here (the variables needed by our program)
+    13                                  segment data use32 class=data
+    14 00000000 10311200B0BC0A1110-         sir dd  00123110h, 110abcb0h, 55123110h, 0000bcb0h
+    14 00000009 311255B0BC0000     
+    15                                      len equ ($ - sir) / 4
+    16                                      
+    17                                      ; 10 31 12 00, B0 BC 0A 11
+    18                                      
+    19 00000010 6D61783A2025582C20-         format db "max: %X, rang: %X   ", 0
+    19 00000019 72616E673A20255820-
+    19 00000022 202000             
+    20                                      
+    21                                  
+    22                                  ; our code starts here
+    23                                  segment code use32 class=code
+    24                                      start:
+    25 00000000 BE[00000000]                    mov esi, sir
+    26 00000005 B904000000                      mov ecx, len
+    27                                          
+    28 0000000A FC                              cld
+    29                                          
+    30                                          repeta:
+    31 0000000B 31DB                                xor ebx, ebx ; octetul maxim
+    32 0000000D 31D2                                xor edx, edx ; rangul octetului
+    33                                              
+    34 0000000F AC                                  lodsb
+    35                                              ;cbw
+    36                                              ;cwde ; eax = primul octet
+    37 00000010 660FB6C0                            movzx ax, al
+    38 00000014 0FB7C0                              movzx eax, ax
+    39                                              
+    40 00000017 89C3                                mov ebx, eax
+    41 00000019 BA01000000                          mov edx, 1
+    42                                              
+    43                                              ;;;;;;;;;;
+    44                                              
+    45 0000001E AC                                  lodsb
+    46                                              ;cbw
+    47                                              ;cwde
+    48 0000001F 660FB6C0                            movzx ax, al
+    49 00000023 0FB7C0                              movzx eax, ax
+    50                                              
+    51 00000026 39C3                                cmp ebx, eax
+    52 00000028 7F07                                jg continua
+    53                                              
+    54 0000002A 89C3                                mov ebx, eax
+    55 0000002C BA02000000                          mov edx, 2
+    56                                              
+    57                                              continua:
+    58 00000031 AC                                      lodsb
+    59                                                  ;cbw
+    60                                                  ;cwde
+    61 00000032 660FB6C0                                movzx ax, al
+    62 00000036 0FB7C0                                  movzx eax, ax
+    63                                                  
+    64 00000039 39C3                                    cmp ebx, eax
+    65 0000003B 7F07                                    jg continua2
+    66                                                  
+    67 0000003D 89C3                                    mov ebx, eax
+    68 0000003F BA03000000                              mov edx, 3
+    69                                                  
+    70                                                  continua2:
+    71 00000044 AC                                          lodsb
+    72                                                      ;cbw
+    73                                                      ;cwde
+    74 00000045 660FB6C0                                    movzx ax, al
+    75 00000049 0FB7C0                                      movzx eax, ax
+    76                                                      
+    77 0000004C 39C3                                        cmp ebx, eax
+    78 0000004E 7F07                                        jg continua_repeta
+    79                                                      
+    80 00000050 89C3                                        mov ebx, eax
+    81 00000052 BA04000000                                  mov edx, 4
+    82                                                     
+    83                                                      continua_repeta:
+    84 00000057 60                                              pushad
+    85                                                      
+    86 00000058 52                                              push dword edx
+    87 00000059 53                                              push dword ebx
+    88 0000005A 68[10000000]                                    push dword format
+    89 0000005F FF15[00000000]                                  call [printf]
+    90 00000065 83C40C                                          add esp, 12
+    91                                                          
+    92 00000068 61                                              popad
+    93 00000069 E2A0                            loop repeta
+    94                                          
+    95                                          ; exit(0)
+    96 0000006B 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    97 0000006D FF15[00000000]                  call    [exit]       ; call exit to terminate the program

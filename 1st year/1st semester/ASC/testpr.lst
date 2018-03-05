@@ -1,0 +1,52 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  extern printf
+    11                                  import printf msvcrt.dll
+    12                                  
+    13                                  ; our data is declared here (the variables needed by our program)
+    14                                  segment data use32 class=data
+    15 00000000 010203040506                sir db 1, 2, 3, 4, 5, 6
+    16                                      len equ ($ - sir)
+    17 00000006 256400                      format db "%d", 0
+    18 00000009 00000000                    suma_nr_pare dd 0
+    19 0000000D 02                          doi db 2
+    20                                  
+    21                                  ; our code starts here
+    22                                  segment code use32 class=code
+    23                                      start:
+    24 00000000 BE[00000000]                    mov esi, sir
+    25 00000005 B906000000                      mov ecx, len
+    26                                          
+    27                                          repeta:
+    28 0000000A AC                                  lodsb
+    29                                              
+    30 0000000B 6698                                cbw ; ax = al (pentru impartire)
+    31 0000000D 6689C3                              mov bx, ax ; salvam o copie
+    32                                                         ; nr original va fi impartit la 2
+    33                                              
+    34 00000010 F635[0D000000]                      div byte [doi]
+    35                                              
+    36 00000016 80FC00                              cmp ah, 0 ; comparam restul cu 0
+    37 00000019 7507                                jnz continua_repeta ; daca nu e 0, continuam iteratia
+    38                                              
+    39 0000001B 66011D[09000000]                    add [suma_nr_pare], bx ; adaugam la suma numerelor pare copia numarului din sir
+    40                                              
+    41                                              continua_repeta:
+    42 00000022 E2E6                            loop repeta
+    43                                          
+    44                                          ; printam suma
+    45 00000024 FF35[09000000]                  push dword [suma_nr_pare]
+    46 0000002A 68[06000000]                    push dword format
+    47 0000002F FF15[00000000]                  call [printf]
+    48 00000035 83C408                          add esp, 8
+    49                                      
+    50                                          ; exit(0)
+    51 00000038 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    52 0000003A FF15[00000000]                  call    [exit]       ; call exit to terminate the program

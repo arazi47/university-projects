@@ -1,0 +1,29 @@
+     1                                  bits 32
+     2                                  
+     3                                  global start        
+     4                                  
+     5                                  extern exit
+     6                                  import exit msvcrt.dll
+     7                                  
+     8                                  extern printf
+     9                                  import printf msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 256300                      format_chr db "%c", 0
+    13 00000003 616263646500                sir db "a", "b", "c", "d", "e", 0
+    14                                      len equ ($ - sir)
+    15                                      
+    16                                  
+    17                                  ; our code starts here
+    18                                  segment code use32 class=code
+    19                                      start:
+    20                                          ;mov esi, sir
+    21 00000000 FD                              std
+    22                                          ;add esi, len
+    23                                          
+    24                                          ;lodsb
+    25                                          
+    26                                          ;movzx eax, al
+    27                                          
+    28 00000001 6A00                            push dword 0
+    29 00000003 FF15[00000000]                  call [exit]

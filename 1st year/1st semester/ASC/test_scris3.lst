@@ -1,0 +1,86 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  ; our data is declared here (the variables needed by our program)
+    12                                  extern printf
+    13                                  import printf msvcrt.dll
+    14                                  segment data use32 class=data
+    15 00000000 7834A612785634124D-         sir dd 12A63478h, 12345678h, 1A2B3C4Dh, 0FEDC9876h
+    15 00000009 3C2B1A7698DCFE     
+    16                                      len equ ($ - sir) / 4
+    17 00000010 00<rept>                    sirpoz times (len + 1) db 0
+    18                                      
+    19                                      ; 78h 34h A6h 12h
+    20                                      
+    21 00000015 74657374657A202558-         format_hex db "testez %X", 10, 13, 0
+    21 0000001E 0A0D00             
+    22 00000021 257300                      format_str db "%s", 0
+    23 00000024 74657374657A202564-         format_int db "testez %d", 10, 13, 0
+    23 0000002D 0A0D00             
+    24 00000030 73756D612065737465-         format_intf db "suma este %d", 10, 13, 0
+    24 00000039 2025640A0D00       
+    25                                  
+    26                                  ; our code starts here
+    27                                  segment code use32 class=code
+    28                                      start:
+    29 00000000 BE[00000000]                    mov esi, sir
+    30 00000005 B904000000                      mov ecx, len
+    31                                          
+    32 0000000A E35F                            jecxz final
+    33                                          
+    34 0000000C B300                            mov bl, 0 ; first dword, second dword, etc...
+    35 0000000E BA00000000                      mov edx, 0 ; sirpoz index counter
+    36 00000013 BD00000000                      mov ebp, 0 ; suma
+    37                                          
+    38                                          iaDword:
+    39 00000018 FEC3                                inc bl ; we start counting from 1
+    40 0000001A 66AD                                lodsw
+    41 0000001C AC                                  lodsb
+    42 0000001D 0FBEC0                              movsx eax, al
+    43                                              
+    44 00000020 60                                  pushad
+    45                                              
+    46 00000021 50                                  push dword eax
+    47 00000022 68[15000000]                        push dword format_hex
+    48 00000027 FF15[00000000]                      call [printf]
+    49 0000002D 83C408                              add esp, 8
+    50                                              
+    51 00000030 61                                  popad
+    52                                              
+    53 00000031 83F800                              cmp eax, 0
+    54 00000034 7D10                                jge iaDwordCont
+    55                                              
+    56 00000036 01C5                                add ebp, eax
+    57                                              
+    58 00000038 88DF                                mov bh, bl ; facem o copie a pozitiei dwordului in sir
+    59 0000003A 80C330                              add bl, "0"
+    60                                              
+    61 0000003D 889A[10000000]                      mov byte [sirpoz + edx], bl
+    62 00000043 88FB                                mov bl, bh
+    63 00000045 42                                  inc edx
+    64                                              
+    65                                              iaDwordCont:
+    66 00000046 AC                                  lodsb ; read the last byte, too
+    67 00000047 E2CF                            loop iaDword
+    68                                          
+    69 00000049 55                              push dword ebp
+    70 0000004A 68[30000000]                    push dword format_intf
+    71 0000004F FF15[00000000]                  call [printf]
+    72 00000055 83C408                          add esp, 8
+    73                                          
+    74 00000058 68[10000000]                    push dword sirpoz
+    75 0000005D 68[21000000]                    push dword format_str
+    76 00000062 FF15[00000000]                  call [printf]
+    77 00000068 83C408                          add esp, 8
+    78                                              
+    79                                          final:
+    80                                              ; exit(0)
+    81 0000006B 6A00                                push    dword 0      ; push the parameter for exit onto the stack
+    82 0000006D FF15[00000000]                      call    [exit]       ; call exit to terminate the program
