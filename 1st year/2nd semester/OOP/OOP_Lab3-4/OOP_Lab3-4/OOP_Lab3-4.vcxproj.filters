@@ -24,15 +24,48 @@
     <ClInclude Include="offer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="repository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="validator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="undo_redo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="runtests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="validator.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OOP_Lab3-4.cpp">
+    <ClCompile Include="UI.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
+    <ClCompile Include="stdafx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="repository.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OOP_Lab3-4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="offer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="controller.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="undo_redo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="runtests.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

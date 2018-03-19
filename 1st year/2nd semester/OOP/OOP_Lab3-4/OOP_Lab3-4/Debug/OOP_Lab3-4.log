@@ -1,5 +1,12 @@
-﻿  UI.cpp
+﻿  validator.c
+  undo_redo.c
+c:\users\necso\source\repos\oop_lab3-4\oop_lab3-4\undo_redo.c(37): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
+c:\users\necso\source\repos\oop_lab3-4\oop_lab3-4\undo_redo.c(37): warning C4024: 'update_address': different types for formal and actual parameter 2
+c:\users\necso\source\repos\oop_lab3-4\oop_lab3-4\undo_redo.c(43): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
+c:\users\necso\source\repos\oop_lab3-4\oop_lab3-4\undo_redo.c(43): warning C4024: 'update_address': different types for formal and actual parameter 2
+c:\users\necso\source\repos\oop_lab3-4\oop_lab3-4\undo_redo.c(103): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
+c:\users\necso\source\repos\oop_lab3-4\oop_lab3-4\undo_redo.c(103): warning C4024: 'update_address': different types for formal and actual parameter 2
+c:\users\necso\source\repos\oop_lab3-4\oop_lab3-4\undo_redo.c(109): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
+c:\users\necso\source\repos\oop_lab3-4\oop_lab3-4\undo_redo.c(109): warning C4024: 'update_address': different types for formal and actual parameter 2
   Generating Code...
-  Skipping... (no relevant changes detected)
-  OOP_Lab3-4.cpp
   OOP_Lab3-4.vcxproj -> C:\Users\necso\source\repos\OOP_Lab3-4\Debug\OOP_Lab3-4.exe
