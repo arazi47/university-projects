@@ -3,7 +3,7 @@ project(lab5_6)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(lab5_6 main.cpp Axolotl.cpp Axolotl.h UserInterface.cpp UserInterface.h DynamicVector.cpp DynamicVector.h Controller.cpp Controller.h Validator.cpp Validator.h RunTests.cpp RunTests.h)
+add_executable(lab5_6 main.cpp Axolotl.cpp Axolotl.h UserInterface.cpp UserInterface.h Controller.cpp Controller.h Validator.cpp Validator.h RunTests.cpp RunTests.h)
 
 include(CodeCoverage.cmake)
 

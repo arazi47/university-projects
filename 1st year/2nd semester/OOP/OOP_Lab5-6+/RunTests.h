@@ -5,10 +5,11 @@
 #ifndef LAB5_6_RUNTESTS_H
 #define LAB5_6_RUNTESTS_H
 
-#include "DynamicVector.h"
+#include <vector>
 #include "Axolotl.h"
 #include "Controller.h"
 
+using std::vector;
 
 class RunTests {
     public:

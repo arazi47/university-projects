@@ -7,23 +7,16 @@ CMakeFiles/lab5_6.dir/Axolotl.cpp.o: ../Axolotl.h
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Axolotl.h
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Controller.cpp
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Controller.h
-CMakeFiles/lab5_6.dir/Controller.cpp.o: ../DynamicVector.h
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Validator.h
-
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.o: ../Axolotl.h
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.o: ../DynamicVector.cpp
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.o: ../DynamicVector.h
 
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../Axolotl.h
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../Controller.h
-CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../DynamicVector.h
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../RunTests.cpp
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../RunTests.h
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../Validator.h
 
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../Axolotl.h
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../Controller.h
-CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../DynamicVector.h
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../UserInterface.cpp
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../UserInterface.h
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../Validator.h
@@ -34,7 +27,6 @@ CMakeFiles/lab5_6.dir/Validator.cpp.o: ../Validator.h
 
 CMakeFiles/lab5_6.dir/main.cpp.o: ../Axolotl.h
 CMakeFiles/lab5_6.dir/main.cpp.o: ../Controller.h
-CMakeFiles/lab5_6.dir/main.cpp.o: ../DynamicVector.h
 CMakeFiles/lab5_6.dir/main.cpp.o: ../RunTests.h
 CMakeFiles/lab5_6.dir/main.cpp.o: ../UserInterface.h
 CMakeFiles/lab5_6.dir/main.cpp.o: ../Validator.h

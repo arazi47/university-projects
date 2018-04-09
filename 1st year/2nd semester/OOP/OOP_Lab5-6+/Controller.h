@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#include "DynamicVector.h"
+#include <vector>
 #include "Axolotl.h"
 #include "Validator.h"
 
@@ -19,22 +19,24 @@ class Controller {
         ~Controller();
 
         void insertTestElements();
-        void displayList(DynamicVector<Axolotl>& vector);
 
-        bool addAxolotl(DynamicVector<Axolotl>& vector, int breed, string name, int age, string photograph);
+        bool addAxolotl(vector<Axolotl>& vec, int breed, string name, int age, string photograph);
         int searchAxolotl(string name);
         void deleteAxolotl(int index);
         bool updateAxolotl(int index, int breed, string name, int age, string photograph);
 
-        DynamicVector<Axolotl> &getVector();
-        DynamicVector<Axolotl> &getUserAdoptionVector();
-        DynamicVector<Axolotl> buildFilteredVector(int targetBreed, int targetAge);
+        vector<Axolotl>& getVector();
+        vector<Axolotl>& getUserAdoptionVector();
+        vector<Axolotl> buildFilteredVector(int targetBreed, int targetAge);
 
-        bool nameAlreadyExists(DynamicVector<Axolotl>& v, string name);
+        bool nameAlreadyExists(vector<Axolotl>& vec, string name);
+
+        int searchElement(string name);
+        void updateElement(int index, Axolotl::Breed breed, string name, int age, string photograph);
 
     private:
-        DynamicVector<Axolotl> vector;
-        DynamicVector<Axolotl> userAdoptionVector;
+        vector<Axolotl> vec;
+        vector<Axolotl> userAdoptionVector;
 };
 
 

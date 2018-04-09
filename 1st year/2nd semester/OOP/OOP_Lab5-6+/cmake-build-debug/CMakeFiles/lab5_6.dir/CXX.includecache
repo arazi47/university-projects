@@ -21,20 +21,12 @@ Controller.h
 /home/sysadmin/CLionProjects/lab5-6/Controller.h
 iostream
 -
-DynamicVector.h
-/home/sysadmin/CLionProjects/lab5-6/DynamicVector.h
+vector
+-
 Axolotl.h
 /home/sysadmin/CLionProjects/lab5-6/Axolotl.h
 Validator.h
 /home/sysadmin/CLionProjects/lab5-6/Validator.h
-
-/home/sysadmin/CLionProjects/lab5-6/DynamicVector.cpp
-DynamicVector.h
-/home/sysadmin/CLionProjects/lab5-6/DynamicVector.h
-
-/home/sysadmin/CLionProjects/lab5-6/DynamicVector.h
-Axolotl.h
-/home/sysadmin/CLionProjects/lab5-6/Axolotl.h
 
 /home/sysadmin/CLionProjects/lab5-6/RunTests.cpp
 cassert
@@ -43,8 +35,8 @@ RunTests.h
 /home/sysadmin/CLionProjects/lab5-6/RunTests.h
 
 /home/sysadmin/CLionProjects/lab5-6/RunTests.h
-DynamicVector.h
-/home/sysadmin/CLionProjects/lab5-6/DynamicVector.h
+vector
+-
 Axolotl.h
 /home/sysadmin/CLionProjects/lab5-6/Axolotl.h
 Controller.h

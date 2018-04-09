@@ -129,33 +129,9 @@ CMakeFiles/lab5_6.dir/UserInterface.cpp.o.provides: CMakeFiles/lab5_6.dir/UserIn
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o.provides.build: CMakeFiles/lab5_6.dir/UserInterface.cpp.o
 
 
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.o: CMakeFiles/lab5_6.dir/flags.make
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.o: ../DynamicVector.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lab5_6.dir/DynamicVector.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab5_6.dir/DynamicVector.cpp.o -c /home/sysadmin/CLionProjects/lab5-6/DynamicVector.cpp
-
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lab5_6.dir/DynamicVector.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sysadmin/CLionProjects/lab5-6/DynamicVector.cpp > CMakeFiles/lab5_6.dir/DynamicVector.cpp.i
-
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lab5_6.dir/DynamicVector.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sysadmin/CLionProjects/lab5-6/DynamicVector.cpp -o CMakeFiles/lab5_6.dir/DynamicVector.cpp.s
-
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.o.requires:
-
-.PHONY : CMakeFiles/lab5_6.dir/DynamicVector.cpp.o.requires
-
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.o.provides: CMakeFiles/lab5_6.dir/DynamicVector.cpp.o.requires
-	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/DynamicVector.cpp.o.provides.build
-.PHONY : CMakeFiles/lab5_6.dir/DynamicVector.cpp.o.provides
-
-CMakeFiles/lab5_6.dir/DynamicVector.cpp.o.provides.build: CMakeFiles/lab5_6.dir/DynamicVector.cpp.o
-
-
 CMakeFiles/lab5_6.dir/Controller.cpp.o: CMakeFiles/lab5_6.dir/flags.make
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Controller.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lab5_6.dir/Controller.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lab5_6.dir/Controller.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab5_6.dir/Controller.cpp.o -c /home/sysadmin/CLionProjects/lab5-6/Controller.cpp
 
 CMakeFiles/lab5_6.dir/Controller.cpp.i: cmake_force
@@ -179,7 +155,7 @@ CMakeFiles/lab5_6.dir/Controller.cpp.o.provides.build: CMakeFiles/lab5_6.dir/Con
 
 CMakeFiles/lab5_6.dir/Validator.cpp.o: CMakeFiles/lab5_6.dir/flags.make
 CMakeFiles/lab5_6.dir/Validator.cpp.o: ../Validator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/lab5_6.dir/Validator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lab5_6.dir/Validator.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab5_6.dir/Validator.cpp.o -c /home/sysadmin/CLionProjects/lab5-6/Validator.cpp
 
 CMakeFiles/lab5_6.dir/Validator.cpp.i: cmake_force
@@ -203,7 +179,7 @@ CMakeFiles/lab5_6.dir/Validator.cpp.o.provides.build: CMakeFiles/lab5_6.dir/Vali
 
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: CMakeFiles/lab5_6.dir/flags.make
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../RunTests.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/lab5_6.dir/RunTests.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/lab5_6.dir/RunTests.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab5_6.dir/RunTests.cpp.o -c /home/sysadmin/CLionProjects/lab5-6/RunTests.cpp
 
 CMakeFiles/lab5_6.dir/RunTests.cpp.i: cmake_force
@@ -230,7 +206,6 @@ lab5_6_OBJECTS = \
 "CMakeFiles/lab5_6.dir/main.cpp.o" \
 "CMakeFiles/lab5_6.dir/Axolotl.cpp.o" \
 "CMakeFiles/lab5_6.dir/UserInterface.cpp.o" \
-"CMakeFiles/lab5_6.dir/DynamicVector.cpp.o" \
 "CMakeFiles/lab5_6.dir/Controller.cpp.o" \
 "CMakeFiles/lab5_6.dir/Validator.cpp.o" \
 "CMakeFiles/lab5_6.dir/RunTests.cpp.o"
@@ -241,13 +216,12 @@ lab5_6_EXTERNAL_OBJECTS =
 lab5_6: CMakeFiles/lab5_6.dir/main.cpp.o
 lab5_6: CMakeFiles/lab5_6.dir/Axolotl.cpp.o
 lab5_6: CMakeFiles/lab5_6.dir/UserInterface.cpp.o
-lab5_6: CMakeFiles/lab5_6.dir/DynamicVector.cpp.o
 lab5_6: CMakeFiles/lab5_6.dir/Controller.cpp.o
 lab5_6: CMakeFiles/lab5_6.dir/Validator.cpp.o
 lab5_6: CMakeFiles/lab5_6.dir/RunTests.cpp.o
 lab5_6: CMakeFiles/lab5_6.dir/build.make
 lab5_6: CMakeFiles/lab5_6.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable lab5_6"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable lab5_6"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lab5_6.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -258,7 +232,6 @@ CMakeFiles/lab5_6.dir/build: lab5_6
 CMakeFiles/lab5_6.dir/requires: CMakeFiles/lab5_6.dir/main.cpp.o.requires
 CMakeFiles/lab5_6.dir/requires: CMakeFiles/lab5_6.dir/Axolotl.cpp.o.requires
 CMakeFiles/lab5_6.dir/requires: CMakeFiles/lab5_6.dir/UserInterface.cpp.o.requires
-CMakeFiles/lab5_6.dir/requires: CMakeFiles/lab5_6.dir/DynamicVector.cpp.o.requires
 CMakeFiles/lab5_6.dir/requires: CMakeFiles/lab5_6.dir/Controller.cpp.o.requires
 CMakeFiles/lab5_6.dir/requires: CMakeFiles/lab5_6.dir/Validator.cpp.o.requires
 CMakeFiles/lab5_6.dir/requires: CMakeFiles/lab5_6.dir/RunTests.cpp.o.requires

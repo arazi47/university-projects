@@ -177,33 +177,6 @@ Controller.cpp.s:
 	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/Controller.cpp.s
 .PHONY : Controller.cpp.s
 
-DynamicVector.o: DynamicVector.cpp.o
-
-.PHONY : DynamicVector.o
-
-# target to build an object file
-DynamicVector.cpp.o:
-	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/DynamicVector.cpp.o
-.PHONY : DynamicVector.cpp.o
-
-DynamicVector.i: DynamicVector.cpp.i
-
-.PHONY : DynamicVector.i
-
-# target to preprocess a source file
-DynamicVector.cpp.i:
-	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/DynamicVector.cpp.i
-.PHONY : DynamicVector.cpp.i
-
-DynamicVector.s: DynamicVector.cpp.s
-
-.PHONY : DynamicVector.s
-
-# target to generate assembly for a file
-DynamicVector.cpp.s:
-	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/DynamicVector.cpp.s
-.PHONY : DynamicVector.cpp.s
-
 RunTests.o: RunTests.cpp.o
 
 .PHONY : RunTests.o
@@ -327,9 +300,6 @@ help:
 	@echo "... Controller.o"
 	@echo "... Controller.i"
 	@echo "... Controller.s"
-	@echo "... DynamicVector.o"
-	@echo "... DynamicVector.i"
-	@echo "... DynamicVector.s"
 	@echo "... RunTests.o"
 	@echo "... RunTests.i"
 	@echo "... RunTests.s"

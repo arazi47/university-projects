@@ -17,7 +17,8 @@ UserInterface::UserInterface() {
     this->userMenuString = "0. Exit\n"
             "1. Display available axolotls\n"
             "2. Display axolotls of a given breed and age\n"
-            "3. Display the adoption list\n";
+            "3. Display my adoption list\n"
+            "4. Display all axolotls\n";
 }
 
 UserInterface::~UserInterface()
@@ -62,7 +63,9 @@ void UserInterface::run() {
 
         int option = this->readInt(">> ");
 
-        if (admin == 1) {
+        if (admin == 0) {
+            exit(0);
+        } else if (admin == 1) {
             result = this->handleAdminOptions(option);
         } else {
             result = this->handleUserOptions(option);
@@ -193,14 +196,19 @@ int UserInterface::handleUserOptions(int option) {
         case 2: {
             int targetBreed = this->readInt("Target breed (0, 1, 2): ");
             int targetAge = this->readInt("Target age (age less than): ");
-            DynamicVector<Axolotl> v = this->controller.buildFilteredVector(targetBreed, targetAge);
-            this->displayList(v);
+            vector<Axolotl> vec = this->controller.buildFilteredVector(targetBreed, targetAge);
+            this->displayList(vec);
             break;
         }
 
         // Display the user's adoption list
         case 3: {
             this->displayList(this->controller.getUserAdoptionVector());
+            break;
+        }
+
+        case 4: {
+            this->displayList(this->controller.getVector());
             break;
         }
 
@@ -218,7 +226,7 @@ int UserInterface::handleUserOptions(int option) {
  * to adopt one or more pets
  */
 void UserInterface::displayEachPet() {
-    for (int i = 0; i < this->controller.getVector().getSize(); ++i) {
+    for (int i = 0; i < this->controller.getVector().size(); ++i) {
         auto pet = this->controller.getVector()[i];
         cout << pet.getName() << " - " << pet.getAge() << " - " << Axolotl::getStringFromBreed(pet.getBreed()) << " - " << pet.getPhoto() << endl;
 
@@ -232,7 +240,7 @@ void UserInterface::displayEachPet() {
         // Start from the beginning if we reach the end of the list
         // -1 so we don't skip the first pet, because in the next loop ++i will be executed
         // and i will be equal to 0
-        if (i == this->controller.getVector().getSize() - 1) {
+        if (i == this->controller.getVector().size() - 1) {
             i = -1;
         }
     }
@@ -241,8 +249,8 @@ void UserInterface::displayEachPet() {
 
 // ! If I use const, it throws an error when calling v[i]
 // Why?
-void UserInterface::displayList(DynamicVector<Axolotl> &v) {
-    for (int i = 0; i < v.getSize(); ++i) {
-        cout << v[i].getName() << " - " << v[i].getAge() << " - " << Axolotl::getStringFromBreed(v[i].getBreed()) << " - " << v[i].getPhoto() << endl;
+void UserInterface::displayList(vector<Axolotl> &vec) {
+    for (int i = 0; i < vec.size(); ++i) {
+        cout << vec[i].getName() << " - " << vec[i].getAge() << " - " << Axolotl::getStringFromBreed(vec[i].getBreed()) << " - " << vec[i].getPhoto() << endl;
     }
 }

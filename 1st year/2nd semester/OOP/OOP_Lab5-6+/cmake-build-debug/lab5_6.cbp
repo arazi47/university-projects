@@ -96,12 +96,6 @@
 		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/Controller.h">
 			<Option target="lab5_6"/>
 		</Unit>
-		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/DynamicVector.cpp">
-			<Option target="lab5_6"/>
-		</Unit>
-		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/DynamicVector.h">
-			<Option target="lab5_6"/>
-		</Unit>
 		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/RunTests.cpp">
 			<Option target="lab5_6"/>
 		</Unit>

@@ -2,7 +2,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/lab5_6.dir/main.cpp.o"
   "CMakeFiles/lab5_6.dir/Axolotl.cpp.o"
   "CMakeFiles/lab5_6.dir/UserInterface.cpp.o"
-  "CMakeFiles/lab5_6.dir/DynamicVector.cpp.o"
   "CMakeFiles/lab5_6.dir/Controller.cpp.o"
   "CMakeFiles/lab5_6.dir/Validator.cpp.o"
   "CMakeFiles/lab5_6.dir/RunTests.cpp.o"

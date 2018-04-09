@@ -28,7 +28,7 @@ class UserInterface {
 
         void displayEachPet();
 
-        void displayList(DynamicVector<Axolotl>& v);
+        void displayList(vector<Axolotl>& vec);
 
     private:
         string administratorMenuString;
