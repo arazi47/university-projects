@@ -31,7 +31,7 @@ void Controller::insertTestElements() {
 }
 
 bool Controller::addAxolotl(DynamicVector<Axolotl>& vector, int breed, string name, int age, string photograph) {
-    if (Validator::validateAxolotl(breed, name, age, photograph) && !this->nameAlreadyExists(name))
+    if (Validator::validateAxolotl(breed, name, age, photograph) && !this->nameAlreadyExists(vector, name))
     {
         Axolotl::Breed currBreed = Axolotl::getBreedFromInt(breed);
         vector.add(Axolotl(currBreed, name, age, photograph));
@@ -54,7 +54,7 @@ void Controller::deleteAxolotl(int index) {
 }
 
 bool Controller::updateAxolotl(int index, int breed, string name, int age, string photograph) {
-    if (Validator::validateAxolotl(breed, name, age, photograph) && !this->nameAlreadyExists(name)) {
+    if (Validator::validateAxolotl(breed, name, age, photograph) && !this->nameAlreadyExists(this->vector, name)) {
         this->vector.updateElement(index, Axolotl::getBreedFromInt(breed), name, age, photograph);
         return true;
     }
@@ -82,9 +82,9 @@ DynamicVector<Axolotl> Controller::buildFilteredVector(int targetBreed, int targ
     return filteredVector;
 }
 
-bool Controller::nameAlreadyExists(string name) {
-    for (int i = 0; i < this->vector.getSize(); ++i) {
-        if (this->vector[i].getName() == name) {
+bool Controller::nameAlreadyExists(DynamicVector<Axolotl>& v, string name) {
+    for (int i = 0; i < v.getSize(); ++i) {
+        if (v[i].getName() == name) {
             return true;
         }
     }

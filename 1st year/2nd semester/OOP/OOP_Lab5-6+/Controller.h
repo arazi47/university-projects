@@ -30,7 +30,7 @@ class Controller {
         DynamicVector<Axolotl> &getUserAdoptionVector();
         DynamicVector<Axolotl> buildFilteredVector(int targetBreed, int targetAge);
 
-        bool nameAlreadyExists(string name);
+        bool nameAlreadyExists(DynamicVector<Axolotl>& v, string name);
 
     private:
         DynamicVector<Axolotl> vector;
