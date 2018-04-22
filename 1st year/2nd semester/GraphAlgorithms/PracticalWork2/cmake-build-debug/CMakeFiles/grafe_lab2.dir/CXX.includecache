@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sysadmin/CLionProjects/grafe_lab2/Graph.cpp
+
+/home/sysadmin/CLionProjects/grafe_lab2/main.cpp
+bits/stdc++.h
+-
+

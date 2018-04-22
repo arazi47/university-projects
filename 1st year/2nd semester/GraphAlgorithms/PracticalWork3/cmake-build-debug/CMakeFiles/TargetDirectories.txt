@@ -1,0 +1,3 @@
+/home/sysadmin/CLionProjects/grafe_lab3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/sysadmin/CLionProjects/grafe_lab3/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/sysadmin/CLionProjects/grafe_lab3/cmake-build-debug/CMakeFiles/grafe_lab3.dir
