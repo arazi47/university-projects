@@ -7,16 +7,26 @@
 #IncludeRegexTransform: 
 
 /home/sysadmin/CLionProjects/lab5-6/Axolotl.cpp
+iostream
+-
 Axolotl.h
 /home/sysadmin/CLionProjects/lab5-6/Axolotl.h
 
 /home/sysadmin/CLionProjects/lab5-6/Axolotl.h
+fstream
+-
 string
 -
+
+/home/sysadmin/CLionProjects/lab5-6/Comparator.h
+Axolotl.h
+/home/sysadmin/CLionProjects/lab5-6/Axolotl.h
 
 /home/sysadmin/CLionProjects/lab5-6/Controller.cpp
 Controller.h
 /home/sysadmin/CLionProjects/lab5-6/Controller.h
+FileManager.h
+/home/sysadmin/CLionProjects/lab5-6/FileManager.h
 
 /home/sysadmin/CLionProjects/lab5-6/Controller.h
 iostream
@@ -27,6 +37,20 @@ Axolotl.h
 /home/sysadmin/CLionProjects/lab5-6/Axolotl.h
 Validator.h
 /home/sysadmin/CLionProjects/lab5-6/Validator.h
+
+/home/sysadmin/CLionProjects/lab5-6/FileManager.cpp
+iostream
+-
+FileManager.h
+/home/sysadmin/CLionProjects/lab5-6/FileManager.h
+
+/home/sysadmin/CLionProjects/lab5-6/FileManager.h
+fstream
+-
+vector
+-
+Axolotl.h
+/home/sysadmin/CLionProjects/lab5-6/Axolotl.h
 
 /home/sysadmin/CLionProjects/lab5-6/RunTests.cpp
 cassert
@@ -47,6 +71,10 @@ limits
 -
 UserInterface.h
 /home/sysadmin/CLionProjects/lab5-6/UserInterface.h
+FileManager.h
+/home/sysadmin/CLionProjects/lab5-6/FileManager.h
+Comparator.h
+/home/sysadmin/CLionProjects/lab5-6/Comparator.h
 
 /home/sysadmin/CLionProjects/lab5-6/UserInterface.h
 iostream
@@ -55,6 +83,8 @@ Controller.h
 /home/sysadmin/CLionProjects/lab5-6/Controller.h
 
 /home/sysadmin/CLionProjects/lab5-6/Validator.cpp
+iostream
+-
 Validator.h
 /home/sysadmin/CLionProjects/lab5-6/Validator.h
 

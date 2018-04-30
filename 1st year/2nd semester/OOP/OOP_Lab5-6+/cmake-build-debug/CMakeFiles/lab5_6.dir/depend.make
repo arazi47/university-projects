@@ -7,7 +7,12 @@ CMakeFiles/lab5_6.dir/Axolotl.cpp.o: ../Axolotl.h
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Axolotl.h
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Controller.cpp
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Controller.h
+CMakeFiles/lab5_6.dir/Controller.cpp.o: ../FileManager.h
 CMakeFiles/lab5_6.dir/Controller.cpp.o: ../Validator.h
+
+CMakeFiles/lab5_6.dir/FileManager.cpp.o: ../Axolotl.h
+CMakeFiles/lab5_6.dir/FileManager.cpp.o: ../FileManager.cpp
+CMakeFiles/lab5_6.dir/FileManager.cpp.o: ../FileManager.h
 
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../Axolotl.h
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../Controller.h
@@ -16,7 +21,9 @@ CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../RunTests.h
 CMakeFiles/lab5_6.dir/RunTests.cpp.o: ../Validator.h
 
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../Axolotl.h
+CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../Comparator.h
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../Controller.h
+CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../FileManager.h
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../UserInterface.cpp
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../UserInterface.h
 CMakeFiles/lab5_6.dir/UserInterface.cpp.o: ../Validator.h

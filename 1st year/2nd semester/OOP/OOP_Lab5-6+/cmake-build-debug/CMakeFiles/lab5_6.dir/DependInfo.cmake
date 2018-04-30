@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/sysadmin/CLionProjects/lab5-6/Axolotl.cpp" "/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles/lab5_6.dir/Axolotl.cpp.o"
   "/home/sysadmin/CLionProjects/lab5-6/Controller.cpp" "/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles/lab5_6.dir/Controller.cpp.o"
+  "/home/sysadmin/CLionProjects/lab5-6/FileManager.cpp" "/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles/lab5_6.dir/FileManager.cpp.o"
   "/home/sysadmin/CLionProjects/lab5-6/RunTests.cpp" "/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles/lab5_6.dir/RunTests.cpp.o"
   "/home/sysadmin/CLionProjects/lab5-6/UserInterface.cpp" "/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles/lab5_6.dir/UserInterface.cpp.o"
   "/home/sysadmin/CLionProjects/lab5-6/Validator.cpp" "/home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/CMakeFiles/lab5_6.dir/Validator.cpp.o"

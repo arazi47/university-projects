@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/lab5_6.dir/Controller.cpp.o"
   "CMakeFiles/lab5_6.dir/Validator.cpp.o"
   "CMakeFiles/lab5_6.dir/RunTests.cpp.o"
+  "CMakeFiles/lab5_6.dir/FileManager.cpp.o"
   "lab5_6.pdb"
   "lab5_6"
 )

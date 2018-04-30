@@ -8,7 +8,7 @@
 void RunTests::testDynamicVector() {
     vector<Axolotl> vec;
     assert(vec.capacity() == 0);
-    assert(vec.size() == 0);
+    assert(vec.empty());
     Axolotl testAxolotl = Axolotl(Axolotl::BREED_0, "TestName", 15, "TestPhoto");
     vec.push_back(testAxolotl);
     vec.emplace_back(Axolotl(Axolotl::BREED_0, "TestName2", 15, "TestPhoto2"));
@@ -25,15 +25,15 @@ void RunTests::testDynamicVector() {
 }
 
 void RunTests::testController() {
-    auto controller = Controller();
+    auto controller = Controller(false);
     assert(controller.addAxolotl(controller.getVector(), 1, "TestName", 15, "TestPhoto"));
-    assert(controller.searchAxolotl("TestName") == 10);
+    assert(controller.searchAxolotl("TestName") == 0);
     assert(controller.searchAxolotl("NotInVector") == -1);
-    assert(controller.updateAxolotl(0, 1, "UpdatedName", 15, "TestPhoto"));
+    controller.updateAxolotl(0, 1, "UpdatedName", 15, "TestPhoto");
     assert(controller.getVector()[0].getName() == "UpdatedName");
     controller.deleteAxolotl(0);
-    assert(controller.getVector().size() == 10);
-    assert(controller.buildFilteredVector(1, 20).size() == 5);
+    assert(controller.getVector().empty());
+    assert(controller.buildFilteredVector(1, 20).empty());
     assert(controller.getUserAdoptionVector().empty());
 }
 

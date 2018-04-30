@@ -90,10 +90,19 @@
 		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/Axolotl.h">
 			<Option target="lab5_6"/>
 		</Unit>
+		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/Comparator.h">
+			<Option target="lab5_6"/>
+		</Unit>
 		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/Controller.cpp">
 			<Option target="lab5_6"/>
 		</Unit>
 		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/Controller.h">
+			<Option target="lab5_6"/>
+		</Unit>
+		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/FileManager.cpp">
+			<Option target="lab5_6"/>
+		</Unit>
+		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/FileManager.h">
 			<Option target="lab5_6"/>
 		</Unit>
 		<Unit filename="/home/sysadmin/CLionProjects/lab5-6/RunTests.cpp">

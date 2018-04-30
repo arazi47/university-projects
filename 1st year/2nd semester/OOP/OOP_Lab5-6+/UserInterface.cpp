@@ -4,9 +4,11 @@
 
 #include <limits>
 #include "UserInterface.h"
+#include "FileManager.h"
+#include "Comparator.h"
 
 UserInterface::UserInterface() {
-    this->controller = Controller();
+    this->controller = Controller(true);
 
     this->administratorMenuString = "0. Exit\n"
             "1. Add a new axolotl\n"
@@ -17,12 +19,10 @@ UserInterface::UserInterface() {
     this->userMenuString = "0. Exit\n"
             "1. Display available axolotls\n"
             "2. Display axolotls of a given breed and age\n"
-            "3. Display my adoption list\n"
-            "4. Display all axolotls\n";
+            "3. Display my adoption list\n";
 }
 
-UserInterface::~UserInterface()
-{}
+UserInterface::~UserInterface() = default;
 
 /*
  * Prints the corresponding menu string (administrator/user)
@@ -104,6 +104,8 @@ string UserInterface::readString(string text) {
 }
 
 int UserInterface::handleAdminOptions(int option) {
+    FileManager* textFileManager = new TextFileManager();
+
     switch (option) {
         case 0: {
             return -1;
@@ -118,6 +120,10 @@ int UserInterface::handleAdminOptions(int option) {
 
             bool result = this->controller.addAxolotl(this->controller.getVector(), breed, name, age, photo);
             if (result) {
+                // TODO make this more efficient, it SUCKS right now
+                //FileManager::exportAsHTML(this->controller.getVector());
+                textFileManager->writeToFile(this->controller.getVector(), "outfilevectorall.txt");
+
                 cout << "Axolotl added successfully!" << endl;
             } else {
                 cout << "Failed to add axolotl!" << endl;
@@ -134,6 +140,10 @@ int UserInterface::handleAdminOptions(int option) {
                 cout << "Could not find axolotl with given name!" << endl;
                 break;
             } else {
+                // TODO make this more efficient, it SUCKS right now
+                //FileManager::exportAsHTML(this->controller.getVector());
+                textFileManager->writeToFile(this->controller.getVector(), "outfilevectorall.txt");
+
                 this->controller.deleteAxolotl(index);
                 cout << "Axolotl with name " << name << " deleted successfully!" << endl;
             }
@@ -149,16 +159,20 @@ int UserInterface::handleAdminOptions(int option) {
                 cout << "Could not find axolotl with given name!" << endl;
             } else {
                 int breed = this->readInt("Breed (0, 1, 2): ");
-                string name = this->readString("Name: ");
+                name = this->readString("Name: ");
                 int age = this->readInt("Age (1-99): ");
                 string photo = this->readString("Link to photograph: ");
 
-                bool result = this->controller.updateAxolotl(index, breed, name, age, photo);
+                try {
+                    this->controller.updateAxolotl(index, breed, name, age, photo);
 
-                if (result) {
+                    // TODO make this more efficient, it SUCKS right now
+                    //FileManager::exportAsHTML(this->controller.getVector());
+                    textFileManager->writeToFile(this->controller.getVector(), "outfilevectorall.txt");
+
                     cout << "Information successfully updated!" << endl;
-                } else {
-                    cout << "Failed to update information!" << endl;
+                } catch (const char* msg) {
+                    cout << msg << endl;
                 }
             }
             break;
@@ -203,12 +217,14 @@ int UserInterface::handleUserOptions(int option) {
 
         // Display the user's adoption list
         case 3: {
-            this->displayList(this->controller.getUserAdoptionVector());
-            break;
-        }
-
-        case 4: {
-            this->displayList(this->controller.getVector());
+            option = this->readInt("1. Display text file\n2. Display HTML file\n");
+            if (option == 1) {
+                system("gedit /home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/outfile.txt");
+            } else if (option == 2) {
+                system("xdg-open /home/sysadmin/CLionProjects/lab5-6/cmake-build-debug/outfile.html");
+            } else {
+                cout << "Unknown option entered!" << endl;
+            }
             break;
         }
 
@@ -244,13 +260,15 @@ void UserInterface::displayEachPet() {
             i = -1;
         }
     }
+
+    FileManager* textFileManager = new TextFileManager();
+    FileManager* _HTMLFileManager = new HTMLFileManager();
+    textFileManager->writeToFile(this->controller.getUserAdoptionVector(), "outfile.txt");
+    _HTMLFileManager->writeToFile(this->controller.getUserAdoptionVector(), "outfile.html");
 }
 
-
-// ! If I use const, it throws an error when calling v[i]
-// Why?
-void UserInterface::displayList(vector<Axolotl> &vec) {
-    for (int i = 0; i < vec.size(); ++i) {
-        cout << vec[i].getName() << " - " << vec[i].getAge() << " - " << Axolotl::getStringFromBreed(vec[i].getBreed()) << " - " << vec[i].getPhoto() << endl;
+void UserInterface::displayList(const vector<Axolotl> &vec) {
+    for (const auto& axolotl : vec) {
+        cout << axolotl;
     }
 }

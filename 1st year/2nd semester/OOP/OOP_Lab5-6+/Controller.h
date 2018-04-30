@@ -6,24 +6,26 @@
 #define LAB5_6_CONTROLLER_H
 
 #include <iostream>
-
-using namespace std;
-
 #include <vector>
 #include "Axolotl.h"
 #include "Validator.h"
 
+using namespace std;
+
 class Controller {
     public:
-        Controller();
-        ~Controller();
+        Controller() = default;
+
+        explicit Controller(bool loadPets);
+
+        ~Controller() = default;
 
         void insertTestElements();
 
         bool addAxolotl(vector<Axolotl>& vec, int breed, string name, int age, string photograph);
-        int searchAxolotl(string name);
+        int searchAxolotl(const string& name);
         void deleteAxolotl(int index);
-        bool updateAxolotl(int index, int breed, string name, int age, string photograph);
+        void updateAxolotl(int index, int breed, string name, int age, string photograph);
 
         vector<Axolotl>& getVector();
         vector<Axolotl>& getUserAdoptionVector();
@@ -32,7 +34,7 @@ class Controller {
         bool nameAlreadyExists(vector<Axolotl>& vec, string name);
 
         int searchElement(string name);
-        void updateElement(int index, Axolotl::Breed breed, string name, int age, string photograph);
+        void updateElement(int index, Axolotl::Breed breed, string& name, int age, string& photograph);
 
     private:
         vector<Axolotl> vec;

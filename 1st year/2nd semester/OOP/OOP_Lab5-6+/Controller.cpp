@@ -3,18 +3,19 @@
 //
 
 #include "Controller.h"
+#include "FileManager.h"
 
-Controller::Controller() {
+Controller::Controller(bool loadPets) {
     // Initialize the dynamic vector with a default capacity of 10
     this->vec = vector<Axolotl>();
     this->userAdoptionVector = vector<Axolotl>();
 
     // For testing purposes only
-    this->insertTestElements();
-}
+    //this->insertTestElements();
 
-Controller::~Controller() {
-
+    if (loadPets) {
+        FileManager::loadFromFile(this->vec);
+    }
 }
 
 void Controller::insertTestElements() {
@@ -34,7 +35,7 @@ bool Controller::addAxolotl(vector<Axolotl>& vec, int breed, string name, int ag
     if (Validator::validateAxolotl(breed, name, age, photograph) && !this->nameAlreadyExists(vec, name))
     {
         Axolotl::Breed currBreed = Axolotl::getBreedFromInt(breed);
-        vec.push_back(Axolotl(currBreed, name, age, photograph));
+        vec.emplace_back(Axolotl(currBreed, name, age, photograph));
         //Axolotl axolotl = Axolotl(currBreed, name, age, photograph);
         //vector = vec + axolotl;
         //vector = axolotl + vec;
@@ -45,7 +46,7 @@ bool Controller::addAxolotl(vector<Axolotl>& vec, int breed, string name, int ag
     return false;
 }
 
-int Controller::searchAxolotl(string name) {
+int Controller::searchAxolotl(const string& name) {
     return this->searchElement(name);
 }
 
@@ -53,13 +54,13 @@ void Controller::deleteAxolotl(int index) {
     this->vec.erase(vec.begin() + index);
 }
 
-bool Controller::updateAxolotl(int index, int breed, string name, int age, string photograph) {
+void Controller::updateAxolotl(int index, int breed, string name, int age, string photograph) {
     if (Validator::validateAxolotl(breed, name, age, photograph) && !this->nameAlreadyExists(this->vec, name)) {
         this->updateElement(index, Axolotl::getBreedFromInt(breed), name, age, photograph);
-        return true;
+        return;
     }
 
-    return false;
+    throw "[ERROR] New data could not be validated!";
 }
 
 vector<Axolotl>& Controller::getVector() {
@@ -102,9 +103,10 @@ int Controller::searchElement(string name) {
     return -1;
 }
 
-void Controller::updateElement(int index, Axolotl::Breed breed, string name, int age, string photograph) {
+void Controller::updateElement(int index, Axolotl::Breed breed, string& name, int age, string& photograph) {
     this->vec[index].setBreed(breed);
     this->vec[index].setName(name);
     this->vec[index].setAge(age);
     this->vec[index].setPhoto(photograph);
 }
+

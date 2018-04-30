@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/16/bin/cmake/bin/cmake
+CMAKE_COMMAND = /snap/clion/19/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/16/bin/cmake/bin/cmake -E remove -f
+RM = /snap/clion/19/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/sysadmin/CLionProjects/lab5-6/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/clion/16/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/clion/19/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/16/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/snap/clion/19/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -176,6 +176,33 @@ Controller.s: Controller.cpp.s
 Controller.cpp.s:
 	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/Controller.cpp.s
 .PHONY : Controller.cpp.s
+
+FileManager.o: FileManager.cpp.o
+
+.PHONY : FileManager.o
+
+# target to build an object file
+FileManager.cpp.o:
+	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/FileManager.cpp.o
+.PHONY : FileManager.cpp.o
+
+FileManager.i: FileManager.cpp.i
+
+.PHONY : FileManager.i
+
+# target to preprocess a source file
+FileManager.cpp.i:
+	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/FileManager.cpp.i
+.PHONY : FileManager.cpp.i
+
+FileManager.s: FileManager.cpp.s
+
+.PHONY : FileManager.s
+
+# target to generate assembly for a file
+FileManager.cpp.s:
+	$(MAKE) -f CMakeFiles/lab5_6.dir/build.make CMakeFiles/lab5_6.dir/FileManager.cpp.s
+.PHONY : FileManager.cpp.s
 
 RunTests.o: RunTests.cpp.o
 
@@ -300,6 +327,9 @@ help:
 	@echo "... Controller.o"
 	@echo "... Controller.i"
 	@echo "... Controller.s"
+	@echo "... FileManager.o"
+	@echo "... FileManager.i"
+	@echo "... FileManager.s"
 	@echo "... RunTests.o"
 	@echo "... RunTests.i"
 	@echo "... RunTests.s"

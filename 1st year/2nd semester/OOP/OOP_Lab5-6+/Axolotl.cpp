@@ -2,33 +2,25 @@
 // Created by sysadmin on 23.03.2018.
 //
 
+#include <iostream>
 #include "Axolotl.h"
-
-// This is needed to initialize an array of Axolotls in class DynamicArray
-Axolotl::Axolotl()
-{}
 
 Axolotl::Axolotl(Breed breed, string name, int age, string photograph) : breed(breed), name(name), age(age), photograph(photograph)
 {}
 
-
-Axolotl::~Axolotl() {
-
-}
-
-Axolotl::Breed Axolotl::getBreed() {
+Axolotl::Breed Axolotl::getBreed() const {
     return this->breed;
 }
 
-string Axolotl::getName() {
+string Axolotl::getName() const {
     return this->name;
 }
 
-int Axolotl::getAge() {
+int Axolotl::getAge() const {
     return this->age;
 }
 
-string Axolotl::getPhoto() {
+string Axolotl::getPhoto() const {
     return this->photograph;
 }
 
@@ -95,4 +87,49 @@ int Axolotl::getIntFromBreed(Axolotl::Breed breed) {
         default:
             return 0;
     }
+}
+
+
+istream& operator >> (istream& in, Axolotl& axolotl) {
+    string name;
+    int age;
+    int breed;
+    string photo;
+
+    string line;
+    in >> line;
+
+    size_t pos = line.find(",");
+    name = line.substr(0, pos);
+    line.erase(0, pos + 1);
+
+    pos = line.find(",");
+
+    // This crashes, why!?
+    //age = stoi(line.substr(0, pos));
+
+    age = atoi(line.substr(0, pos).c_str());
+    line.erase(0, pos + 1);
+
+    pos = line.find(",");
+
+    // This crashes too...
+    // breed = stoi(line.substr(0, pos));
+
+    breed = atoi(line.substr(0, pos).c_str());
+    line.erase(0, pos + 1);
+
+    photo = line;
+
+    axolotl.setName(name);
+    axolotl.setAge(age);
+    axolotl.setBreed(Axolotl::getBreedFromInt(breed));
+    axolotl.setPhoto(photo);
+
+    return in;
+}
+
+ostream& operator << (ostream& out, const Axolotl& axolotl) {
+    out << axolotl.getName() << " - " << axolotl.getAge() << " - " << Axolotl::getStringFromBreed(axolotl.getBreed()) << " - " << axolotl.getPhoto() << endl;
+    return out;
 }

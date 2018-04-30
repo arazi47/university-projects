@@ -28,7 +28,7 @@ class UserInterface {
 
         void displayEachPet();
 
-        void displayList(vector<Axolotl>& vec);
+        void displayList(const vector<Axolotl>& vec);
 
     private:
         string administratorMenuString;

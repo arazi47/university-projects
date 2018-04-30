@@ -2,13 +2,14 @@
 // Created by sysadmin on 23.03.2018.
 //
 
+#include <fstream>
 #include <string>
+
 using namespace std;
 
 
 #ifndef LAB5_6_AXOLOTL_H
 #define LAB5_6_AXOLOTL_H
-
 
 class Axolotl {
     public:
@@ -18,14 +19,15 @@ class Axolotl {
             BREED_2
         };
 
-        Axolotl();
+        // This is needed to initialize an array of Axolotls in class DynamicArray
+        Axolotl() = default;
         Axolotl(Breed breed, string name, int age, string photograph);
-        ~Axolotl();
+        ~Axolotl() = default;
 
-        Breed getBreed();
-        string getName();
-        int getAge();
-        string getPhoto();
+        Breed getBreed() const;
+        string getName() const;
+        int getAge() const;
+        string getPhoto() const;
 
         void setBreed(Breed breed);
         void setName(string name);
@@ -43,5 +45,7 @@ class Axolotl {
         string photograph;
 };
 
+istream& operator >> (istream& in, Axolotl& axolotl);
+ostream& operator << (ostream& out, const Axolotl& axolotl);
 
 #endif //LAB5_6_AXOLOTL_H
