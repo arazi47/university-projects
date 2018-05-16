@@ -1,0 +1,3 @@
+/home/sysadmin/CLionProjects/OOPTest16mai/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/sysadmin/CLionProjects/OOPTest16mai/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/sysadmin/CLionProjects/OOPTest16mai/cmake-build-debug/CMakeFiles/OOPTest16mai.dir

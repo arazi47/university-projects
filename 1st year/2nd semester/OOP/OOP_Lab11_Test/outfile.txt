@@ -1,0 +1,6 @@
+Type: Neonatal Unit; Hospital name: HName1; number of docs: 34; number of mothers: 44; number of newborns: 88; average grade of babies: 8.600000; is efficient: 1
+Type: Neonatal Unit; Hospital name: HName2; number of docs: 34; number of mothers: 44; number of newborns: 55; average grade of babies: 4.000000; is efficient: 0
+Type: Surgery; Hospital name: HName3; number of docs: 15; number of patients: 5; is efficient: 0
+Type: Surgery; Hospital name: HName4; number of docs: 15; number of patients: 40; is efficient: 1
+Type: Surgery; Hospital name: numeaici; number of docs: 34; number of patients: 88; is efficient: 1
+Type: Neonatal Unit; Hospital name: numeaici2; number of docs: 34; number of mothers: 55; number of newborns: 55; average grade of babies: 9.000000; is efficient: 0
