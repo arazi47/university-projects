@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     validator.cpp \
     FileManager.cpp \
     Axolotl.cpp \
-    Controller.cpp
+    Controller.cpp \
+    UndoOperation.cpp
 
 HEADERS  += mainwindow.h \
     graphicaluserinterface.h \
@@ -26,7 +27,8 @@ HEADERS  += mainwindow.h \
     FileManager.h \
     Axolotl.h \
     Controller.h \
-    comparator.h
+    comparator.h \
+    UndoOperation.h
 
 FORMS    += mainwindow.ui
 

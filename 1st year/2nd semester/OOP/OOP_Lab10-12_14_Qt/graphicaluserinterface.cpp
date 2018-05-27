@@ -8,7 +8,7 @@
 #include "comparator.h"
 
 UserInterface::UserInterface() {
-    this->controller = Controller(true);
+    //this->controller = Controller(true);
 
     this->administratorMenuString = "0. Exit\n"
             "1. Add a new axolotl\n"

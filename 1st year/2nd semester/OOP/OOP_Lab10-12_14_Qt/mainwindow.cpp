@@ -12,16 +12,17 @@
 #include "FileManager.h"
 #include "Axolotl.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(Controller &ctrl, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    ctrl(ctrl)
 {
     ui->setupUi(this);
 
     this->ok1 = false;
     this->ok2 = false;
 
-    this->ctrl = Controller(true);
+    //this->ctrl = Controller(true);
 
     this->mainWidget = new QWidget(this);
     QPushButton *admin = new QPushButton(mainWidget);
@@ -79,6 +80,28 @@ QWidget* MainWindow::initAdminGUI() {
     photo->setGeometry(QRect(QPoint(25, 275 + 75), QSize(200, 26)));
 
     ////////////////////////////////////////////
+
+    QPushButton *undoBtn = new QPushButton(wdg);
+    undoBtn->setText("Undo");
+    undoBtn->setGeometry(QRect(QPoint(80 + 200, 255), QSize(50, 50)));
+
+    connect(undoBtn, &QPushButton::clicked, this, [this, lv, TFM]() {
+        this->ctrl.undo();
+        lv->setModel(this->buildModelFromVector(this->ctrl.getVector()));
+        TFM->writeToFile(this->ctrl.getVector(), "/home/sysadmin/OOP/outfilevectorall.txt");
+    });
+
+    ////////////////////////////////////////////
+
+    QPushButton *redoBtn = new QPushButton(wdg);
+    redoBtn->setText("Redo");
+    redoBtn->setGeometry(QRect(QPoint(80 + 200, 255 + 50), QSize(50, 50)));
+
+    connect(redoBtn, &QPushButton::clicked, this, [this, lv, TFM]() {
+        this->ctrl.redo();
+        lv->setModel(this->buildModelFromVector(this->ctrl.getVector()));
+        TFM->writeToFile(this->ctrl.getVector(), "/home/sysadmin/OOP/outfilevectorall.txt");
+    });
 
     QPushButton *newBtn = new QPushButton(wdg);
     newBtn->setText("New");

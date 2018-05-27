@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+     MainWindow(Controller &ctrl, QWidget *parent = 0);
     ~MainWindow();
 
     QWidget* initAdminGUI();
@@ -36,7 +36,7 @@ private:
 
     QWidget* mainWidget;
 
-    Controller ctrl;
+    Controller &ctrl;
 
     bool ok1;
     bool ok2;

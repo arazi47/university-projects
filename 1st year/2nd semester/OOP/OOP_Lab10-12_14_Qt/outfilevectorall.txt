@@ -1,0 +1,12 @@
+Federer,8,0,photolinkhere
+Flying,3,2,photolinkhere
+Infinity,7,1,photolinkhere
+Stiletto,4,2,photolinkhere
+Pristine,3,0,photolinkhere
+bafa,43,2,43
+34,34,2,34
+asda,34,2,asda
+asdac,34,2,asdaf
+asdafg,34,2,asda
+asdaffg,34,1,4343
+anothername,43,2,link.ro

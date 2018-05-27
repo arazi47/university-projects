@@ -14,7 +14,8 @@ Controller::Controller(bool loadPets) {
     // For testing purposes only
     //this->insertTestElements();
 
-    if (loadPets) {
+    // if (loadPets) actually
+    if (true) {
         FileManager::loadFromFile(this->vec);
     }
 }
@@ -32,7 +33,7 @@ void Controller::insertTestElements() {
     this->vec.emplace_back(Axolotl(Axolotl::BREED_0, "Pristine", 3, "photo link here #10"));
 }
 
-bool Controller::addAxolotl(vector<Axolotl>& vec, int breed, string name, int age, string photograph) {
+bool Controller::addAxolotl(vector<Axolotl>& vec, int breed, string name, int age, string photograph, bool record) {
     if (Validator::validateAxolotl(breed, name, age, photograph) && !this->nameAlreadyExists(vec, name))
     {
         Axolotl::Breed currBreed = Axolotl::getBreedFromInt(breed);
@@ -40,6 +41,9 @@ bool Controller::addAxolotl(vector<Axolotl>& vec, int breed, string name, int ag
         //Axolotl axolotl = Axolotl(currBreed, name, age, photograph);
         //vector = vec + axolotl;
         //vector = axolotl + vec;
+
+        if (record)
+            undoOperations.emplace_back(new UndoAdd(*this, vec.size() - 1, vec[vec.size()-1]));
 
         return true;
     }
@@ -51,12 +55,16 @@ int Controller::searchAxolotl(const string& name) {
     return this->searchElement(name);
 }
 
-void Controller::deleteAxolotl(int index) {
+void Controller::deleteAxolotl(int index, bool record) {
+    if (record)
+        undoOperations.emplace_back(new UndoRemove(*this, vec[index]));
     this->vec.erase(vec.begin() + index);
 }
 
-void Controller::updateAxolotl(int index, int breed, string name, int age, string photograph) {
+void Controller::updateAxolotl(int index, int breed, string name, int age, string photograph, bool record) {
     if (Validator::validateAxolotl(breed, name, age, photograph) && !this->nameAlreadyExists(this->vec, name)) {
+        if (record)
+            undoOperations.emplace_back(new UndoUpdate(*this, vec[index], index));
         this->updateElement(index, Axolotl::getBreedFromInt(breed), name, age, photograph);
         return;
     }
@@ -104,7 +112,7 @@ int Controller::searchElement(string name) {
     return -1;
 }
 
-void Controller::updateElement(int index, Axolotl::Breed breed, string& name, int age, string& photograph) {
+void Controller::updateElement(int index, Axolotl::Breed breed, string &name, int age, string &photograph) {
     this->vec[index].setBreed(breed);
     this->vec[index].setName(name);
     this->vec[index].setAge(age);
