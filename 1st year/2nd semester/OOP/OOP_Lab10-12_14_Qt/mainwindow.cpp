@@ -8,9 +8,13 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QTextEdit>
+#include <QListWidget>
+#include <QSortFilterProxyModel>
+#include <QTableView>
 
 #include "FileManager.h"
 #include "Axolotl.h"
+#include "CustomTableModel.h"
 
 MainWindow::MainWindow(Controller &ctrl, QWidget *parent) :
     QMainWindow(parent),
@@ -57,7 +61,23 @@ QWidget* MainWindow::initAdminGUI() {
     wdg->setFixedSize(800, 800);
 
     QListView* lv = this->buildListViewFromVector(wdg, this->ctrl.getVector());
-    lv->setGeometry(QRect(QPoint(0, 0), QSize(350, 200)));
+    lv->setGeometry(QRect(QPoint(3000, 0), QSize(350, 200)));
+
+    QTableView *tableView = new QTableView(wdg);
+    tableView->setGeometry(QRect(QPoint(0, 0), QSize(420, 200)));
+    CustomTableModel *tableModel = new CustomTableModel(this->ctrl);
+    tableView->setModel(tableModel);
+
+    connect(tableView, &QTableView::entered, this, [this, tableView]() {
+        CustomTableModel *tableModel = new CustomTableModel(this->ctrl);
+        tableView->setModel(tableModel);
+    });
+
+    // for testing purposes
+    //QListWidget *lw = new QListWidget(wdg);
+    //lw->setGeometry(0, 0, 350, 200);
+    //lw->addItem("1");
+    //lw->items(0)->setFont(QFont("Verdana", -1, 600, false));
 
     FileManager* TFM = new TextFileManager();
 
@@ -149,8 +169,6 @@ QWidget* MainWindow::initAdminGUI() {
 
     connect(updBtn, &QPushButton::clicked, this, [TFM, wdg, lv, breed, age, name, photo, this]() {
         //cout << this->ctrl.getVector().size() << endl;
-
-
 
         QModelIndex index = lv->currentIndex();
         ctrl.updateAxolotl(index.row(), stoi(breed->toPlainText().toUtf8().constData()), name->toPlainText().toUtf8().constData(), stoi(age->toPlainText().toUtf8().constData()), photo->toPlainText().toUtf8().constData());

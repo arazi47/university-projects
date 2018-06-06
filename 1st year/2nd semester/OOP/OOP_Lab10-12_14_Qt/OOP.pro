@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     FileManager.cpp \
     Axolotl.cpp \
     Controller.cpp \
-    UndoOperation.cpp
+    UndoOperation.cpp \
+    CustomTableModel.cpp
 
 HEADERS  += mainwindow.h \
     graphicaluserinterface.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     Axolotl.h \
     Controller.h \
     comparator.h \
-    UndoOperation.h
+    UndoOperation.h \
+    CustomTableModel.h
 
 FORMS    += mainwindow.ui
 
