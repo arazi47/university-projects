@@ -1,3 +1,2 @@
-Statham,2,2,photolinkhere
-Infinity,7,1,photolinkhere
-Flying,3,2,photolinkhere
+asda,34,2,asda
+anothername,43,2,link.ro

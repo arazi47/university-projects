@@ -19,7 +19,8 @@ int CustomTableModel::columnCount(const QModelIndex & parent) const
 QVariant CustomTableModel::data(const QModelIndex & index, int role) const
 {
     //Student currentStudent = this->repo.getStudents()[index.row()];
-    auto axolotl = this->ctrl.getVector()[index.row()];
+    if (index.row() >= this->ctrl.getUserAdoptionVector().size()) return QVariant();
+    auto axolotl = this->ctrl.getUserAdoptionVector()[index.row()];
 
     if (role == Qt::DisplayRole || role == Qt::EditRole)
     {
@@ -110,5 +111,6 @@ Qt::ItemFlags CustomTableModel::flags(const QModelIndex & index) const
     int col = index.column();
     if (col == 0)
         return Qt::ItemFlags{};
-    return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable;
+    //return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable;
+    return Qt::ItemFlags{};
 }

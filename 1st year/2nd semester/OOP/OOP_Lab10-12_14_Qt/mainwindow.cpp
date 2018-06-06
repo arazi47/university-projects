@@ -61,17 +61,7 @@ QWidget* MainWindow::initAdminGUI() {
     wdg->setFixedSize(800, 800);
 
     QListView* lv = this->buildListViewFromVector(wdg, this->ctrl.getVector());
-    lv->setGeometry(QRect(QPoint(3000, 0), QSize(350, 200)));
-
-    QTableView *tableView = new QTableView(wdg);
-    tableView->setGeometry(QRect(QPoint(0, 0), QSize(420, 200)));
-    CustomTableModel *tableModel = new CustomTableModel(this->ctrl);
-    tableView->setModel(tableModel);
-
-    connect(tableView, &QTableView::entered, this, [this, tableView]() {
-        CustomTableModel *tableModel = new CustomTableModel(this->ctrl);
-        tableView->setModel(tableModel);
-    });
+    lv->setGeometry(QRect(QPoint(0, 0), QSize(350, 200)));
 
     // for testing purposes
     //QListWidget *lw = new QListWidget(wdg);
@@ -230,7 +220,7 @@ QListView* MainWindow::buildListViewFromVector(QWidget *wdg, const vector<Axolot
 QWidget* MainWindow::initUserGUI() {
     QWidget* wdg = new QWidget();
     //wdg->setGeometry(100, 150, 800, 800);
-    wdg->setFixedSize(800, 800);
+    wdg->setFixedSize(1200, 1200);
 
     // all pets
     QListView* lv = this->buildListViewFromVector(wdg, this->ctrl.getVector());
@@ -239,6 +229,16 @@ QWidget* MainWindow::initUserGUI() {
     // my list of adoptions
     QListView* adoptionsLV = this->buildListViewFromVector(wdg, this->ctrl.getUserAdoptionVector());
     adoptionsLV->setGeometry(QRect(QPoint(300, 0), QSize(350, 200)));
+
+    QTableView *tableView = new QTableView(wdg);
+    tableView->setGeometry(QRect(QPoint(500, 500), QSize(420, 200)));
+    CustomTableModel *tableModel = new CustomTableModel(this->ctrl);
+    tableView->setModel(tableModel);
+
+    //connect(tableView, &QTableView::entered, this, [this, tableView]() {
+    //    CustomTableModel *tableModel = new CustomTableModel(this->ctrl);
+    //    tableView->setModel(tableModel);
+    //});
 
     // filtered list
     QListView* filteredLV = this->buildListViewFromVector(wdg, this->ctrl.getVector());
@@ -288,7 +288,7 @@ QWidget* MainWindow::initUserGUI() {
         this->ok2 = true;
     });
 
-    connect(adoptBtn, &QPushButton::clicked, this, [TFM, HTMLFM, lv, adoptionsLV, filteredLV, breed, age, this]() {
+    connect(adoptBtn, &QPushButton::clicked, this, [tableView, TFM, HTMLFM, lv, adoptionsLV, filteredLV, breed, age, this]() {
         QModelIndex index = lv->currentIndex();
         if (true == this->ok1) {
         auto ax = this->ctrl.getVector()[index.row()];
@@ -305,6 +305,9 @@ QWidget* MainWindow::initUserGUI() {
 
         TFM->writeToFile(this->ctrl.getUserAdoptionVector(), "/home/sysadmin/OOP/outfile.txt");
         HTMLFM->writeToFile(this->ctrl.getUserAdoptionVector(), "/home/sysadmin/OOP/outfile.html");
+
+        CustomTableModel *tableModel = new CustomTableModel(this->ctrl);
+        tableView->setModel(tableModel);
     });
 
     ////////////////////////////////////////////
