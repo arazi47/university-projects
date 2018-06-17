@@ -1,6 +1,9 @@
 #include "participantwnd.h"
 #include "ui_participantwnd.h"
 #include <QModelIndex>
+#include <algorithm>
+
+using std::find;
 
 ParticipantWnd::ParticipantWnd(QuizSession &qs, const string name, QWidget *parent) :
     QWidget(parent),
@@ -20,7 +23,6 @@ ParticipantWnd::ParticipantWnd(QuizSession &qs, const string name, QWidget *pare
 
     for (const auto &q : this->qs.getQuestions()) {
         lwItems.emplace_back(new QListWidgetItem(q.toString().c_str(), lw));
-        solvedQuestions.push_back(false);
     }
 
     answerTextEdit = new QPlainTextEdit(this);
@@ -51,14 +53,16 @@ ParticipantWnd::ParticipantWnd(QuizSession &qs, const string name, QWidget *pare
             this->answerTextEdit->clear();
 
             this->lwItems[index.row()]->setBackground(QBrush(QColor(Qt::GlobalColor::green)));
-            this->solvedQuestions[index.row()] = true;
+            //this->solvedQuestions[index.row()] = true;
+            this->solvedQuestions.push_back(this->qs.getQuestions()[index.row()].getId());
             this->submitAnswerBtn->setEnabled(false);
         }
     });
 
+
     connect(lw, &QListWidget::clicked, this, [this](){
         QModelIndex index = this->lw->currentIndex();
-        if (this->solvedQuestions[index.row()]) {
+        if (std::find(this->solvedQuestions.begin(), this->solvedQuestions.end(), this->qs.getQuestions()[index.row()].getId()) != this->solvedQuestions.end()) {
             this->submitAnswerBtn->setEnabled(false);
         } else {
             this->submitAnswerBtn->setEnabled(true);
@@ -73,11 +77,18 @@ ParticipantWnd::~ParticipantWnd()
 }
 
 void ParticipantWnd::update() {
-    //lw->clear();
-    //lwItems.clear();
-    //for (const auto &q : this->qs.getQuestions()) {
-    //    lwItems.emplace_back(new QListWidgetItem(q.toString().c_str(), lw));
-    //}
+    lw->clear();
+    lwItems.clear();
+    this->qs.sortQuestions();
+    for (const auto &q : this->qs.getQuestions()) {
+        lwItems.emplace_back(new QListWidgetItem(q.toString().c_str(), lw));
+    }
 
-    lwItems.emplace_back(new QListWidgetItem(this->qs.getQuestions().back().toString().c_str(), lw));
+    for (const auto &solvedQId : this->solvedQuestions) {
+        for (int i = 0; i < this->qs.getQuestions().size(); ++i) {
+            if (qs.getQuestions()[i].getId() == solvedQId) {
+                lwItems[i]->setBackground(QBrush(QColor(Qt::GlobalColor::green)));
+            }
+        }
+    }
 }

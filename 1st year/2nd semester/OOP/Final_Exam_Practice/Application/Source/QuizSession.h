@@ -6,11 +6,13 @@
 //#include "FileManager.h"
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 
 using std::ifstream;
 using std::ofstream;
 using std::endl;
 using std::vector;
+using std::sort;
 
 class QuizSession : public Subject
 {
@@ -31,6 +33,8 @@ public:
         }
 
         f.close();
+
+        sortQuestions();
     }
 
     ~QuizSession() {
@@ -46,10 +50,18 @@ public:
 
     void addQuestion(Question &q) {
         questions.push_back(q);
+        sortQuestions();
         this->notify();
     }
 
-    const vector<Question> &getQuestions() const { return this->questions; }
+    vector<Question> getQuestions() { return this->questions; }
+
+    // Descending by score
+    void sortQuestions() {
+        sort(questions.begin(), questions.end(), [&](const Question &q1, const Question &q2){
+            return q1.getScore() >= q2.getScore();
+        });
+    }
 
 private:
     vector<Question> questions;

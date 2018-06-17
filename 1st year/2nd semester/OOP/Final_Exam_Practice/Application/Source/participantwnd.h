@@ -36,7 +36,7 @@ private:
     QuizSession &qs;
 
     vector<QListWidgetItem*> lwItems;
-    vector<bool> solvedQuestions;
+    vector<int> solvedQuestions;
 
     QListWidget* lw;
     int score;
