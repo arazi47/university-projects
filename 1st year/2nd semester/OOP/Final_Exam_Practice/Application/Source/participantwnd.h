@@ -8,6 +8,8 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include "QuizSession.h"
+#include <QPushButton>
+#include <QPlainTextEdit>
 
 using std::string;
 using std::vector;
@@ -32,9 +34,15 @@ private:
     Ui::ParticipantWnd *ui;
     string name;
     QuizSession &qs;
+
     vector<QListWidgetItem*> lwItems;
+    vector<bool> solvedQuestions;
+
     QListWidget* lw;
     int score;
+
+    QPlainTextEdit *answerTextEdit;
+    QPushButton *submitAnswerBtn;
 };
 
 #endif // PARTICIPANTWND_H
