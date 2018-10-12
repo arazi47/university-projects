@@ -1,0 +1,38 @@
+1. awk '/economica/ {print $1,$4}' last.fake | grep "Sun" | sort | uniq | awk '{print $1}'
+
+2.
+ONE LINER:  cat last.fake | awk '{ if ($7 >= 23) print $1,$7}'
+
+3.
+ONE LINER: cat passwd.fake | grep ^m | awk -F ":" '{if ($3 % 7 == 0) print $5}'
+
+4. ps -ef | awk '{print $1, $6}' | grep ^root | awk '{print $2}' | sort | uniq
+
+5. cat passwd.fake | awk -F: '{print $1, $5}' | awk '{print $2, $3, $1}' | grep $[88]
+
+6.
+myvar="asd
+echo ${#myvar} # length of myvar (3 in this case)
+
+ONE LINER #1: cat passwd.fake | awk -F: '{print $3, $5}' | grep ^23 | awk '{print $2, $3}'
+
+
+ONE LINER #2: cat passwd.fake | awk -F ":" '{if ($3 ~ /^23./) print $5}'
+
+7. sysadmin@sysadmin:~/Desktop$ cat last.fake | awk '{print $1, $2'} | grep pts/9 | grep ^t | sort | uniq
+
+8. ps -ef | grep ^r | awk '{print $1}'| sort | uniq | sed 's/[aeiou]/&&/g'
+
+9. cat passwd.fake | sed 's/[[:alnum:] ]//g' | sort | uniq
+Space after ":] ]" < alphanumeric characters + space
+
+10. cat passwd.fake | sed 's/[^r]//g' | sort | uniq
+^r == all characters except r
+^a-z == all characters except a through z (lowercase)
+^A-Z == all characters except A through Z (uppercase)
+
+11. wc -l /etc/passwd => count the lines of the given file
+
+ONE LINER: cat ps.fake | awk 'BEGIN {sum=0} {sum += $2} END {print sum/NR}'
+
+

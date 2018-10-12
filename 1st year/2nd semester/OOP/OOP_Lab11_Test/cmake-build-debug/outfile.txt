@@ -1,0 +1,5 @@
+Type: Surgery; Hospital name: HName1; number of docs: 34; number of mothers: 44; number of newborns: 88; is efficient: 1
+Type: Surgery; Hospital name: HName2; number of docs: 34; number of mothers: 44; number of newborns: 55; is efficient: 0
+Type: Surgery; Hospital name: HName3; number of docs: 15; number of patients: 5; is efficient: 0
+Type: Surgery; Hospital name: HName4; number of docs: 15; number of patients: 40; is efficient: 1
+Type: Surgery; Hospital name: kamz; number of docs: 3; number of patients: 4; is efficient: 0

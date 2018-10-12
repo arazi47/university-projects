@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - app.info - SortedBagBST/BSTIterator.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">SortedBagBST</a> - BSTIterator.hpp<span style="font-size: 80%;"> (source / <a href="BSTIterator.hpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">app.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-06-09 01:29:59</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //</a>
+<span class="lineNum">       2 </span>            : // Created by sysadmin on 20.05.2018.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : 
+<span class="lineNum">       5 </span>            : #ifndef SORTEDBAGBST_BSTITERATOR_HPP
+<span class="lineNum">       6 </span>            : #define SORTEDBAGBST_BSTITERATOR_HPP
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span>            : #include &lt;iostream&gt;
+<span class="lineNum">       9 </span>            : #include &quot;GlobalDefinitions.hpp&quot;
+<span class="lineNum">      10 </span>            : 
+<a name="11"><span class="lineNum">      11 </span>            : class BSTIterator {</a>
+<span class="lineNum">      12 </span>            :     public:
+<span class="lineNum">      13 </span><span class="lineCov">          1 :         explicit BSTIterator(Node *root, int count) : root{root}, count{count}, done{0} {</span>
+<span class="lineNum">      14 </span><span class="lineCov">          1 :             nextLevel(root-&gt;left);</span>
+<a name="15"><span class="lineNum">      15 </span><span class="lineCov">          1 :         }</span></a>
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span><span class="lineCov">          4 :         bool isValid() {</span>
+<span class="lineNum">      18 </span>            :             //printf(&quot;%d valid\n&quot;, root-&gt;data);
+<span class="lineNum">      19 </span><span class="lineCov">          4 :             return this-&gt;root != NULL;</span>
+<a name="20"><span class="lineNum">      20 </span>            :         }</a>
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span><span class="lineCov">          3 :         int getValue() {</span>
+<span class="lineNum">      23 </span><span class="lineCov">          3 :             return this-&gt;root-&gt;data;</span>
+<a name="24"><span class="lineNum">      24 </span>            :         }</a>
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span><span class="lineCov">          3 :         void next() {</span>
+<span class="lineNum">      27 </span>            :             // Hackfix for the iterator to work...
+<span class="lineNum">      28 </span>            :             // It glitches if the first entered element is the biggest one
+<span class="lineNum">      29 </span>            :             // Also glitches if I enter just one element
+<span class="lineNum">      30 </span>            :             // Also glitches if I want to traverse when root == NULL, but I got that covered in main.cpp
+<span class="lineNum">      31 </span><span class="lineCov">          3 :             ++this-&gt;done;</span>
+<span class="lineNum">      32 </span><span class="lineCov">          3 :             if (this-&gt;done &gt;= this-&gt;count) {</span>
+<span class="lineNum">      33 </span><span class="lineCov">          1 :                 this-&gt;root = NULL;</span>
+<span class="lineNum">      34 </span><span class="lineCov">          1 :                 return;</span>
+<span class="lineNum">      35 </span>            :             }
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span><span class="lineCov">          2 :             if (!nextLevel(this-&gt;root-&gt;right)) {</span>
+<span class="lineNum">      38 </span><span class="lineCov">          1 :                 if (this-&gt;root-&gt;parent != NULL) {</span>
+<span class="lineNum">      39 </span>            :                     // I don't think we need this (this never gets executed in the test cases
+<span class="lineNum">      40 </span>            :                     // But the iterator still works fine
+<span class="lineNum">      41 </span>            :                     //while (this-&gt;root-&gt;parent != NULL &amp;&amp; this-&gt;root == this-&gt;root-&gt;parent-&gt;right)
+<span class="lineNum">      42 </span>            :                     //    this-&gt;root = this-&gt;root-&gt;parent;
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span><span class="lineCov">          1 :                     this-&gt;root = this-&gt;root-&gt;parent;</span>
+<span class="lineNum">      45 </span>            :                 }
+<span class="lineNum">      46 </span>            :             }
+<span class="lineNum">      47 </span>            :         }
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span>            :     private:
+<span class="lineNum">      50 </span>            :         Node *root = NULL;
+<a name="51"><span class="lineNum">      51 </span>            : </a>
+<span class="lineNum">      52 </span>            :         // Get to the leftmost level
+<span class="lineNum">      53 </span><span class="lineCov">          5 :         bool nextLevel(Node *currNode) {</span>
+<span class="lineNum">      54 </span><span class="lineCov">          5 :             if (currNode == NULL) {</span>
+<span class="lineNum">      55 </span><span class="lineCov">          3 :                 return false;</span>
+<span class="lineNum">      56 </span>            :             }
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span><span class="lineCov">          2 :             if (!this-&gt;nextLevel(currNode-&gt;left)) {</span>
+<span class="lineNum">      59 </span><span class="lineCov">          2 :                 this-&gt;root = currNode;</span>
+<span class="lineNum">      60 </span>            :             }
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span><span class="lineCov">          2 :             return true;</span>
+<span class="lineNum">      63 </span>            :         }
+<span class="lineNum">      64 </span>            : 
+<a name="65"><span class="lineNum">      65 </span>            :         int count; // no of nodes received</a>
+<span class="lineNum">      66 </span>            :         int done; // no of nodes traversed
+<span class="lineNum">      67 </span><span class="lineCov">          3 : };</span>
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            : #endif //SORTEDBAGBST_BSTITERATOR_HPP
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

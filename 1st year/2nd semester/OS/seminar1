@@ -1,0 +1,4 @@
+eliminam tot ce nu e numar + char count
+
+cat testfile | sed "s/[^[:digit:]]//g" | wc -c
+

@@ -1,0 +1,299 @@
+
+Exercitii (fisier de date: angajati.txt)
+-----------------------------------------------------------------------------------------------------
+
+1. Afisati continutul intregului fisier.
+
+awk '{print}' angajati.txt
+awk '{print $0}' angajati.txt
+
+2. Afisati continutul intregului fisier prefixand fiecare linie cu numarul acesteia.
+
+awk '{print NR, $0}' angajati.txt
+
+3. Afisati continutul intregului fisier prefixand fiecare linie cu numarul campurilor acesteia.
+
+awk '{print NF, $0}' angajati.txt
+
+4. Afisati doar numele, prenumele angajatului si numarul de telefon.
+
+awk '{print $2, $1, $4}' angajati.txt
+awk '{print $2, "\t" $1, "\t" $4}' angajati.txt
+
+5. Afisati angajatii al caror nume incepe cu litera T.
+
+awk '/^T/' angajati.txt
+awk '/^T/{print}' angajati.txt
+
+6. Afisati numele si prenumele angajatilor nascuti in luna martie.
+
+awk '/\/3\//{print $2, $1}' angajati.txt
+
+7. Afisati angajatii al caror salariu este 1969.
+
+awk '$5 == 1942 {print}' angajati.txt
+
+8. Afisati angajatii al caror salariu este mic decat 2000.
+
+awk '$5 < 2000 {print}' angajati.txt
+
+9. Afisati liniile care contin mai mult de 42 caractere.
+
+awk 'length($0) > 42 {print NR, $0}' angajati.txt
+
+10. Calculati si afisati numarul total de angajati.
+
+awk 'BEGIN {total = 0} {total++} END {print "Numarul total de angajati: ", total}' angajati.txt
+
+11. Calculati si afisati suma necesara pentru plata salariilor pe o luna.
+
+awk 'BEGIN {suma = 0} {suma += $5} END {print "Suma necesara: ", suma}' angajati.txt 
+
+12. Afisati numarul de argumente furnizate in linia de comanda.
+
+awk 'BEGIN {print "Numarul de argumente: ", ARGC}' unu doi trei patru
+
+13. Afisati argumentele furnizate in linia de comanda.
+
+awk -f script_1 unu doi trei patru
+
+14. Afisati numele fisierului furnizat in linia de comanda
+
+awk 'END {print "Numele fisierului: ", FILENAME}' angajati.txt
+
+15. Scrieti un script care:
+	a. Afiseaza un cap de tabel (Nume Prenume Data nasterii Telefon Salariu);
+	b. Tipareste tabulat fiecare angajat
+	c. Afiseaza la sfarsit numarul total de angajati
+
+----------------------------------------------------------
+Dump awk variables
+
+awk --dump-variables ''
+cat awkvars.out
+
+Profile option
+
+awk --profile 'BEGIN{printf"---|Header|--\n"} {print} 
+END{printf"---|Footer|---\n"}' angajati.txt > /dev/null 
+cat awkprof.out
+
+====================
+
+1. awk '/economica/ {print $1,$4}' last.fake | grep "Sun" | sort | uniq | awk '{print $1}'
+ 
+2.
+ONE LINER:  cat last.fake | awk '{ if ($7 >= 23) print $1,$7}'
+ 
+3.
+ONE LINER: cat passwd.fake | grep ^m | awk -F ":" '{if ($3 % 7 == 0) print $5}'
+ 
+4. ps -ef | awk '{print $1, $6}' | grep ^root | awk '{print $2}' | sort | uniq
+ 
+5. cat passwd.fake | awk -F: '{print $1, $5}' | awk '{print $2, $3, $1}' | grep $[88]
+ 
+6.
+myvar="asd
+echo ${#myvar} # length of myvar (3 in this case)
+ 
+ONE LINER #1: cat passwd.fake | awk -F: '{print $3, $5}' | grep ^23 | awk '{print $2, $3}'
+ 
+ 
+ONE LINER #2: cat passwd.fake | awk -F ":" '{if ($3 ~ /^23./) print $5}'
+ 
+7. sysadmin@sysadmin:~/Desktop$ cat last.fake | awk '{print $1, $2'} | grep pts/9 | grep ^t | sort | uniq
+ 
+8. ps -ef | grep ^r | awk '{print $1}'| sort | uniq | sed 's/[aeiou]/&&/g'
+ 
+9. cat passwd.fake | sed 's/[[:alnum:] ]//g' | sort | uniq
+Space after ":] ]" < alphanumeric characters + space
+ 
+10. cat passwd.fake | sed 's/[^r]//g' | sort | uniq
+^r == all characters except r
+^a-z == all characters except a through z (lowercase)
+^A-Z == all characters except A through Z (uppercase)
+ 
+11. wc -l /etc/passwd => count the lines of the given file
+ 
+ONE LINER: cat ps.fake | awk 'BEGIN {sum=0} {sum += $2} END {print sum/NR}'
+
+===============
+
+
+
+Solutii (fisier de date: angajati.txt) 
+-----------------------------------------------------------------------------------------------------
+
+1. Afisati toate liniile care contin sirul 'Tudor'.
+
+grep 'Tudor' angajati.txt
+
+2. Afisati toti angajatii care au prenumele 'Tudor'.
+
+grep '^Tudor' angajati.txt
+
+3. Afisati toate liniile care contin sirul '1942'.
+
+grep '1942' angajati.txt
+
+4. Afisati toti angajatii care au salariul 1942.
+
+grep '1942$' angajati.txt
+
+5. Afisati toti angajatii al caror nume de familie incepe cu litera A.
+
+grep ' \<[A][a-z]\+\s' angajati.txt
+
+6. Afisati toti angajatii al caror numar de telefon incepe cu 0741.
+
+grep '0741' angajati.txt
+
+7. Afisati toti angajatii nascuti in luna martie.
+
+grep '/3' angajati.txt
+grep '/3/' angajati.txt
+
+8. Afisati toti angajatii care locuiesc in Floresti.
+
+grep 'Floresti' angajati.txt
+
+9. Afisati toti angajatii care nu locuiesc in Floresti.
+
+grep -v 'Floresti' angajati.txt
+
+10. Afisati toti angajatii care nu locuiesc in Floresti sau in Cluj-Napoca.
+
+grep -v 'Floresti' angajati.txt | grep 'Someseni'
+
+11. Afisati toate liniile care contin o majuscula urmata de 4 litere mici, un spatiu si o majuscula.
+
+grep '[A-Z][a-z]\{4\} [A-Z]' angajati.txt
+grep '[A-Z][a-z]\{4\}\s[A-Z]' angajati.txt
+
+12. Afisati toate localitatile de domiciliu care incep cu litera F sau S.
+
+grep '[FS][a-z]\+:' angajati.txt
+
+13. Afisati toate salariile care au 5 cifre.
+
+grep '[0-9]\{5\}$' angajati.txt
+
+14. Afisati doar primul salariu care are 5 cifre.
+
+grep -m 1 '[0-9]\{5\}$' angajati.txt
+
+15. Afisati toate salariile care au 5 cifre si 2 linii inainte/dupa.
+
+grep -B 2 '[0-9]\{5\}$' angajati.txt
+grep -A 2 '[0-9]\{5\}$' angajati.txt
+
+16. Afisati numarul de angajati care locuiesc in Cluj-Napoca.
+
+grep -c 'Cluj-Napoca' angajati.txt
+
+
+====================
+
+
+Exercitii (fisier de date: angajati.txt)
+-----------------------------------------------------------------------------------------------------
+
+1. Afisati continutul intregului fisier.
+
+sed '' angajati.txt
+sed -n 'p' angajati.txt
+sed -n '//p' angajati.txt	INCORECT
+
+2. Afisati liniile de la 5 pana la 10.
+
+sed -n '5,10p' angajati.txt
+
+3. Afisati liniile de la 8 pana la ultima.
+
+sed -n '8,$p' angajati.txt
+
+4. Afisati liniile care contin sirul 'Tudor'.
+
+sed -n '/Tudor/p' angajati.txt
+
+5. Afisati liniile care contin cuvantul 'Tudor'.
+
+sed -n '/\bTudor\b/p' angajati.txt
+
+6. Stergeti liniile de la 1 pana la 3.
+
+sed '1,3d' angajati.txt
+sed -e '1d' -e '2d' -e '3d' angajati.txt
+sed -f script_1 angajati.txt
+
+7. Stergeti liniile care contin cuvantul Popescu.
+
+sed '/Popescu/d' angajati.txt
+
+8. Stergeti liniile de la Ion la Victor.
+
+sed '/Ion/,/Victor/d' angajati.txt
+
+9. Stergeti ultima linie din fisier.
+
+sed '$d' angajati.txt
+
+10. Stergeti toate liniile care sunt goale.
+
+sed '/^$/d' angajati.txt
+
+11. Inlocuiti cuvantul Olga cu **Olga**.
+
+sed 's/Olga/**Olga**/' angajati.txt
+sed 's/Olga/**&**/' angajati.txt
+
+12. Inlocuiti toate aparitiile numarului 19 cu numarul 18.
+
+sed 's/19/18/g' angajati.txt
+
+13. Creati o copie de rezerva a fisierului de date (angajati.bak).
+
+sed -n 'w angajati.bak' angajati.txt
+
+14. Adaugati o linie noua dupa a 3-a linie din fisier.
+
+sed '3 a Linie adaugata' angajati.txt
+
+15. Adaugati o linie noua dupa numele Adrian.
+
+sed '/Adrian/a Linie adaugata' angajati.txt
+
+16. Adaugati textul 'TERMINAT' la sfarsitul fisierului.
+
+sed '$ a TERMINAT' angajati.txt
+
+17. Inlocuiti textul de pe linia 2 cu textul 'SALARIAT PENSIONAT'.
+
+sed '2 c SALARIAT PENSIONAT' angajati.txt
+
+18. Inserati la inceputul fisierului textul 'DATE DESPRE PERSONAL'.
+
+sed '1 i \t\t\tDATE DESPRE PERSONAL' angajati.txt
+
+19. Inlocuiti spatiile cu tab-uri si afisati rezultatul cu sed.
+
+sed 's/ /\t/g' angajati.txt > junk.txt
+sed -n 'l' junk.txt
+
+20. Opriti executia programului dupa afisarea celei de a 5-a linii.
+
+sed '5 q' angajati.txt
+
+21. Inserati dupa a 3-a linie un text citit dintr-un fisier.
+
+sed '3 r text.txt' angajati.txt
+
+22. Inserati pe a 5-a linie data si ora curenta.
+
+sed '3 e date' angajati.txt
+
+23. Scrieti un script care:
+	a. Insereaza deasupra primei linii textul 'DATE DESPRE PERSONAL';
+	b. Sterge salariile care se termina cu 49;
+	c. Tipareste continutul fisierului cu numele angajatului pe prima pozitie si prenumele pe a doua pozitie;
+	d. Adauga la sfarsitul fisierului textul 'TERMINAT'.

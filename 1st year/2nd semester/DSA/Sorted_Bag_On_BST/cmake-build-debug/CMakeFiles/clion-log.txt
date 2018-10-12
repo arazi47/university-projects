@@ -1,0 +1,5 @@
+/snap/clion/22/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/sysadmin/CLionProjects/SortedBagBST
+-- Appending code coverage compiler flags: -g -O0 --coverage -fprofile-arcs -ftest-coverage
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/sysadmin/CLionProjects/SortedBagBST/cmake-build-debug
