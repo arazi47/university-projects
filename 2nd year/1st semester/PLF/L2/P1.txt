@@ -1,0 +1,29 @@
+3. a. Define a predicate to remove from a list all repetitive elements.
+Eg.: l=[1,2,1,4,1,3,4] => l=[2,3])
+b. Remove all occurrence of a maximum value from a list on integer numbers.
+=============================================================================
+
+// Returns number of occurences of element E in the given list
+noOfElems(E, l1, l2, ..., ln) =
+{ 0, L = 0 }
+{ 1 + noOfElems(E, l2, ..., ln), l1 == E }
+{ noOfElems(E, l2, ..., ln), l1 != E }
+
+removeAllRepetitive(l1, l2, ..., ln) =
+{ 0, L = 0 }
+{ removeAllRepetitive(l2, l3, ..., ln), noOfElems(l1, l1, l2, ..., ln) > 1 }
+{ l1 U removeAllRepetitive(l2, l3, ..., ln), noOfElems(l1, l1, l2, ..., ln) == 1 }
+
+max(a, b) =
+{ a, a >= b }
+{ b, b > a }
+
+maxElem(l1, l2, ..., ln) =
+{ 0, N = 0 }
+{ l1, N = 1 }
+{ max(l1, maxElem(l2, l3, ..., ln)) }
+
+removeMaxValue(l1, l2, ..., ln, maxVal) =
+{ 0, L = 0 }
+{ removeMaxValue(l2, l3, ..., ln, maxElem(maxVal, l1, l2, ..., ln), l1 = maxVal }
+{ l1 U removeMaxValue(l2, l3, ..., ln, maxElem(maxVal, l1, l2, ..., ln)), l1 != maxVal }

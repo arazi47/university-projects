@@ -1,0 +1,21 @@
+3. a. Check if a list is a set.
+b. Determine the number of distinct elements from a list
+==============================================================
+
+// Returns number of occurences of element E in the given list
+noOfElems(E, l1, l2, ..., ln) =
+{ 0, L = 0 }
+{ 1 + noOfElems(E, l2, ..., ln), l1 == E }
+{ noOfElems(E, l2, ..., ln), l1 != E }
+
+// Returns the number of distinct elements in the given list
+distinctElems(l1, l2, ..., ln, N, index) =
+{ 0, index = N + 1 } 
+{ 1 + distinctElems(l2, ..., ln, index + 1), noOfElems(l1, l2, ..., ln) == 1 }
+{ distinctElems(l2, ..., ln, index + 1), noOfElems(l1, l2, ..., ln) > 1 }
+
+// Returns true if the given list is a set
+// false otherwise
+listIsSet(l1, l2, ..., ln, N) = 
+{ true, distinctElems(l1, l2, ..., ln, N, 0) == N }
+{ false, distinctElems(l1, l2, ..., ln, N, 0) != N }
