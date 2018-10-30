@@ -1,10 +1,10 @@
 package Model.Utils;
 
+import java.util.Collection;
 import java.util.HashMap;
 import Exception.DictionaryException;
 
-public class MyDictionary<K, V> implements IDictionary<K,
- V       > {
+public class MyDictionary<K, V> implements IDictionary<K, V> {
 
     private HashMap<K, V> dictionary;
 
@@ -34,6 +34,16 @@ public class MyDictionary<K, V> implements IDictionary<K,
         }
 
         return dictionary.get(key);
+    }
+
+    // TODO THIS IN INTERFACE
+    public Collection<V> values() {
+        return this.dictionary.values();
+    }
+
+    // TODO THIS IN INTERFACE
+    public Collection<K> keys() {
+        return this.dictionary.keySet();
     }
 
     public String toString(){

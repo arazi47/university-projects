@@ -10,9 +10,11 @@ import Model.Statement.*;
 import Model.Utils.MyDictionary;
 import Model.Utils.MyList;
 import Model.Utils.MyStack;
+import Model.Utils.Tuple;
 import Repository.IRepo;
 import Repository.Repo;
 
+import java.io.BufferedReader;
 import java.util.Scanner;
 
 public class View {
@@ -20,12 +22,13 @@ public class View {
         MyStack<IStatement> exeStack = new MyStack<>();
         MyDictionary<String, Integer> symTable = new MyDictionary<>();
         MyList<Integer> output = new MyList<>();
+        MyDictionary<Integer, Tuple<String, BufferedReader>> fileTable = new MyDictionary<>();
 
         Scanner scanner = new Scanner(System.in);
 
         // v = 2; print(v)
-        //IStatement ex1 = new CompoundStm(new AssignmentStm("v",new ConstExp(2)), new PrintStm(new
-        //        VarExp("v")));
+        IStatement ex1 = new CompoundStm(new AssignmentStm("v",new ConstExp(2)), new PrintStm(new
+                VarExp("v")));
 
         // a = 2 + 3 * 5; b = a + 1; print(b)
         //IStatement ex1 =  new CompoundStm(new AssignmentStm("a", new ArithExp(new ConstExp(2),'+',new
@@ -39,7 +42,7 @@ public class View {
         //        AssignmentStm("v", new ConstExp(3))), new PrintStm(new VarExp("v"))));
 
         IRepo repo = new Repo();
-        ProgramState mainPs = new ProgramState(exeStack, output, symTable, ex1);
+        ProgramState mainPs = new ProgramState(exeStack, output, symTable, ex1, fileTable);
         repo.add(mainPs);
         InterpreterController ctrl = new InterpreterController(repo);
 
