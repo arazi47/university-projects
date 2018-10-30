@@ -30,7 +30,6 @@ public class InterpreterController {
         try {
             while (!state.getExeStack().isEmpty()) {
                 this.executeCmd(state);
-                this.repo.logPrgStateExec();
                 // TODO display program state here (only if you want to)
                 //System.out.println("EXEC COMM");
             }

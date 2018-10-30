@@ -5,8 +5,7 @@ import Model.Utils.MyList;
 
 public class Repo implements IRepo {
     private MyList<ProgramState> programStates;
-    private int currentPsIndex;
-    private String logPath = "logfile.txt";
+    private int currentPsIndex ;
 
     public Repo() {
         this.programStates = new MyList<>();
@@ -21,10 +20,5 @@ public class Repo implements IRepo {
     @Override
     public ProgramState getCurrentPs() {
         return this.programStates.get(this.currentPsIndex);
-    }
-
-    @Override
-    public void logPrgStateExec() {
-
     }
 }
