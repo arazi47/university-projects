@@ -71,6 +71,8 @@ public class ProgramState {
         s += this.symTable.toString();
         s += "\noutput:";
         s += this.output.toString();
+        s += "\nfileTable: ";
+        s += this.fileTable.toString();
         s += "\n--------------------------------\n";
 
         return s;

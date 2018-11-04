@@ -28,7 +28,7 @@ public class OpenRFileStmt implements IStatement {
             }
         }
 
-        File f = new File(this.fileName);
+        File f = new File("C:\\Users\\necso\\Desktop\\926\\src\\" + this.fileName);
         if (!f.exists()) {
             throw new CustomException("File not found! @TODO make a new exception class out of this");
         }
@@ -36,7 +36,7 @@ public class OpenRFileStmt implements IStatement {
         int newFileFd = ++OpenRFileStmt.fd;
 
         try {
-            ps.getFileTable().put(newFileFd, new Tuple<String, BufferedReader>(this.fileName, new BufferedReader(new FileReader(this.fileName))));
+            ps.getFileTable().put(newFileFd, new Tuple<String, BufferedReader>(this.fileName, new BufferedReader(new FileReader("C:\\Users\\necso\\Desktop\\926\\src\\" + this.fileName))));
             ps.getSymTable().put(this.fileId, newFileFd);
         } catch (FileNotFoundException e) {
             System.out.println(e.toString());
@@ -45,4 +45,8 @@ public class OpenRFileStmt implements IStatement {
         return ps;
     }
 
+    @Override
+    public String toString() {
+        return "openRFile(" + this.fileId + ", " + this.fileName + ")";
+    }
 }

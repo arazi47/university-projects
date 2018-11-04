@@ -38,4 +38,8 @@ public class InterpreterController {
             System.out.println(e.toString());
         }
     }
+
+    public IRepo getRepo() {
+        return this.repo;
+    }
 }
