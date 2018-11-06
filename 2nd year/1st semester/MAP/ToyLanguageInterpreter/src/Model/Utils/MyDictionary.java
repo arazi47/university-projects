@@ -36,12 +36,12 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
         return dictionary.get(key);
     }
 
-    // TODO THIS IN INTERFACE
+    @Override
     public Collection<V> values() {
         return this.dictionary.values();
     }
 
-    // TODO THIS IN INTERFACE
+    @Override
     public Collection<K> keys() {
         return this.dictionary.keySet();
     }
@@ -49,8 +49,7 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
     public String toString(){
         String s = "";
         for(K key : dictionary.keySet())
-            s += key.toString() + "->" + dictionary.get
-                    (key).toString();
+            s += key.toString() + " -> " + dictionary.get(key).toString() + "\n";
         return s;
     }
 }

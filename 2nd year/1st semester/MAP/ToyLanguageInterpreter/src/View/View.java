@@ -15,32 +15,10 @@ import Repository.IRepo;
 import Repository.Repo;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.nio.Buffer;
-import java.util.Scanner;
 
 public class View {
     public static void main(String[] args) {
         // C:\Users\necso\Desktop\926\src\openrfiletest.txt
-
-        MyStack<IStatement> exeStack = new MyStack<>();
-        MyDictionary<String, Integer> symTable = new MyDictionary<>();
-        MyList<Integer> output = new MyList<>();
-        MyDictionary<Integer, Tuple<String, BufferedReader>> fileTable = new MyDictionary<>();
-
-        Scanner scanner = new Scanner(System.in);
-
-        //
-
-        IStatement s = new CompoundStm(new OpenRFileStmt("var_f", "openrfiletest.txt"),
-                new CompoundStm(new ReadFileStmt(new VarExp("var_f"), "var_c"),
-                        new CompoundStm(new PrintStm(new VarExp("var_c")),
-                                new CompoundStm(new IfStm(new VarExp("var_c"),
-                                        new CompoundStm(new ReadFileStmt(new VarExp("var_f"), "var_c"), new PrintStm(new VarExp("var_c"))),
-                                                new PrintStm(new ConstExp(0))), new PrintStm(new ConstExp(-1))))));
-
-        //
 
         // v = 2; print(v)
         IStatement ex1 = new CompoundStm(new AssignmentStm("v",new ConstExp(2)), new PrintStm(new
@@ -57,16 +35,71 @@ public class View {
                 ConstExp(1))), new CompoundStm(new IfStm(new VarExp("a"), new AssignmentStm("v", new ConstExp(2)), new
                 AssignmentStm("v", new ConstExp(3))), new PrintStm(new VarExp("v"))));
 
-        IRepo repo = new Repo();
-        ProgramState mainPs = new ProgramState(exeStack, output, symTable, s, fileTable);
-        repo.add(mainPs);
-        InterpreterController ctrl = new InterpreterController(repo);
+        //
+
+        IStatement ex4 = new CompoundStm(new OpenRFileStmt("var_f", "openrfiletest.txt"),
+                new CompoundStm(new ReadFileStmt(new VarExp("var_f"), "var_c"),
+                        new CompoundStm(new PrintStm(new VarExp("var_c")),
+                                new CompoundStm(new IfStm(new VarExp("var_c"),
+                                        new CompoundStm(new ReadFileStmt(new VarExp("var_f"), "var_c"), new PrintStm(new VarExp("var_c"))),
+                                        new PrintStm(new ConstExp(0))), new PrintStm(new ConstExp(-1))))));
+
+        //
+
+        //
+        IStatement ex5 = new CompoundStm(
+                new OpenRFileStmt("var_f", "openrfiletest.txt"),
+                new CompoundStm(
+                        new ReadFileStmt(new ArithExp(new VarExp("var_f"), '+', new ConstExp(0)), "var_c"),
+                        new CompoundStm(
+                                new PrintStm(new VarExp("var_c")),
+                                new CompoundStm(
+                                        new IfStm(
+                                                new VarExp("var_c"),
+                                                new CompoundStm(
+                                                        new ReadFileStmt(new VarExp("var_f"), "var_c"),
+                                                        new PrintStm(new VarExp("var_c"))),
+                                                new PrintStm(new ConstExp(0))),
+                                        new CloseRFile(new VarExp("var_f")))
+                        )
+                )
+        );
+
+
+        IRepo repo1 = new Repo();
+        ProgramState ps1 = new ProgramState(ex1);
+        repo1.add(ps1);
+        InterpreterController ctrl1 = new InterpreterController(repo1);
+
+
+        IRepo repo2 = new Repo();
+        ProgramState ps2 = new ProgramState(ex2);
+        repo2.add(ps2);
+        InterpreterController ctrl2 = new InterpreterController(repo2);
+
+        IRepo repo3 = new Repo();
+        ProgramState ps3 = new ProgramState(ex3);
+        repo3.add(ps3);
+        InterpreterController ctrl3 = new InterpreterController(repo3);
+
+        IRepo repo4 = new Repo();
+        ProgramState ps4 = new ProgramState(ex4);
+        repo4.add(ps4);
+        InterpreterController ctrl4 = new InterpreterController(repo4);
+
+        IRepo repo5 = new Repo();
+        ProgramState ps5 = new ProgramState(ex5);
+        repo5.add(ps5);
+        InterpreterController ctrl5 = new InterpreterController(repo5);
 
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
-        menu.addCommand(new RunExample("1",s.toString(), ctrl));
-        //menu.addCommand(new RunExample("2",ex2.toString(),ctr2));
-        //menu.addCommand(new RunExample("3",ex3.toString(),ctr3));
+        menu.addCommand(new RunExample("1", ex1.toString(), ctrl1));
+        menu.addCommand(new RunExample("2", ex2.toString(), ctrl2));
+        menu.addCommand(new RunExample("3", ex3.toString(), ctrl3));
+        menu.addCommand(new RunExample("4", ex4.toString(), ctrl4));
+        menu.addCommand(new RunExample("5", ex5.toString(), ctrl5));
+
         menu.show();
 
         /*
@@ -87,12 +120,3 @@ public class View {
         */
     }
 }
-
-/*
-    FileTable - un dictionar care dateaza niste intregi ca valori,
-    o tabela noua in programstate care are o referinta spre mytable
-    interfata + clasa
-
-    buffer reader - string cu care citim urmatorul caracter
-    daca am ajuns la finalul fisierului, returnam valoarea citita
- */

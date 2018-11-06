@@ -1,0 +1,1403 @@
+Execution stack:
+
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 -1 
+
+File table: 
+3 -> Model.Utils.Tuple@4bec1f0c
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (readFileStmt(var_f + 0, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)))) openRFile(var_f, openrfiletest.txt) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (readFileStmt(var_f + 0, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)))) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))) readFileStmt(var_f + 0, var_c) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)) print(var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) closeRFileStmt(var_f) if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) closeRFileStmt(var_f) print(var_c) readFileStmt(var_f, var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) closeRFileStmt(var_f) print(var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) closeRFileStmt(var_f) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)))) openRFile(var_f, openrfiletest.txt) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)))) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))) readFileStmt(var_f, var_c) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)) print(var_c) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 15 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) print(-1) if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 15 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) print(-1) print(var_c) readFileStmt(var_f, var_c) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 15 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) print(-1) print(var_c) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) print(-1) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (if a then v = 2 else v = 3; print(v)) a = 2 - 1 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (if a then v = 2 else v = 3; print(v)) 
+Symbol table: 
+a -> 1
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) print(v) if a then v = 2 else v = 3 
+Symbol table: 
+a -> 1
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) print(v) 
+Symbol table: 
+a -> 1
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) 
+Symbol table: 
+a -> 1
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (b = a + 1; print(b)) a = 2 + 3 * 5 
+Symbol table: 
+a -> 1
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (b = a + 1; print(b)) 
+Symbol table: 
+a -> 17
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) print(b) b = a + 1 
+Symbol table: 
+a -> 17
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) print(b) 
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) 
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 18 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+print(v) v = 2 
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 18 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+print(v) 
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 18 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 18 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (readFileStmt(var_f + 0, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)))) openRFile(var_f, openrfiletest.txt) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (readFileStmt(var_f + 0, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)))) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))) readFileStmt(var_f + 0, var_c) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)) print(var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) closeRFileStmt(var_f) if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) closeRFileStmt(var_f) print(var_c) readFileStmt(var_f, var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) closeRFileStmt(var_f) print(var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) closeRFileStmt(var_f) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))))) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)))) openRFile(var_f, openrfiletest.txt) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)))) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))) readFileStmt(var_f, var_c) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)) print(var_c) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 15 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) print(-1) if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 15 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) print(-1) print(var_c) readFileStmt(var_f, var_c) 
+Symbol table: 
+var_f -> 4
+var_c -> 15
+
+Output: 
+15 50 15 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) print(-1) print(var_c) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) print(-1) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (a = 2 - 1; (if a then v = 2 else v = 3; print(v))) 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (if a then v = 2 else v = 3; print(v)) a = 2 - 1 
+Symbol table: 
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) (if a then v = 2 else v = 3; print(v)) 
+Symbol table: 
+a -> 1
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) print(v) if a then v = 2 else v = 3 
+Symbol table: 
+a -> 1
+var_f -> 4
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) print(v) 
+Symbol table: 
+a -> 1
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (a = 2 + 3 * 5; (b = a + 1; print(b))) 
+Symbol table: 
+a -> 1
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (b = a + 1; print(b)) a = 2 + 3 * 5 
+Symbol table: 
+a -> 1
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (b = a + 1; print(b)) 
+Symbol table: 
+a -> 17
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) print(b) b = a + 1 
+Symbol table: 
+a -> 17
+var_f -> 4
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) print(b) 
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+(v = 2; print(v)) 
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 18 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+print(v) v = 2 
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 18 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+print(v) 
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 18 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+
+Symbol table: 
+a -> 17
+var_f -> 4
+b -> 18
+v -> 2
+var_c -> 50
+
+Output: 
+15 50 15 50 -1 2 18 2 
+
+File table: 
+4 -> Model.Utils.Tuple@3108bc
+
+_____________________
+Execution stack:
+print(v) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+print(v) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+
+Symbol table: 
+v -> 2
+
+Output: 
+2 
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (b = a + 1; print(b)) a = 2 + 3 * 5 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) (b = a + 1; print(b)) 
+Symbol table: 
+a -> 17
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) print(b) b = a + 1 
+Symbol table: 
+a -> 17
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) print(b) 
+Symbol table: 
+a -> 17
+b -> 18
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(v = 2; print(v)) 
+Symbol table: 
+a -> 17
+b -> 18
+
+Output: 
+18 
+
+File table: 
+
+_____________________
+Execution stack:
+print(v) v = 2 
+Symbol table: 
+a -> 17
+b -> 18
+
+Output: 
+18 
+
+File table: 
+
+_____________________
+Execution stack:
+print(v) 
+Symbol table: 
+a -> 17
+b -> 18
+v -> 2
+
+Output: 
+18 
+
+File table: 
+
+_____________________
+Execution stack:
+
+Symbol table: 
+a -> 17
+b -> 18
+v -> 2
+
+Output: 
+18 2 
+
+File table: 
+
+_____________________
+Execution stack:
+print(v) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+print(v) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+
+Symbol table: 
+v -> 2
+
+Output: 
+2 
+
+File table: 
+
+_____________________
+Execution stack:
+(b = a + 1; print(b)) a = 2 + 3 * 5 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(b = a + 1; print(b)) 
+Symbol table: 
+a -> 17
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+print(b) b = a + 1 
+Symbol table: 
+a -> 17
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+print(b) 
+Symbol table: 
+a -> 17
+b -> 18
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+
+Symbol table: 
+a -> 17
+b -> 18
+
+Output: 
+18 
+
+File table: 
+
+_____________________
+Execution stack:
+print(v) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+print(v) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+
+Symbol table: 
+v -> 2
+
+Output: 
+2 
+
+File table: 
+
+_____________________
+Execution stack:
+(b = a + 1; print(b)) a = 2 + 3 * 5 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(b = a + 1; print(b)) 
+Symbol table: 
+a -> 17
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+print(b) b = a + 1 
+Symbol table: 
+a -> 17
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+print(b) 
+Symbol table: 
+a -> 17
+b -> 18
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+
+Symbol table: 
+a -> 17
+b -> 18
+
+Output: 
+18 
+
+File table: 
+
+_____________________
+Execution stack:
+(readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)))) openRFile(var_f, openrfiletest.txt) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+_____________________
+Execution stack:
+(readFileStmt(var_f, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)))) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))) readFileStmt(var_f, var_c) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1))) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)) print(var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+(if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); print(-1)) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+print(-1) if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+print(-1) print(var_c) readFileStmt(var_f, var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 15
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+print(-1) print(var_c) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+print(-1) 
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________
+Execution stack:
+
+Symbol table: 
+var_f -> 3
+var_c -> 50
+
+Output: 
+15 50 -1 
+
+File table: 
+3 -> Model.Utils.Tuple@13a5fe33
+
+_____________________

@@ -27,6 +27,8 @@ public class MyList<T> implements IList<T> {
         StringBuilder res = new StringBuilder();
         for(T elem : this.list)
             res.append(elem.toString()).append(" ");
+
+        res.append("\n");
         return res.toString();
     }
 }

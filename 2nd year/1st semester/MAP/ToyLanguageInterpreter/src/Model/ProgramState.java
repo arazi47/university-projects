@@ -13,16 +13,12 @@ public class ProgramState {
 
     private MyDictionary<Integer, Tuple<String, BufferedReader>> fileTable;
 
-    public ProgramState(MyStack<IStatement> exeStack,
-                        MyList<Integer> output,
-                        MyDictionary<String, Integer> symTable,
-                        IStatement program,
-                        MyDictionary<Integer, Tuple<String, BufferedReader>> fileTable) {
-        this.exeStack = exeStack;
-        this.output = output;
-        this.symTable = symTable;
+    public ProgramState(IStatement program) {
+        this.exeStack = new MyStack<>();
+        this.output = new MyList<>();
+        this.symTable = new MyDictionary<>();
         this.program = program;
-        this.fileTable = fileTable;
+        this.fileTable = new MyDictionary<>();
 
         this.exeStack.push(this.program);
     }
@@ -67,11 +63,11 @@ public class ProgramState {
         String s = "";
         s += "exeStack:\n";
         s += this.exeStack.toString();
-        s += "\nsymTable:";
+        s += "\nsymTable:\n";
         s += this.symTable.toString();
-        s += "\noutput:";
+        s += "\noutput:\n";
         s += this.output.toString();
-        s += "\nfileTable: ";
+        s += "\nfileTable:\n";
         s += this.fileTable.toString();
         s += "\n--------------------------------\n";
 
