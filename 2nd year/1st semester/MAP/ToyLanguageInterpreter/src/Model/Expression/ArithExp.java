@@ -2,6 +2,7 @@ package Model.Expression;
 
 import Model.Utils.ISymTable;
 import Model.Utils.MyDictionary;
+import Model.Utils.MyHeap;
 
 public class ArithExp implements IExpression {
     private IExpression op1, op2;
@@ -14,9 +15,9 @@ public class ArithExp implements IExpression {
     }
 
     @Override
-    public int evaluate(MyDictionary<String, Integer> symTable) {
-        int firstRes = this.op1.evaluate(symTable);
-        int secondRes = this.op2.evaluate(symTable);
+    public int evaluate(MyDictionary<String, Integer> symTable, MyHeap<Integer> heap) {
+        int firstRes = this.op1.evaluate(symTable, heap);
+        int secondRes = this.op2.evaluate(symTable, heap);
 
         switch (this.operator) {
             case '+':

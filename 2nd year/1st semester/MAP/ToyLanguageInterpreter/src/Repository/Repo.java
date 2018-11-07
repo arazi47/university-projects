@@ -44,6 +44,8 @@ public class Repo implements IRepo {
             printWriter.println(this.getCurrentPs().getOutput().toString());
             printWriter.println("File table: ");
             printWriter.println(this.getCurrentPs().getFileTable().toString());
+            printWriter.println("Heap: ");
+            printWriter.println(this.getCurrentPs().getHeap().toString());
             printWriter.println("_____________________");
             printWriter.close();
         } catch (java.io.IOException e) {

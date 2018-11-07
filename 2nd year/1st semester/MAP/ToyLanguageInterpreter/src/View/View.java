@@ -1,12 +1,11 @@
 package View;
 
 import Controller.InterpreterController;
-import Model.Expression.ArithExp;
-import Model.Expression.ConstExp;
-import Model.Expression.IExpression;
-import Model.Expression.VarExp;
+import Model.Expression.*;
 import Model.ProgramState;
 import Model.Statement.*;
+import Model.Statement.HeapStatements.NewStmt;
+import Model.Statement.HeapStatements.WriteHeapStmt;
 import Model.Utils.MyDictionary;
 import Model.Utils.MyList;
 import Model.Utils.MyStack;
@@ -65,12 +64,31 @@ public class View {
                 )
         );
 
+        /**
+         *v=10;new(v,20);new(a,22);wH(a,30);print(a);print(rH(a));a=0
+         */
+         IStatement ex6 =
+         new CompoundStm(
+         new AssignmentStm("v", new ConstExp(10)),
+         new CompoundStm(
+         new NewStmt("v", new ConstExp(20)),
+         new CompoundStm(
+         new NewStmt("a", new ConstExp(22)),
+         new CompoundStm(
+         new WriteHeapStmt("a", new ConstExp(30)),
+         new CompoundStm(
+         new PrintStm(new VarExp("a")),
+         new CompoundStm(
+         new PrintStm(new ReadHeapExp("a")),
+         new AssignmentStm("a", new ConstExp(0)))))
+         )
+         )
+         );
 
         IRepo repo1 = new Repo();
         ProgramState ps1 = new ProgramState(ex1);
         repo1.add(ps1);
         InterpreterController ctrl1 = new InterpreterController(repo1);
-
 
         IRepo repo2 = new Repo();
         ProgramState ps2 = new ProgramState(ex2);
@@ -92,6 +110,11 @@ public class View {
         repo5.add(ps5);
         InterpreterController ctrl5 = new InterpreterController(repo5);
 
+        IRepo repo6 = new Repo();
+        ProgramState ps6 = new ProgramState(ex6);
+        repo6.add(ps6);
+        InterpreterController ctrl6 = new InterpreterController(repo6);
+
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
         menu.addCommand(new RunExample("1", ex1.toString(), ctrl1));
@@ -99,6 +122,7 @@ public class View {
         menu.addCommand(new RunExample("3", ex3.toString(), ctrl3));
         menu.addCommand(new RunExample("4", ex4.toString(), ctrl4));
         menu.addCommand(new RunExample("5", ex5.toString(), ctrl5));
+        menu.addCommand(new RunExample("6", ex6.toString(), ctrl6));
 
         menu.show();
 

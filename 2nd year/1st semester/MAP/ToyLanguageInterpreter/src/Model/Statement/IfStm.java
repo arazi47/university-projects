@@ -15,7 +15,7 @@ public class IfStm implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        int result = this.exp.evaluate(ps.getSymTable());
+        int result = this.exp.evaluate(ps.getSymTable(), ps.getHeap());
 
         if (result != 0) {
             this.st1.execute(ps);

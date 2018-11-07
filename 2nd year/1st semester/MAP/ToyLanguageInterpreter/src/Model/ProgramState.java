@@ -4,14 +4,15 @@ import Model.Statement.IStatement;
 import Model.Utils.*;
 
 import java.io.BufferedReader;
+import java.util.HashMap;
 
 public class ProgramState {
     private MyStack<IStatement> exeStack;
     private MyList<Integer> output;
     private MyDictionary<String, Integer> symTable;
     private IStatement program;
-
     private MyDictionary<Integer, Tuple<String, BufferedReader>> fileTable;
+    private MyHeap<Integer> heap;
 
     public ProgramState(IStatement program) {
         this.exeStack = new MyStack<>();
@@ -19,6 +20,7 @@ public class ProgramState {
         this.symTable = new MyDictionary<>();
         this.program = program;
         this.fileTable = new MyDictionary<>();
+        this.heap = new MyHeap<Integer>(new HashMap<Integer, Integer>());
 
         this.exeStack.push(this.program);
     }
@@ -59,6 +61,14 @@ public class ProgramState {
         return this.fileTable;
     }
 
+    public void setHeap(MyHeap<Integer> heap) {
+        this.heap = heap;
+    }
+
+    public MyHeap<Integer> getHeap() {
+        return this.heap;
+    }
+
     public String toString() {
         String s = "";
         s += "exeStack:\n";
@@ -69,6 +79,8 @@ public class ProgramState {
         s += this.output.toString();
         s += "\nfileTable:\n";
         s += this.fileTable.toString();
+        s += "\nheap:\n";
+        s += this.heap.toString();
         s += "\n--------------------------------\n";
 
         return s;

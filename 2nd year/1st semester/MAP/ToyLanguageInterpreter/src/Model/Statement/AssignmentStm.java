@@ -16,7 +16,7 @@ public class AssignmentStm implements IStatement {
     @Override
     public ProgramState execute(ProgramState ps) {
         MyDictionary<String, Integer> st = ps.getSymTable();
-        st.put(this.varName, this.expr.evaluate(st));
+        st.put(this.varName, this.expr.evaluate(st, ps.getHeap()));
 
         return ps;
     }

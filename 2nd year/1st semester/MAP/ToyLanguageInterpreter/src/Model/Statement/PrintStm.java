@@ -16,7 +16,7 @@ public class PrintStm implements IStatement {
     @Override
     public ProgramState execute(ProgramState ps) {
         MyList<Integer> output = ps.getOutput();
-        output.add(this.exp.evaluate(ps.getSymTable()));
+        output.add(this.exp.evaluate(ps.getSymTable(), ps.getHeap()));
 
         return ps;
     }
