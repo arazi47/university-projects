@@ -41,7 +41,7 @@ public class View {
                         new CompoundStm(new PrintStm(new VarExp("var_c")),
                                 new CompoundStm(new IfStm(new VarExp("var_c"),
                                         new CompoundStm(new ReadFileStmt(new VarExp("var_f"), "var_c"), new PrintStm(new VarExp("var_c"))),
-                                        new PrintStm(new ConstExp(0))), new PrintStm(new ConstExp(-1))))));
+                                        new PrintStm(new ConstExp(0))), new CloseRFile(new VarExp("var_f"))))));
 
         //
 
@@ -85,6 +85,18 @@ public class View {
          )
          );
 
+        // v=6; (while (v-4) print(v);v=v-1); print(v)
+        IStatement ex7 = new CompoundStm(
+                new AssignmentStm("v", new ConstExp(6)),
+                new CompoundStm(
+                        new WhileStmt(new ArithExp(new VarExp("v"), '-', new ConstExp(4)),
+                                new CompoundStm(
+                                        new PrintStm(new VarExp("v")),
+                                        new AssignmentStm("v", new ArithExp(new VarExp("v"), '-', new ConstExp(1)))
+                                )),
+                        new PrintStm(new VarExp("v")))
+        );
+
         IRepo repo1 = new Repo();
         ProgramState ps1 = new ProgramState(ex1);
         repo1.add(ps1);
@@ -115,6 +127,11 @@ public class View {
         repo6.add(ps6);
         InterpreterController ctrl6 = new InterpreterController(repo6);
 
+        IRepo repo7 = new Repo();
+        ProgramState ps7 = new ProgramState(ex7);
+        repo7.add(ps7);
+        InterpreterController ctrl7 = new InterpreterController(repo7);
+
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
         menu.addCommand(new RunExample("1", ex1.toString(), ctrl1));
@@ -123,6 +140,7 @@ public class View {
         menu.addCommand(new RunExample("4", ex4.toString(), ctrl4));
         menu.addCommand(new RunExample("5", ex5.toString(), ctrl5));
         menu.addCommand(new RunExample("6", ex6.toString(), ctrl6));
+        menu.addCommand(new RunExample("7", ex7.toString(), ctrl7));
 
         menu.show();
 
