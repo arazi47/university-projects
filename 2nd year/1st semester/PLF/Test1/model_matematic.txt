@@ -1,0 +1,7 @@
+factorial(N) =
+{ 0, N = 0 }
+{ N * factorial(N - 1), N != 0 }
+
+inloc(l1, l2, ..., ln, index) =
+{ factorial(index) U inloc(l2, l3, ..., ln, index + 1), index % 2 == 1 }
+{ l1 U inloc(l2, l3, ..., ln, index + 1) }

@@ -1,0 +1,16 @@
+Pr 1
+
+minOfTwo(A, B) =
+{ A, A <= B }
+{ B, A > B }
+
+minList(l1, l2, ..., ln) =
+{ l1, N = 1 }
+{ minOfTwo(l1, minList(l2, l3, ..., ln)), N != 1 }
+
+removeEl(l1, l2, ..., ln, E) =
+{ l1 U removeEl(l2, ..., ln, E), l1 != E }
+{ removeEl(l2, ..., ln, E), l1 == E }
+
+sortInc(l1, l2, ..., ln) =
+{ minList(l1, l2, ..., ln) U sortInc(l2, l3, ..., ln) }
