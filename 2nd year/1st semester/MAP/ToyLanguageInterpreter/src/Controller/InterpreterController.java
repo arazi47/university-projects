@@ -4,8 +4,11 @@ import Model.ProgramState;
 import Model.Statement.IStatement;
 import Model.Utils.MyStack;
 import Repository.IRepo;
-import Repository.Repo;
 import Exception.CustomException;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InterpreterController {
     private IRepo repo;
@@ -30,6 +33,7 @@ public class InterpreterController {
         try {
             while (!state.getExeStack().isEmpty()) {
                 this.executeCmd(state);
+                state.getHeap().setMap(conservativeGarbageCollector(state.getSymTable().values(), state.getHeap().getMap()));
                 this.repo.logPrgStateExec();
                 // TODO display program state here (only if you want to)
                 //System.out.println("EXEC COMM");
@@ -41,5 +45,12 @@ public class InterpreterController {
 
     public IRepo getRepo() {
         return this.repo;
+    }
+
+    Map<Integer,Integer> conservativeGarbageCollector(Collection<Integer> symTableValues, Map<Integer, Integer> heap) {
+        return heap.entrySet()
+                .stream()
+                .filter(e->symTableValues.contains(e.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }

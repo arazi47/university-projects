@@ -19,9 +19,11 @@ public class View {
     public static void main(String[] args) {
         // C:\Users\necso\Desktop\926\src\openrfiletest.txt
 
-        // v = 2; print(v)
-        IStatement ex1 = new CompoundStm(new AssignmentStm("v",new ConstExp(2)), new PrintStm(new
-                VarExp("v")));
+        // v = 2; print(v); makeZero(v); print(v)
+        //IStatement ex1 = new CompoundStm(new AssignmentStm("v",new ConstExp(2)), new PrintStm(new
+        //        VarExp("v")));
+        IStatement ex1 = new CompoundStm(new AssignmentStm("v", new ConstExp(2)),
+                new CompoundStm(new PrintStm(new VarExp("v")), new CompoundStm(new MakeZeroStmt("v"), new PrintStm(new VarExp("v")))));
 
         // a = 2 + 3 * 5; b = a + 1; print(b)
         IStatement ex2 =  new CompoundStm(new AssignmentStm("a", new ArithExp(new ConstExp(2),'+',new
@@ -49,7 +51,7 @@ public class View {
         IStatement ex5 = new CompoundStm(
                 new OpenRFileStmt("var_f", "openrfiletest.txt"),
                 new CompoundStm(
-                        new ReadFileStmt(new ArithExp(new VarExp("var_f"), '+', new ConstExp(0)), "var_c"),
+                        new ReadFileStmt(new ArithExp(new VarExp("var_f"), '+', new ConstExp(2)), "var_c"),
                         new CompoundStm(
                                 new PrintStm(new VarExp("var_c")),
                                 new CompoundStm(

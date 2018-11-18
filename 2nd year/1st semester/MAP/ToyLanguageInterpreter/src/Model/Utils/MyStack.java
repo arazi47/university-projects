@@ -37,4 +37,9 @@ public class MyStack<T> implements IStack<T> {
 
         return s.toString();
     }
+
+    @Override
+    public void clear() {
+        this.stack.clear();
+    }
 }

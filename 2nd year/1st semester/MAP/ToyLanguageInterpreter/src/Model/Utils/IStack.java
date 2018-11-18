@@ -5,4 +5,5 @@ public interface IStack<T> {
     T pop();
     boolean isEmpty();
     String toString();
+    void clear();
 }

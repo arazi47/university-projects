@@ -1,7 +1,6 @@
 package Model.Statement;
 
 import Model.ProgramState;
-import Model.Utils.MyStack;
 import Model.Utils.Tuple;
 
 import java.io.BufferedReader;
