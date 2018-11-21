@@ -23,7 +23,7 @@ public class IfStm implements IStatement {
             this.st2.execute(ps);
         }
 
-        return ps;
+        return null;
     }
 
     @Override

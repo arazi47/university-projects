@@ -1,5 +1,6 @@
 package Model.Expression;
 
+import Model.Utils.IDictionary;
 import Model.Utils.ISymTable;
 import Model.Utils.MyDictionary;
 import Model.Utils.MyHeap;
@@ -12,7 +13,7 @@ public class VarExp implements IExpression {
     }
 
     @Override
-    public int evaluate(MyDictionary<String, Integer> symTable, MyHeap<Integer> heap) {
+    public int evaluate(IDictionary<String, Integer> symTable, MyHeap<Integer> heap) {
         if (symTable.contains(this.name)) {
             return symTable.get(this.name);
         } else {

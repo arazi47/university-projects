@@ -24,7 +24,7 @@ public class WriteHeapStmt implements IStatement {
         int val = this.exp.evaluate(ps.getSymTable(), ps.getHeap());
         ps.getHeap().putAddr(var_val, val);
 
-        return ps;
+        return null;
     }
 
     @Override

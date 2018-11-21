@@ -31,7 +31,7 @@ public class CloseRFile implements IStatement {
             System.out.println(e.toString());
         }
 
-        return ps;
+        return null;
     }
 
     @Override

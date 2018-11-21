@@ -1,6 +1,7 @@
 package Model.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyList<T> implements IList<T> {
     private ArrayList<T> list;
@@ -30,5 +31,9 @@ public class MyList<T> implements IList<T> {
 
         res.append("\n");
         return res.toString();
+    }
+
+    public List<T> getList() {
+        return this.list;
     }
 }

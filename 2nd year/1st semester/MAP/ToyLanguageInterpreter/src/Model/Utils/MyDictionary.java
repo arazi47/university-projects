@@ -52,4 +52,12 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
             s += key.toString() + " -> " + dictionary.get(key).toString() + "\n";
         return s;
     }
+
+    @Override
+    public IDictionary<K, V> cloneDict() {
+        IDictionary<K, V> clonedDict = new MyDictionary<>();
+        for (K key : this.keys())
+            clonedDict.put(key, this.dictionary.get(key));
+        return clonedDict;
+    }
 }

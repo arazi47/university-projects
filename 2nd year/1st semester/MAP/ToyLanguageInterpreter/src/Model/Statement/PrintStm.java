@@ -18,7 +18,7 @@ public class PrintStm implements IStatement {
         MyList<Integer> output = ps.getOutput();
         output.add(this.exp.evaluate(ps.getSymTable(), ps.getHeap()));
 
-        return ps;
+        return null;
     }
 
     @Override

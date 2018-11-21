@@ -1,5 +1,6 @@
 package Model.Expression;
 
+import Model.Utils.IDictionary;
 import Model.Utils.MyDictionary;
 import Model.Utils.MyHeap;
 import Exception.CustomException;
@@ -15,7 +16,7 @@ public class BooleanExp implements IExpression {
     }
 
     @Override
-    public int evaluate(MyDictionary<String, Integer> symTable, MyHeap<Integer> heap) {
+    public int evaluate(IDictionary<String, Integer> symTable, MyHeap<Integer> heap) {
         int res1 = this.exp1.evaluate(symTable, heap);
         int res2 = this.exp2.evaluate(symTable, heap);
 

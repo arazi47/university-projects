@@ -2,21 +2,29 @@ package Controller;
 
 import Model.ProgramState;
 import Model.Statement.IStatement;
+import Model.Utils.MyList;
 import Model.Utils.MyStack;
 import Repository.IRepo;
 import Exception.CustomException;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class InterpreterController {
     private IRepo repo;
+    private ExecutorService executor;
 
     public InterpreterController(IRepo repo) {
         this.repo = repo;
     }
 
+    /*
     public ProgramState executeCmd(ProgramState state) {
         MyStack<IStatement> stack = state.getExeStack();
         if (stack.isEmpty()) {
@@ -26,7 +34,9 @@ public class InterpreterController {
         IStatement currentStatement = stack.pop();
         return currentStatement.execute(state);
     }
+    */
 
+    /*
     public void executeAll() {
         ProgramState state = this.repo.getCurrentPs();
         //System.out.println("ASD");
@@ -42,15 +52,65 @@ public class InterpreterController {
             System.out.println(e.toString());
         }
     }
+    */
+
+    public void executeAllSteps() throws java.lang.InterruptedException {
+        this.executor = Executors.newFixedThreadPool(2);
+
+        List<ProgramState> prgList = removeCompletedPrg(this.repo.getProgramStates());
+        while (prgList.size() > 0) {
+            // Garbage collector, if I ever feel like it
+            //state.getHeap().setMap(conservativeGarbageCollector(state.getSymTable().values(), state.getHeap().getMap()));
+
+            this.oneStepForAllPrograms(prgList);
+
+            // remove completed programs
+            prgList = this.removeCompletedPrg(this.repo.getProgramStates());
+        }
+
+        this.executor.shutdownNow();
+        this.repo.setProgramStatesList(prgList);
+    }
 
     public IRepo getRepo() {
         return this.repo;
     }
 
-    Map<Integer,Integer> conservativeGarbageCollector(Collection<Integer> symTableValues, Map<Integer, Integer> heap) {
+    public Map<Integer,Integer> conservativeGarbageCollector(Collection<Integer> symTableValues, Map<Integer, Integer> heap) {
         return heap.entrySet()
                 .stream()
                 .filter(e->symTableValues.contains(e.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public List<ProgramState> removeCompletedPrg(List<ProgramState> inPrgList) {
+        return this.repo.getProgramStates().stream()
+                .filter(ProgramState::isNotCompleted)
+                .collect(Collectors.toList());
+    }
+
+    public void oneStepForAllPrograms(List<ProgramState> prgList) throws java.lang.InterruptedException {
+        prgList.forEach(this.repo::logPrgStateExec);
+
+        List<Callable<ProgramState>> callList = prgList.stream()
+                .map((ProgramState p) -> (Callable<ProgramState>)(p::executeCmd))
+                .collect(Collectors.toList());
+
+        List<ProgramState> newPrgList = executor.invokeAll(callList).stream()
+                .map(future -> {
+                    try {
+                        return future.get();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+
+                    return null;
+                })
+                // p -> p != null
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        prgList.addAll(newPrgList);
+        this.repo.setProgramStatesList(prgList);
     }
 }

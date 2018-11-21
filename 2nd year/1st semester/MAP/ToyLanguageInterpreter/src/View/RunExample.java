@@ -11,7 +11,8 @@ public class RunExample extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws java.lang.InterruptedException {
+        /*
         try {
             System.out.println(this.ctrl.getRepo().getCurrentPs());
             ctrl.executeAll();
@@ -20,5 +21,10 @@ public class RunExample extends Command {
         catch (Exception e) {
             System.out.println(e.toString());
         }
+        */
+
+        //this.ctrl.getRepo().getProgramStates().forEach(prg -> System.out.println(prg.toString()));
+        this.ctrl.executeAllSteps();
+        //this.ctrl.getRepo().getProgramStates().forEach(prg -> System.out.println(prg.toString()));
     }
 }

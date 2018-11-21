@@ -21,7 +21,7 @@ public class NewStmt implements IStatement {
         int loc = ps.getHeap().allocate(result);
         ps.getSymTable().put(var, loc);
 
-        return ps;
+        return null;
     }
 
     @Override

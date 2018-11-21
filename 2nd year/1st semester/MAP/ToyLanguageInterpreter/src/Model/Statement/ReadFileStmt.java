@@ -39,7 +39,7 @@ public class ReadFileStmt implements IStatement {
         }
 
         ps.getSymTable().put(this.varName, val);
-        return ps;
+        return null;
     }
 
     @Override

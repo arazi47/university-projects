@@ -1,5 +1,6 @@
 package Model.Expression;
 
+import Model.Utils.IDictionary;
 import Model.Utils.ISymTable;
 import Model.Utils.MyDictionary;
 import Model.Utils.MyHeap;
@@ -10,7 +11,7 @@ public class ConstExp implements IExpression {
     public ConstExp(int val){ this.value = val;}
 
     @Override
-    public int evaluate(MyDictionary<String, Integer> symTable, MyHeap<Integer> heap) {
+    public int evaluate(IDictionary<String, Integer> symTable, MyHeap<Integer> heap) {
         return this.value;
     }
 

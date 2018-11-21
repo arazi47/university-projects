@@ -17,7 +17,7 @@ public class CompoundStm implements IStatement {
         exeStack.push(this.st2);
         exeStack.push(this.st1);
 
-        return ps;
+        return null;
     }
 
     @Override

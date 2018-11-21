@@ -16,7 +16,7 @@ import Repository.Repo;
 import java.io.BufferedReader;
 
 public class View {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws java.lang.InterruptedException {
         // C:\Users\necso\Desktop\926\src\openrfiletest.txt
 
         // v = 2; print(v); makeZero(v); print(v)
@@ -99,43 +99,87 @@ public class View {
                         new PrintStm(new VarExp("v")))
         );
 
+        IStatement ex8 =
+                new CompoundStm(
+                        new AssignmentStm(
+                                "v",
+                                new ConstExp(10)),
+                        new CompoundStm(
+                                new NewStmt(
+                                        "a",
+                                        new ConstExp(22)),
+                                new CompoundStm(
+                                        new ForkStmt(
+                                                new CompoundStm(
+                                                        new CompoundStm(
+                                                                new WriteHeapStmt(
+                                                                        "a",
+                                                                        new ConstExp(30)),
+                                                                new CompoundStm(
+                                                                        new AssignmentStm(
+                                                                                "v",
+                                                                                new ConstExp(32)),
+                                                                        new CompoundStm(
+                                                                                new PrintStm(
+                                                                                        new VarExp("v")),
+                                                                                new PrintStm(
+                                                                                        new ReadHeapExp(
+                                                                                                "a"))))),
+                                                        new PrintStm(
+                                                                new ArithExp(
+                                                                        new ConstExp(23),
+                                                                        '+',
+                                                                        new ConstExp(0))))),
+                                        new CompoundStm(
+                                                new PrintStm(
+                                                        new VarExp("v")),
+                                                new PrintStm(
+                                                        new ReadHeapExp(
+                                                                "a"))))));
+
+
         IRepo repo1 = new Repo();
         ProgramState ps1 = new ProgramState(ex1);
-        repo1.add(ps1);
+        repo1.addProgramState(ps1);
         InterpreterController ctrl1 = new InterpreterController(repo1);
 
         IRepo repo2 = new Repo();
         ProgramState ps2 = new ProgramState(ex2);
-        repo2.add(ps2);
+        repo2.addProgramState(ps2);
         InterpreterController ctrl2 = new InterpreterController(repo2);
 
         IRepo repo3 = new Repo();
         ProgramState ps3 = new ProgramState(ex3);
-        repo3.add(ps3);
+        repo3.addProgramState(ps3);
         InterpreterController ctrl3 = new InterpreterController(repo3);
 
         IRepo repo4 = new Repo();
         ProgramState ps4 = new ProgramState(ex4);
-        repo4.add(ps4);
+        repo4.addProgramState(ps4);
         InterpreterController ctrl4 = new InterpreterController(repo4);
 
         IRepo repo5 = new Repo();
         ProgramState ps5 = new ProgramState(ex5);
-        repo5.add(ps5);
+        repo5.addProgramState(ps5);
         InterpreterController ctrl5 = new InterpreterController(repo5);
 
         IRepo repo6 = new Repo();
         ProgramState ps6 = new ProgramState(ex6);
-        repo6.add(ps6);
+        repo6.addProgramState(ps6);
         InterpreterController ctrl6 = new InterpreterController(repo6);
 
         IRepo repo7 = new Repo();
         ProgramState ps7 = new ProgramState(ex7);
-        repo7.add(ps7);
+        repo7.addProgramState(ps7);
         InterpreterController ctrl7 = new InterpreterController(repo7);
 
+        IRepo repo8 = new Repo();
+        ProgramState ps8 = new ProgramState(ex8);
+        repo8.addProgramState(ps8);
+        InterpreterController ctrl8 = new InterpreterController(repo8);
+
         TextMenu menu = new TextMenu();
-        menu.addCommand(new ExitCommand("0", "exit"));
+        menu.addCommand(new ExitCommand("0", "Exit"));
         menu.addCommand(new RunExample("1", ex1.toString(), ctrl1));
         menu.addCommand(new RunExample("2", ex2.toString(), ctrl2));
         menu.addCommand(new RunExample("3", ex3.toString(), ctrl3));
@@ -143,6 +187,7 @@ public class View {
         menu.addCommand(new RunExample("5", ex5.toString(), ctrl5));
         menu.addCommand(new RunExample("6", ex6.toString(), ctrl6));
         menu.addCommand(new RunExample("7", ex7.toString(), ctrl7));
+        menu.addCommand(new RunExample("8", ex8.toString(), ctrl8));
 
         menu.show();
 

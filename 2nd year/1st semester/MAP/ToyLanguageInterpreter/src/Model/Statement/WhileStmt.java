@@ -23,7 +23,7 @@ public class WhileStmt implements IStatement {
             exeStack.push(stmt);
         }
 
-        return ps;
+        return null;
     }
 
     @Override

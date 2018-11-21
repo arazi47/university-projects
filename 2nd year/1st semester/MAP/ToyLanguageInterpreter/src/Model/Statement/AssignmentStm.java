@@ -2,6 +2,7 @@ package Model.Statement;
 
 import Model.Expression.IExpression;
 import Model.ProgramState;
+import Model.Utils.IDictionary;
 import Model.Utils.MyDictionary;
 
 public class AssignmentStm implements IStatement {
@@ -15,10 +16,10 @@ public class AssignmentStm implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        MyDictionary<String, Integer> st = ps.getSymTable();
+        IDictionary<String, Integer> st = ps.getSymTable();
         st.put(this.varName, this.expr.evaluate(st, ps.getHeap()));
 
-        return ps;
+        return null;
     }
 
     @Override

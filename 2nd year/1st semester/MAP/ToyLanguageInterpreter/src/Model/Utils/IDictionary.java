@@ -11,5 +11,7 @@ public interface IDictionary<K, V> {
     Collection<V> values();
     Collection<K> keys();
 
+    IDictionary<K, V> cloneDict();
+
     String toString();
 }
