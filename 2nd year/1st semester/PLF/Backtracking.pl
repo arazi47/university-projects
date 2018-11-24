@@ -16,8 +16,9 @@ allPerm(L, LS) :-
     findall(S, perm(L, S), LS).
 
 % combinari(L, K, R)
-% combinar(i, i, o)
+% combinari(i, i, o)
 comb(_, 0, []).
+comb([], _, []).
 comb([H|T], K, R) :-
     K > 0,
     K2 is K - 1,
@@ -33,6 +34,7 @@ allComb(L, K, LS) :-
 % aranjamente(L, K, R)
 % aranjamente(i, i, o)
 aranj([], _, []).
+aranj(_, 0, []).
 aranj(L, K, R) :-
     comb(L, K, RC),
     perm(RC, R).
@@ -85,15 +87,22 @@ consec([H1, H2 | _], false) :-
     H1 >= H2.
 
 
-oneSolPr15(L, N, K, R) :- aranj(L, K, LA), listSum(LA, 0, N), consec(LA, true), R = LA, write(R).
+oneSolPr15(L, N, K, R) :-
+    comb(L, K, LA),
+    listSum(LA, 0, N),
+    consec(LA, true),
+    R = LA,
+    write(R).
 
-oneSolPr15Wrapper2(_, N, K, 0) :- K > N.
+%oneSolPr15Wrapper2(_, N, K, []) :- K > N.
 
 oneSolPr15Wrapper2(L, N, K, R) :-
-   oneSolPr15(L, N, K, _),
+   oneSolPr15(L, N, K, _), !,
    %write(K),
    K2 is K + 1,
-   K2 =< N,
+   %write(k+K+k2+K2+n+N),put(10),
+   K2 =< N, !,
+   %write(cont),put(10),
    oneSolPr15Wrapper2(L, N, K2, R).
 
 osp(0, []).
