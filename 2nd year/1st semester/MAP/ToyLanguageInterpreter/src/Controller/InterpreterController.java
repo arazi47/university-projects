@@ -69,6 +69,21 @@ public class InterpreterController {
         }
 
         this.executor.shutdownNow();
+
+        // Close opened files for each program state
+        this.repo.getProgramStates().forEach(
+                (ps) -> {
+                    ps.getFileTable().values()
+                            .forEach((e) -> {
+                                try {
+                                    e.getSecond().close();
+                                } catch (java.io.IOException ex) {
+                                    System.out.println(ex);
+                                }
+                            });
+                }
+        );
+
         this.repo.setProgramStatesList(prgList);
     }
 
