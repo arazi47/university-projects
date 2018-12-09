@@ -1,0 +1,66 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  extern printf
+    12                                  import printf msvcrt.dll
+    13                                  
+    14                                  extern scanf
+    15                                  import scanf msvcrt.dll
+    16                                  
+    17                                  extern fopen
+    18                                  import fopen msvcrt.dll
+    19                                  
+    20                                  extern fprintf
+    21                                  import fprintf msvcrt.dll
+    22                                  
+    23                                  extern fclose
+    24                                  import fclose msvcrt.dll
+    25                                  
+    26                                  ; ===========================================================================
+    27                                  ; 21. A file name and a text (defined in the data segment) are given.
+    28                                  ; The text contains lowercase letters, digits and spaces.
+    29                                  ; Replace all the digits on odd positions with the character ‘X’.
+    30                                  ; Create the file with the given name and write the generated text to file.
+    31                                  ; ===========================================================================
+    32                                  
+    33                                  ; our data is declared here (the variables needed by our program)
+    34                                  segment data use32 class=data
+    35 00000000 6669732E74787400            fileName db "fis.txt", 0
+    36 00000008 7200                        accessRights db "r", 0
+    37 0000000A FFFFFFFF                    descriptor dd -1
+    38                                  
+    39                                  ; our code starts here
+    40                                  segment code use32 class=code
+    41                                      start:
+    42 00000000 B080                            mov al, 128
+    43                                      
+    44 00000002 68[08000000]                    push dword accessRights
+    45 00000007 68[00000000]                    push dword fileName
+    46 0000000C FF15[00000000]                  call [fopen]
+    47 00000012 83C408                          add esp, 4*2
+    48                                          
+    49 00000015 83F800                          cmp eax, 0
+    50 00000018 7405                            je final
+    51                                          
+    52 0000001A A3[0A000000]                    mov [descriptor], eax
+    53                                          
+    54                                          ;mainLoop:
+    55                                              
+    56                                              
+    57                                          ;loop mainLoop
+    58                                              
+    59                                          final:
+    60 0000001F FF35[0A000000]                      push dword [descriptor]
+    61 00000025 FF15[00000000]                      call [fclose]
+    62 0000002B 83C404                              add esp, 4
+    63                                          
+    64                                              ; exit(0)
+    65 0000002E 6A00                                push    dword 0      ; push the parameter for exit onto the stack
+    66 00000030 FF15[00000000]                      call    [exit]       ; call exit to terminate the program
