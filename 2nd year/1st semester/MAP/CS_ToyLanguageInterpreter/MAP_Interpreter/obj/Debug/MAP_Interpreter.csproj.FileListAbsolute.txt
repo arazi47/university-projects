@@ -1,0 +1,7 @@
+C:\Users\necso\source\repos\MAP_Interpreter\MAP_Interpreter\bin\Debug\MAP_Interpreter.exe.config
+C:\Users\necso\source\repos\MAP_Interpreter\MAP_Interpreter\bin\Debug\MAP_Interpreter.exe
+C:\Users\necso\source\repos\MAP_Interpreter\MAP_Interpreter\bin\Debug\MAP_Interpreter.pdb
+C:\Users\necso\source\repos\MAP_Interpreter\MAP_Interpreter\obj\Debug\MAP_Interpreter.csprojResolveAssemblyReference.cache
+C:\Users\necso\source\repos\MAP_Interpreter\MAP_Interpreter\obj\Debug\MAP_Interpreter.csproj.CoreCompileInputs.cache
+C:\Users\necso\source\repos\MAP_Interpreter\MAP_Interpreter\obj\Debug\MAP_Interpreter.exe
+C:\Users\necso\source\repos\MAP_Interpreter\MAP_Interpreter\obj\Debug\MAP_Interpreter.pdb
