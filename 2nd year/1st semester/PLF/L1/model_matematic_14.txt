@@ -1,0 +1,42 @@
+14.
+a) Write a function to return the union of two sets.
+b) Write a function to return the product of all numerical atoms in a list, at any level.
+c) Write a function to sort a linear list with keeping the double values.
+d) Build a list which contains positions of a minimum numeric element from a given linear list
+
+setUnion(a1, ..., an, b1, ..., bn) =
+	{ a1, ..., an IF N2 = 0 }
+	{ b1 U setUnion(a1, ..., an, b2, ..., bn), b1 NOT IN a1, ..., an }
+	{ setUnion(a1, ..., an, b2, ..., bn), OTHERWISE }
+	
+==========
+
+prod(a1, ..., an) =
+	{ 1, IF N = 0 }
+	{ a1 * prod(a2, ..., an), IF a1 IS NUMBER }
+	{ prod(a1) * prod(a2, ..., an), IF a1 is LIST }
+	{ prod(a2, ..., an), OTHERWISE }
+	
+==========
+
+removeFromLst(e, a1, ..., an) =
+	{ NULL, IF N = 0 }
+	{ a2, ..., an, IF e = a1 }
+	{ a1 U removeFromLst(e, a2, ..., an), OTHERWISE }
+	
+minList(a1, ..., an, currentMin) =
+	{ currentMin, IF N = 0 }
+	{ minList(a2, ..., an, a1), IF a1 < currentMin }
+	{ minList(a2, ..., an, currentMin), OTHERWISE }
+	
+// TODO
+sortList(a1, ..., an) =
+	{  }
+	
+==========
+
+indexEInList(e, a1, ..., an, currentIndex) =
+	{ NULL, N = 0 }
+	{ currentIndex U indexEInList(e, a2, ..., an, currentIndex + 1), IF e = a1 }
+	{ indexEInList(e, a2, ..., an, currentIndex + 1), OTHERWISE}
+	

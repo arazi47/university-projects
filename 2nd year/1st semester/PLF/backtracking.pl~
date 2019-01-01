@@ -96,7 +96,7 @@ oneSolPr15(L, N, K, R) :-
 
 %oneSolPr15Wrapper2(_, N, K, []) :- K > N.
 
-oneSolPr15Wrapper2(L, N, K, ACC, R) :-
+oneSolPr15Wrapper2(L, N, K, R) :-
    oneSolPr15(L, N, K, _), !,
    %write(K),
    K2 is K + 1,
@@ -109,4 +109,4 @@ osp(0, []).
 osp(N, R) :-
     nlist(N, NLST),
     %write(NLST),
-    oneSolPr15Wrapper2(NLST, N, 1, ACC, R).
+    oneSolPr15Wrapper2(NLST, N, 1, R).

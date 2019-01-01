@@ -58,13 +58,18 @@ public class InterpreterController {
         this.executor = Executors.newFixedThreadPool(2);
 
         List<ProgramState> prgList = removeCompletedPrg(this.repo.getProgramStates());
+
+        // If this is not here, in the log file
+        // The first log along with the execution stack will not be printed
+        prgList.forEach(this.repo::logPrgStateExec);
+
         while (prgList.size() > 0) {
             // Garbage collector, if I ever feel like it
             //state.getHeap().setMap(conservativeGarbageCollector(state.getSymTable().values(), state.getHeap().getMap()));
 
             this.oneStepForAllPrograms(prgList);
 
-            // remove completed programs
+            // Remove completed programs
             prgList = this.removeCompletedPrg(this.repo.getProgramStates());
         }
 
@@ -84,7 +89,45 @@ public class InterpreterController {
                 }
         );
 
-        this.repo.setProgramStatesList(prgList);
+        //this.repo.setProgramStatesList(prgList);
+    }
+
+    public void executeOneStepTEST() throws java.lang.InterruptedException {
+        this.executor = Executors.newFixedThreadPool(2);
+
+        List<ProgramState> prgList = removeCompletedPrg(this.repo.getProgramStates());
+
+        // If this is not here, in the log file
+        // The first log along with the execution stack will not be printed
+        prgList.forEach(this.repo::logPrgStateExec);
+
+        if (prgList.size() > 0) {
+            // Garbage collector, if I ever feel like it
+            //state.getHeap().setMap(conservativeGarbageCollector(state.getSymTable().values(), state.getHeap().getMap()));
+
+            this.oneStepForAllPrograms(prgList);
+
+            // Remove completed programs
+            prgList = this.removeCompletedPrg(this.repo.getProgramStates());
+        }
+
+        this.executor.shutdownNow();
+
+        // Close opened files for each program state
+        this.repo.getProgramStates().forEach(
+                (ps) -> {
+                    ps.getFileTable().values()
+                            .forEach((e) -> {
+                                try {
+                                    e.getSecond().close();
+                                } catch (java.io.IOException ex) {
+                                    System.out.println(ex);
+                                }
+                            });
+                }
+        );
+
+        //this.repo.setProgramStatesList(prgList);
     }
 
     public IRepo getRepo() {
@@ -99,13 +142,13 @@ public class InterpreterController {
     }
 
     public List<ProgramState> removeCompletedPrg(List<ProgramState> inPrgList) {
-        return this.repo.getProgramStates().stream()
+        return inPrgList.stream()
                 .filter(ProgramState::isNotCompleted)
                 .collect(Collectors.toList());
     }
 
     public void oneStepForAllPrograms(List<ProgramState> prgList) throws java.lang.InterruptedException {
-        prgList.forEach(this.repo::logPrgStateExec);
+        //prgList.forEach(this.repo::logPrgStateExec);
 
         List<Callable<ProgramState>> callList = prgList.stream()
                 .map((ProgramState p) -> (Callable<ProgramState>)(p::executeCmd))
@@ -126,6 +169,7 @@ public class InterpreterController {
                 .collect(Collectors.toList());
 
         prgList.addAll(newPrgList);
-        this.repo.setProgramStatesList(prgList);
+        //this.repo.setProgramStatesList(prgList);
+        prgList.forEach(this.repo::logPrgStateExec);
     }
 }

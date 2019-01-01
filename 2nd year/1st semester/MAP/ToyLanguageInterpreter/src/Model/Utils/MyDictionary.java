@@ -2,6 +2,8 @@ package Model.Utils;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+
 import Exception.DictionaryException;
 
 public class MyDictionary<K, V> implements IDictionary<K, V> {
@@ -18,9 +20,7 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
     }
 
     @Override
-    public void remove(K key) {
-        dictionary.remove(key);
-    }
+    public void remove(K key) { dictionary.remove(key); }
 
     @Override
     public boolean contains(K key) {
@@ -59,5 +59,10 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
         for (K key : this.keys())
             clonedDict.put(key, this.dictionary.get(key));
         return clonedDict;
+    }
+
+    @Override
+    public Map<K, V> getMap() {
+        return this.dictionary;
     }
 }

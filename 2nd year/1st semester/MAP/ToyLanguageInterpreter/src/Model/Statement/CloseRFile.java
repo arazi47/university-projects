@@ -26,7 +26,10 @@ public class CloseRFile implements IStatement {
         try {
             // close the file
             br.getSecond().close();
+
+            // Don't remove the file if we want to see it in the GUI for testing
             ps.getFileTable().remove(fd);
+
         } catch (java.io.IOException e) {
             System.out.println(e.toString());
         }

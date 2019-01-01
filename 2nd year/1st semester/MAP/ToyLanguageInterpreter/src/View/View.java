@@ -99,6 +99,7 @@ public class View {
                         new PrintStm(new VarExp("v")))
         );
 
+        /*
         IStatement ex8 =
                 new CompoundStm(
                         new AssignmentStm(
@@ -136,6 +137,38 @@ public class View {
                                                 new PrintStm(
                                                         new ReadHeapExp(
                                                                 "a"))))));
+        */
+
+            /*
+            v=10;new(a,22);
+            fork(wH(a,30);v=32;print(v);print(rH(a)));
+            print(v);print(rH(a))
+            */
+
+        IStatement ex8 = new CompoundStm(
+                new CompoundStm(
+                    new AssignmentStm("v", new ConstExp(10)),
+                    new NewStmt("a", new ConstExp(22))
+                ),
+                new CompoundStm(
+                        new ForkStmt(
+                                new CompoundStm(
+                                    new WriteHeapStmt("a", new ConstExp(30)),
+                                        new CompoundStm(
+                                                new AssignmentStm("v", new ConstExp(32)),
+                                                new CompoundStm(
+                                                        new PrintStm(new VarExp("v")),
+                                                        new PrintStm(new ReadHeapExp("a"))
+                                                )
+                                        )
+                                )
+                        ),
+                        new CompoundStm(
+                                new PrintStm(new VarExp("v")),
+                                new PrintStm(new ReadHeapExp("a"))
+                        )
+                )
+        );
 
 
         IRepo repo1 = new Repo();

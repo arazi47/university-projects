@@ -1,4 +1,56 @@
+/*
+15. For a given n, positive, determine all decomposition of n as a sum of consecutive natural numbers.
+
+ins(a1, ..., an, E) = 
+	{ E U a1, ..., an }
+	{ a1 U ins(a2, ..., an, E) }
+
+perm(a1, ..., an) =
+	{ nil, N = 0 }
+	{ ins(perm(a2, ..., an), H) }
+
+comb(a1, ..., an, K) =
+	{ nil, N = 0 }
+	{ nil, K = 0 }
+	{ a1 U comb(a2, ..., an, K + 1) }
+
+aranj(a1, ..., an, K) =
+	{ nil, N = 0 }
+	{ nil, K = 0 }
+	{ perm(comb(a1, ..., an, K)) }
+
+listProduct(a1, ..., an) =
+	{ 1, N = 0 }
+	{ a1 * listProduct(a2, ..., an) }
+
+listSum(a1, ..., an) =
+	{ 0, N = 0 }
+	{ a1 + listSum(a2, ..., an) }
+
+list1ToN(N, ACC) =
+	{ [], N == ACC - 1 }
+	{ ACC U list1ToN(N, ACC + 1) }
+
+nlist(N) =
+	{ list1ToN(N, 1) }
+
+consec(a1, ..., an) =
+	{ false,  N >= 2, a1 >= a2 }
+	{ true, N = 1 }  
+	{ consec(a2, ..., an) }
+
+oneSolPr15(L, N, K) =
+	{ write(listSum(comb(L, K))), consec(listSum(comb(L, K))) == true }
+
+oneSolPr15Wrapper2(L, N, K) =
+	{ oneSolPr15(L, N, K); oneSolPr15Wrapepr2(L, N, K + 1), K + 1 <= N }
+
+osp(N) =
+	{ oneSolPr15Wrapper2(nlist(N), N, 1) }
+*/
 % Seminar 4
+% 15. For a given n, positive, determine
+% all decomposition of n as a sum of consecutive natural numbers
 
 % inserare(List, Element, Result)
 % inserare(i, i, o)

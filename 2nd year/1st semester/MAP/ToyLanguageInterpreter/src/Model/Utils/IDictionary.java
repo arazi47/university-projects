@@ -1,6 +1,7 @@
 package Model.Utils;
 
 import java.util.Collection;
+import java.util.Map;
 
 public interface IDictionary<K, V> {
     void put(K key, V value);
@@ -12,6 +13,8 @@ public interface IDictionary<K, V> {
     Collection<K> keys();
 
     IDictionary<K, V> cloneDict();
+
+    Map<K, V> getMap();
 
     String toString();
 }
