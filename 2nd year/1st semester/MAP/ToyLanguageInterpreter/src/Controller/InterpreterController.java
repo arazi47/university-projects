@@ -105,7 +105,9 @@ public class InterpreterController {
             // Garbage collector, if I ever feel like it
             //state.getHeap().setMap(conservativeGarbageCollector(state.getSymTable().values(), state.getHeap().getMap()));
 
-            this.oneStepForAllPrograms(prgList);
+            //this.oneStepForAllPrograms(prgList);
+            // Execute one step, not one step for all programs
+            prgList.get(0).executeCmd();
 
             // Remove completed programs
             prgList = this.removeCompletedPrg(this.repo.getProgramStates());

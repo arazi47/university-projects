@@ -46,6 +46,7 @@ public class GUIView extends Application {
     private TableView heapTableView;
     private ListView<Text> outListView;
     private TableView fileTableView;
+    private ListView<Text> programStatesListView;
     private TableView symTableView;
     private ListView<Text> exeStackListView;
 
@@ -120,6 +121,21 @@ public class GUIView extends Application {
                 (ps) -> {
                     ObservableList<Map.Entry<Integer, Tuple<String, BufferedReader>>> fileTableViewItems = FXCollections.observableArrayList(ps.getFileTable().getMap().entrySet());
                     this.fileTableView.getItems().addAll(fileTableViewItems);
+                }
+        );
+    }
+
+    private void updateProgramStatesListView() {
+        this.programStatesListView.getItems().clear();
+        this.currentController.getRepo().getProgramStates().forEach(
+                (ps) -> {
+                    ps.getExeStack().getStack().forEach(
+                            (ex) -> {
+                                Text psText = new Text(ex.toString());
+                                psText.wrappingWidthProperty().bind(this.programStatesListView.widthProperty());
+                                this.programStatesListView.getItems().add(psText);
+                            }
+                    );
                 }
         );
     }
@@ -312,6 +328,11 @@ public class GUIView extends Application {
         IRepo repo1 = new Repo();
         ProgramState ps1 = new ProgramState(ex1);
         repo1.addProgramState(ps1);
+
+        // Test to see if multiple program states work
+        //ProgramState pss1 = new ProgramState(ex1);
+        //repo1.addProgramState(pss1);
+
         this.ctrl1 = new InterpreterController(repo1);
 
         IRepo repo2 = new Repo();
@@ -445,7 +466,15 @@ public class GUIView extends Application {
         //
         // (e) the list of PrgState identifiers as a ListView
         //
+        layout.getChildren().add(new Text("Program States:"));
 
+        this.programStatesListView = new ListView<>();
+        this.programStatesListView.setPrefSize(150, 100);
+        this.programStatesListView.setMaxWidth(150);
+
+        this.updateProgramStatesListView();
+
+        layout.getChildren().add(this.programStatesListView);
 
         //
         // (f) a Table View with two columns: variable name and value, which displays the SymTable
@@ -574,6 +603,7 @@ public class GUIView extends Application {
             this.updateHeapTableView();
             this.updateOutListView();
             this.updateFileTableView();
+            this.updateProgramStatesListView();
             this.updateSymTableView();
             this.updateExeStackListView();
         });

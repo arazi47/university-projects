@@ -1,0 +1,1082 @@
+Program id: 1
+Execution stack:
+(openRFile(var_f, openrfiletest.txt); (readFileStmt(var_f + 2, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(readFileStmt(var_f + 2, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)))) openRFile(var_f, openrfiletest.txt) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(readFileStmt(var_f + 2, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)))) openRFile(var_f, openrfiletest.txt) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(readFileStmt(var_f + 2, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)))) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(readFileStmt(var_f + 2, var_c); (print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)))) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))) readFileStmt(var_f + 2, var_c) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))) readFileStmt(var_f + 2, var_c) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(var_c); (if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f))) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)) print(var_c) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)) print(var_c) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0); closeRFileStmt(var_f)) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+closeRFileStmt(var_f) if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+closeRFileStmt(var_f) if var_c then (readFileStmt(var_f, var_c); print(var_c)) else print(0) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+closeRFileStmt(var_f) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+closeRFileStmt(var_f) 
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+3 -> Model.Utils.Tuple@596c8d8c
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+
+Symbol table: 
+var_f -> 3
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 6; (while(v - 4) do (print(v); v = v - 1) end; print(v))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(while(v - 4) do (print(v); v = v - 1) end; print(v)) v = 6 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(while(v - 4) do (print(v); v = v - 1) end; print(v)) v = 6 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(while(v - 4) do (print(v); v = v - 1) end; print(v)) 
+Symbol table: 
+v -> 6
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(while(v - 4) do (print(v); v = v - 1) end; print(v)) 
+Symbol table: 
+v -> 6
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end 
+Symbol table: 
+v -> 6
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end 
+Symbol table: 
+v -> 6
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end (print(v); v = v - 1) 
+Symbol table: 
+v -> 6
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end (print(v); v = v - 1) 
+Symbol table: 
+v -> 6
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end v = v - 1 print(v) 
+Symbol table: 
+v -> 6
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end v = v - 1 print(v) 
+Symbol table: 
+v -> 6
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end v = v - 1 
+Symbol table: 
+v -> 6
+
+Output: 
+6 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end v = v - 1 
+Symbol table: 
+v -> 6
+
+Output: 
+6 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end 
+Symbol table: 
+v -> 5
+
+Output: 
+6 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end 
+Symbol table: 
+v -> 5
+
+Output: 
+6 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end (print(v); v = v - 1) 
+Symbol table: 
+v -> 5
+
+Output: 
+6 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end (print(v); v = v - 1) 
+Symbol table: 
+v -> 5
+
+Output: 
+6 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end v = v - 1 print(v) 
+Symbol table: 
+v -> 5
+
+Output: 
+6 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end v = v - 1 print(v) 
+Symbol table: 
+v -> 5
+
+Output: 
+6 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end v = v - 1 
+Symbol table: 
+v -> 5
+
+Output: 
+6 5 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end v = v - 1 
+Symbol table: 
+v -> 5
+
+Output: 
+6 5 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end 
+Symbol table: 
+v -> 4
+
+Output: 
+6 5 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) while(v - 4) do (print(v); v = v - 1) end 
+Symbol table: 
+v -> 4
+
+Output: 
+6 5 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) 
+Symbol table: 
+v -> 4
+
+Output: 
+6 5 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) 
+Symbol table: 
+v -> 4
+
+Output: 
+6 5 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+
+Symbol table: 
+v -> 4
+
+Output: 
+6 5 4 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(makeZero(v); print(v)) print(v) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(makeZero(v); print(v)) 
+Symbol table: 
+v -> 2
+
+Output: 
+2 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) makeZero(v) 
+Symbol table: 
+v -> 2
+
+Output: 
+2 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) 
+Symbol table: 
+v -> 0
+
+Output: 
+2 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(v = 2; (print(v); (makeZero(v); print(v)))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) v = 2 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(print(v); (makeZero(v); print(v))) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(makeZero(v); print(v)) print(v) 
+Symbol table: 
+v -> 2
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(makeZero(v); print(v)) 
+Symbol table: 
+v -> 2
+
+Output: 
+2 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) makeZero(v) 
+Symbol table: 
+v -> 2
+
+Output: 
+2 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(v) 
+Symbol table: 
+v -> 0
+
+Output: 
+2 
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(a = 2 + 3 * 5; (b = a + 1; print(b))) 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(b = a + 1; print(b)) a = 2 + 3 * 5 
+Symbol table: 
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+(b = a + 1; print(b)) 
+Symbol table: 
+a -> 17
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(b) b = a + 1 
+Symbol table: 
+a -> 17
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
+Program id: 1
+Execution stack:
+print(b) 
+Symbol table: 
+a -> 17
+b -> 18
+
+Output: 
+
+
+File table: 
+
+Heap: 
+
+_____________________
