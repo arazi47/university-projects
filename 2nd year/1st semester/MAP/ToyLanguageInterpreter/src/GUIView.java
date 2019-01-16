@@ -41,6 +41,9 @@ public class GUIView extends Application {
     // this is a workaround
     private int currIndex[] = {0};
 
+    // same as above
+    private int currSelectedPsIdIndex[] = {0};
+
     private Text noOfPrgStatesText;
 
     private TableView heapTableView;
@@ -87,18 +90,25 @@ public class GUIView extends Application {
         }
     }
 
+    private int getPsIdForSelectedViewIndex() {
+        //System.out.println(this.currentController.getRepo().getProgramStates().get(this.currSelectedPsIdIndex[0]).getId());
+        return this.currentController.getRepo().getProgramStates().get(this.currSelectedPsIdIndex[0]).getId();
+    }
+
     private void updateHeapTableView() {
         //////////// Update heapTableView
         // TODO put this in a function so we don't copy useless code over and over again
         this.heapTableView.getItems().clear();
         this.currentController.getRepo().getProgramStates().forEach(
                 (ps) -> {
-                    ObservableList<Map.Entry<Integer, Integer>> heapTableViewItems = FXCollections.observableArrayList(ps.getHeap().getMap().entrySet());
-                    this.heapTableView.getItems().addAll(heapTableViewItems);
-                    //System.out.println("ASD");
-                    //for (Map.Entry<Integer, Integer> heapEntry : ps.getHeap().getMap().entrySet()) {
+                    if (ps.getId() == this.getPsIdForSelectedViewIndex()) {
+                        ObservableList<Map.Entry<Integer, Integer>> heapTableViewItems = FXCollections.observableArrayList(ps.getHeap().getMap().entrySet());
+                        this.heapTableView.getItems().addAll(heapTableViewItems);
+                        //System.out.println("ASD");
+                        //for (Map.Entry<Integer, Integer> heapEntry : ps.getHeap().getMap().entrySet()) {
 
-                    //}
+                        //}
+                    }
                 }
         );
     }
@@ -107,9 +117,11 @@ public class GUIView extends Application {
         this.outListView.getItems().clear();
         this.currentController.getRepo().getProgramStates().forEach(
                 (ps) -> {
-                    Text psOutputText = new Text(ps.getOutput().toString());
-                    psOutputText.wrappingWidthProperty().bind(outListView.widthProperty());
-                    this.outListView.getItems().add(psOutputText);
+                    if (ps.getId() == this.getPsIdForSelectedViewIndex()) {
+                        Text psOutputText = new Text(ps.getOutput().toString());
+                        psOutputText.wrappingWidthProperty().bind(outListView.widthProperty());
+                        this.outListView.getItems().add(psOutputText);
+                    }
                 }
         );
     }
@@ -129,23 +141,23 @@ public class GUIView extends Application {
         this.programStatesListView.getItems().clear();
         this.currentController.getRepo().getProgramStates().forEach(
                 (ps) -> {
-                    ps.getExeStack().getStack().forEach(
-                            (ex) -> {
-                                Text psText = new Text(ex.toString());
-                                psText.wrappingWidthProperty().bind(this.programStatesListView.widthProperty());
-                                this.programStatesListView.getItems().add(psText);
-                            }
-                    );
+                    Text psIdText = new Text(String.valueOf(ps.getId()));
+                    psIdText.wrappingWidthProperty().bind(this.programStatesListView.widthProperty());
+                    this.programStatesListView.getItems().add(psIdText);
                 }
         );
+
+        //this.programStatesListView.getSelectionModel().select(0);
     }
 
     public void updateSymTableView() {
         this.symTableView.getItems().clear();
         this.currentController.getRepo().getProgramStates().forEach(
                 (ps) -> {
-                    ObservableList<Map.Entry<String, Integer>> symTableViewItems = FXCollections.observableArrayList(ps.getSymTable().getMap().entrySet());
-                    this.symTableView.getItems().addAll(symTableViewItems);
+                    if (ps.getId() == this.getPsIdForSelectedViewIndex()) {
+                        ObservableList<Map.Entry<String, Integer>> symTableViewItems = FXCollections.observableArrayList(ps.getSymTable().getMap().entrySet());
+                        this.symTableView.getItems().addAll(symTableViewItems);
+                    }
                 }
         );
     }
@@ -154,14 +166,16 @@ public class GUIView extends Application {
         this.exeStackListView.getItems().clear();
         this.currentController.getRepo().getProgramStates().forEach(
                 (ps) -> {
-                    ObservableList<Text> exeStackListViewItems = FXCollections.observableArrayList();
-                    for (IStatement elem : ps.getExeStack().getStack()) {
-                        Text t = new Text(elem.toString());
-                        t.wrappingWidthProperty().bind(this.exeStackListView.widthProperty());
-                        exeStackListViewItems.add(t);
-                    }
+                    if (ps.getId() == this.getPsIdForSelectedViewIndex()) {
+                        ObservableList<Text> exeStackListViewItems = FXCollections.observableArrayList();
+                        for (IStatement elem : ps.getExeStack().getStack()) {
+                            Text t = new Text(elem.toString());
+                            t.wrappingWidthProperty().bind(this.exeStackListView.widthProperty());
+                            exeStackListViewItems.add(t);
+                        }
 
-                    this.exeStackListView.getItems().addAll(exeStackListViewItems);
+                        this.exeStackListView.getItems().addAll(exeStackListViewItems);
+                    }
                 }
         );
     }
@@ -329,10 +343,6 @@ public class GUIView extends Application {
         ProgramState ps1 = new ProgramState(ex1);
         repo1.addProgramState(ps1);
 
-        // Test to see if multiple program states work
-        //ProgramState pss1 = new ProgramState(ex1);
-        //repo1.addProgramState(pss1);
-
         this.ctrl1 = new InterpreterController(repo1);
 
         IRepo repo2 = new Repo();
@@ -393,6 +403,37 @@ public class GUIView extends Application {
 
         VBox layout = new VBox();
 
+        //
+        // (h) A button "Run one step" that runs oneStepForAllPrg (you have to design and
+        // implement the handler of this button based on the previous method allStep).
+        // After each run the displayed information is updated. You may want to write a
+        // service which wraps the repository and signals any change of the list of
+        // PrgStates (please see the lectures examples).
+        //
+
+        this.oneStepBtn = new Button("Execute one step");
+
+        this.oneStepBtn.setOnAction(event -> {
+            try {
+                // TODO figure out why I need this 2 times
+                //if (!this.currentController.getRepo().getProgramStates().forEach();)
+                    this.currentController.executeOneStepTEST();
+                //if (!this.currentController.getRepo().getProgramStates().isEmpty())
+                    this.currentController.executeOneStepTEST();
+
+                this.updateHeapTableView();
+                this.updateOutListView();
+                this.updateFileTableView();
+                this.updateProgramStatesListView();
+                this.updateSymTableView();
+                this.updateExeStackListView();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        layout.getChildren().add(oneStepBtn);
+
         // (a) the number of PrgStates as a TextField
         // Why TextField when we only want to display it, not modify it?
         this.noOfPrgStatesText = new Text("noOfPrgStates = " + String.valueOf(this.getControllerForSelectedListViewIndex().getRepo().getProgramStates().size()));
@@ -413,8 +454,8 @@ public class GUIView extends Application {
 
         this.heapTableView.getColumns().setAll(addressCol, valueCol);
 
-        this.heapTableView.setPrefSize(150, 100);
-        this.heapTableView.setMaxWidth(150);
+        this.heapTableView.setPrefSize(250, 250);
+        this.heapTableView.setMaxWidth(250);
 
         // INSERT HEAPTABLEVIEW DATA
         //this.currentController.executeAllSteps();
@@ -430,7 +471,7 @@ public class GUIView extends Application {
         layout.getChildren().add(outputText);
 
         this.outListView = new ListView<>();
-        this.outListView.setPrefSize(150, 100);
+        this.outListView.setPrefSize(150, 250);
         this.outListView.setMaxWidth(150);
 
         // Called this to test if the data was inserted correctly
@@ -448,7 +489,7 @@ public class GUIView extends Application {
         layout.getChildren().add(fileTableText);
 
         this.fileTableView = new TableView();
-        this.fileTableView.setPrefSize(200, 100);
+        this.fileTableView.setPrefSize(200, 250);
         this.fileTableView.setMaxWidth(200);
         this.fileTableView.setEditable(false);
 
@@ -469,10 +510,32 @@ public class GUIView extends Application {
         layout.getChildren().add(new Text("Program States:"));
 
         this.programStatesListView = new ListView<>();
-        this.programStatesListView.setPrefSize(150, 100);
-        this.programStatesListView.setMaxWidth(150);
+        this.programStatesListView.setPrefSize(250, 250);
+        this.programStatesListView.setMaxWidth(250);
 
         this.updateProgramStatesListView();
+
+        this.programStatesListView.setOnMouseClicked((event) -> {
+            // !!!
+            // getSelectedIndex() returns -1 if invalid
+
+            int selectedIndex = this.programStatesListView.getSelectionModel().getSelectedIndex();
+            if (selectedIndex != -1)
+                this.currSelectedPsIdIndex[0] = selectedIndex;
+
+            // (a) the number of PrgStates
+            this.noOfPrgStatesText.setText("noOfPrgStates = " + String.valueOf(this.getControllerForSelectedListViewIndex().getRepo().getProgramStates().size()));
+            this.currentController = this.getControllerForSelectedListViewIndex();
+
+            //System.out.println("ps id selected " + this.currSelectedPsIdIndex[0]); //+ listView.getSelectionModel().getSelectedIndex());
+
+            this.updateHeapTableView();
+            this.updateOutListView();
+            this.updateFileTableView();
+            //this.updateProgramStatesListView();
+            this.updateSymTableView();
+            this.updateExeStackListView();
+        });
 
         layout.getChildren().add(this.programStatesListView);
 
@@ -483,7 +546,7 @@ public class GUIView extends Application {
         layout.getChildren().add(symTableText);
 
         this.symTableView = new TableView();
-        this.symTableView.setPrefSize(200, 100);
+        this.symTableView.setPrefSize(200, 250);
         this.symTableView.setMaxWidth(200);
         this.symTableView.setEditable(false);
 
@@ -507,43 +570,15 @@ public class GUIView extends Application {
         layout.getChildren().add(new Text("Execution Stack:"));
 
         this.exeStackListView = new ListView<>();
-        this.exeStackListView.setPrefSize(150, 100);
-        this.exeStackListView.setMaxWidth(150);
+        this.exeStackListView.setPrefSize(350, 200);
+        this.exeStackListView.setMaxWidth(350);
 
         this.updateExeStackListView();
 
         layout.getChildren().add(this.exeStackListView);
 
-        //
-        // (h) A button "Run one step" that runs oneStepForAllPrg (you have to design and
-        // implement the handler of this button based on the previous method allStep).
-        // After each run the displayed information is updated. You may want to write a
-        // service which wraps the repository and signals any change of the list of
-        // PrgStates (please see the lectures examples).
-        //
-
-        this.oneStepBtn = new Button("Execute one step");
-
-        this.oneStepBtn.setOnAction(event -> {
-            try {
-                // TODO figure out why I need this 2 times
-                this.currentController.executeOneStepTEST();
-                this.currentController.executeOneStepTEST();
-
-                this.updateHeapTableView();
-                this.updateOutListView();
-                this.updateFileTableView();
-                this.updateSymTableView();
-                this.updateExeStackListView();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-
-        layout.getChildren().add(oneStepBtn);
-
         ////////////////////////////////
-        Scene scene = new Scene(layout, 500, 500);
+        Scene scene = new Scene(layout, 400, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
 

@@ -95,7 +95,8 @@ public class InterpreterController {
     public void executeOneStepTEST() throws java.lang.InterruptedException {
         this.executor = Executors.newFixedThreadPool(2);
 
-        List<ProgramState> prgList = removeCompletedPrg(this.repo.getProgramStates());
+        //List<ProgramState> prgList = removeCompletedPrg(this.repo.getProgramStates());
+        List<ProgramState> prgList = this.repo.getProgramStates();
 
         // If this is not here, in the log file
         // The first log along with the execution stack will not be printed
@@ -105,12 +106,13 @@ public class InterpreterController {
             // Garbage collector, if I ever feel like it
             //state.getHeap().setMap(conservativeGarbageCollector(state.getSymTable().values(), state.getHeap().getMap()));
 
-            //this.oneStepForAllPrograms(prgList);
+            this.oneStepForAllPrograms(prgList);
+
             // Execute one step, not one step for all programs
-            prgList.get(0).executeCmd();
+            //prgList.get(0).executeCmd();
 
             // Remove completed programs
-            prgList = this.removeCompletedPrg(this.repo.getProgramStates());
+            //prgList = this.removeCompletedPrg(this.repo.getProgramStates());
         }
 
         this.executor.shutdownNow();
