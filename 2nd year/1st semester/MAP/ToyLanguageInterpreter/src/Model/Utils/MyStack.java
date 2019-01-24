@@ -45,4 +45,9 @@ public class MyStack<T> implements IStack<T> {
     public void clear() {
         this.stack.clear();
     }
+
+    @Override
+    public T peek() {
+        return this.getStack().peek();
+    }
 }

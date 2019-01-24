@@ -11,7 +11,7 @@ public class MakeZeroStmt implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        ps.getSymTable().put(this.id, 0);
+        ps.getTopSymTable().put(this.id, 0);
 
         return null;
     }

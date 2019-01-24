@@ -1,14 +1,10 @@
 import Controller.InterpreterController;
-import Model.Expression.ArithExp;
-import Model.Expression.ConstExp;
-import Model.Expression.ReadHeapExp;
-import Model.Expression.VarExp;
+import Model.Expression.*;
 import Model.ProgramState;
 import Model.Statement.*;
 import Model.Statement.HeapStatements.NewStmt;
 import Model.Statement.HeapStatements.WriteHeapStmt;
-import Model.Utils.MyHeap;
-import Model.Utils.Tuple;
+import Model.Utils.*;
 import Repository.IRepo;
 import Repository.Repo;
 import javafx.application.Application;
@@ -30,11 +26,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GUIView extends Application {
-    private InterpreterController ctrl1, ctrl2, ctrl3, ctrl4, ctrl5, ctrl6, ctrl7, ctrl8;
+    private InterpreterController ctrl1, ctrl2, ctrl3, ctrl4, ctrl5, ctrl6, ctrl7, ctrl8, ctrl9, ctrl10;
     private InterpreterController currentController;
 
     // we can't modify variables in lambdas without them being final
@@ -52,6 +51,8 @@ public class GUIView extends Application {
     private ListView<Text> programStatesListView;
     private TableView symTableView;
     private ListView<Text> exeStackListView;
+
+    private TableView procTableListView;
 
     Button oneStepBtn;
 
@@ -84,6 +85,12 @@ public class GUIView extends Application {
 
             case 7:
                 return ctrl8;
+
+            case 8:
+                return ctrl9; // Sleep, practic
+
+            case 9:
+                return ctrl10; // proctable, practic
 
             default:
                 return ctrl1;
@@ -155,7 +162,7 @@ public class GUIView extends Application {
         this.currentController.getRepo().getProgramStates().forEach(
                 (ps) -> {
                     if (ps.getId() == this.getPsIdForSelectedViewIndex()) {
-                        ObservableList<Map.Entry<String, Integer>> symTableViewItems = FXCollections.observableArrayList(ps.getSymTable().getMap().entrySet());
+                        ObservableList<Map.Entry<String, Integer>> symTableViewItems = FXCollections.observableArrayList(ps.getTopSymTable().getMap().entrySet());
                         this.symTableView.getItems().addAll(symTableViewItems);
                     }
                 }
@@ -338,11 +345,61 @@ public class GUIView extends Application {
                 )
         );
 
+        IStatement s1 = new AssignmentStm("v", new ConstExp(10));
+        IStatement s2 = new AssignmentStm("v", new ArithExp(new VarExp("v"), '-', new ConstExp(1)));
+        IStatement s3 = new PrintStm(new VarExp("v"));
+        IStatement s4 = new SleepStmt(new ConstExp(10));
+        IStatement s5 = new PrintStm(new ArithExp(new VarExp("v"),'*', new ConstExp(10)));
+        IStatement f1 = new CompoundStm(s2, new CompoundStm(s2,s3));
+        IStatement ex9 = new CompoundStm(new CompoundStm(s1,new ForkStmt(f1)), new CompoundStm(s4,s5));
+
+        ////////////
+
+        ArrayList<String> TwoSumVarList = new ArrayList<>();
+        TwoSumVarList.add("a");
+        TwoSumVarList.add("b");
+
+        IStatement TwoSumS1 = new AssignmentStm("v", new ArithExp(new VarExp("a"), '+', new VarExp("b")));
+        IStatement TwoSumS2 = new PrintStm(new VarExp("v"));
+        IStatement TwoSumFinalStmt = new CompoundStm(TwoSumS1, TwoSumS2);
+        MyPair TwoSumPair = new MyPair(TwoSumVarList, TwoSumFinalStmt);
+
+        //////////////
+
+        ArrayList<String> TwoProdVarList = new ArrayList<>();
+        TwoProdVarList.add("a");
+        TwoProdVarList.add("b");
+
+        IStatement TwoProdS1 = new AssignmentStm("v", new ArithExp(new VarExp("a"), '*', new VarExp("b")));
+        IStatement TwoProdS2 = new PrintStm(new VarExp("v"));
+        IStatement TwoProdFinalStmt = new CompoundStm(TwoProdS1, TwoProdS2);
+        MyPair TwoProdPair = new MyPair(TwoProdVarList, TwoProdFinalStmt);
+
+        ///////////
+
+        IStatement ex10_s1 = new AssignmentStm("v", new ConstExp(2));
+        IStatement ex10_s2 = new AssignmentStm("w", new ConstExp(5));
+
+        ArrayList<IExpression> expList = new ArrayList<>();
+        expList.add(new ArithExp(new VarExp("v"), '*', new ConstExp(10)));
+        expList.add(new VarExp("w"));
+        IStatement ex10_s3 = new CallStmt("sum", expList);
+        IStatement ex10_s4 = new PrintStm(new VarExp("v"));
+        ArrayList<IExpression> expList2 = new ArrayList<>();
+        expList2.add(new VarExp("v"));
+        expList2.add(new VarExp("w"));
+        IStatement ex10_s5 = new CallStmt("product", expList2 );
+
+        IStatement ex10_s6 = new CallStmt("sum", expList2);
+
+        IStatement ex10_f1 = new ForkStmt(new CompoundStm(ex10_s5, new ForkStmt(ex10_s6)));
+        IStatement ex10_c1 = new CompoundStm(ex10_s1, ex10_s2);
+        IStatement ex10_c2 = new CompoundStm(ex10_s3, ex10_s4);
+        IStatement ex10 = new CompoundStm(new CompoundStm(ex10_c1, ex10_c2), ex10_f1);
 
         IRepo repo1 = new Repo();
         ProgramState ps1 = new ProgramState(ex1);
         repo1.addProgramState(ps1);
-
         this.ctrl1 = new InterpreterController(repo1);
 
         IRepo repo2 = new Repo();
@@ -380,6 +437,20 @@ public class GUIView extends Application {
         repo8.addProgramState(ps8);
         this.ctrl8 = new InterpreterController(repo8);
 
+        IRepo repo9 = new Repo();
+        ProgramState ps9 = new ProgramState(ex9);
+        repo9.addProgramState(ps9);
+        this.ctrl9 = new InterpreterController(repo9);
+
+        IRepo repo10 = new Repo();
+        ProgramState ps10 = new ProgramState(ex10);
+        IDictionary<String, MyPair> procTable = new MyDictionary<>();
+        procTable.put("sum", TwoSumPair);
+        procTable.put("product", TwoProdPair);
+        ps10.setProcTable(procTable);
+        repo10.addProgramState(ps10);
+        this.ctrl10 = new InterpreterController(repo10);
+
         //
         // First step always puts the thingies on the exe stack
         //this.ctrl1.executeOneStepTEST();
@@ -394,7 +465,6 @@ public class GUIView extends Application {
 
         this.currentController = ctrl1;
         //this.currentController.executeAllSteps();
-
 
         /////////////////////////////////
         // Primary scene GUI
@@ -562,6 +632,37 @@ public class GUIView extends Application {
         layout.getChildren().add(this.symTableView);
 
         //
+        // Proc Table
+
+        layout.getChildren().add(new Text("Proc Table:"));
+
+        this.procTableListView = new TableView();
+        this.procTableListView.setPrefSize(200, 250);
+        this.procTableListView.setMaxWidth(300);
+        this.procTableListView.setEditable(false);
+
+        TableColumn<Map.Entry<String, MyPair>, String> fNameCol = new TableColumn<>("Func");
+        fNameCol.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getKey().toString()));
+
+        TableColumn<Map.Entry<String, MyPair>, String> paramsCol = new TableColumn<>("Params");
+        paramsCol.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getValue().getList().toString()));
+
+        TableColumn<Map.Entry<String, MyPair>, String> statementCol = new TableColumn<>("Stmt");
+        statementCol.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getValue().getStatement().toString()));
+
+        this.procTableListView.getColumns().setAll(fNameCol, paramsCol, statementCol);
+
+        ObservableList<Map.Entry<String, MyPair>> procTableListViewItems = FXCollections.observableArrayList(procTable.getMap().entrySet());
+        this.procTableListView.getItems().addAll(procTableListViewItems);
+
+        //Text someText = new Text("some text");
+        //someText.wrappingWidthProperty().bind(this.procTableListView.widthProperty());
+        //this.procTableListView.getItems().add(someText);
+
+        layout.getChildren().add(this.procTableListView);
+        //
+
+        //
         // (g) a List View which displays the ExeStack of the PrgState whose ID has been
         // selected from the list described at (e). First element of the ListView is a string
         // represenatation of the top of ExeStack, the second element of the ListView
@@ -617,7 +718,13 @@ public class GUIView extends Application {
         Text t8 = new Text(ex8.toString());
         t8.wrappingWidthProperty().bind(listView.widthProperty());
 
-        listView.getItems().addAll(t1, t2, t3, t4, t5, t6, t7, t8);
+        Text t9 = new Text(ex9.toString());
+        t9.wrappingWidthProperty().bind(listView.widthProperty());
+
+        Text t10 = new Text(ex10.toString());
+        t10.wrappingWidthProperty().bind(listView.widthProperty());
+
+        listView.getItems().addAll(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         // LISTVIEW ON SELECTED INDEX LISTENER LAMBDA

@@ -15,13 +15,13 @@ public class WriteHeapStmt implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        Integer var_val = ps.getSymTable().get(this.id);
+        Integer var_val = ps.getTopSymTable().get(this.id);
 
         if (var_val == null) {
             //throw new Exception.CustomException("Unknown variable exception @TODO create a new one here!");
         }
 
-        int val = this.exp.evaluate(ps.getSymTable(), ps.getHeap());
+        int val = this.exp.evaluate(ps.getTopSymTable(), ps.getHeap());
         ps.getHeap().putAddr(var_val, val);
 
         return null;

@@ -18,7 +18,7 @@ public class WhileStmt implements IStatement {
     public ProgramState execute(ProgramState ps) {
         MyStack<IStatement> exeStack = ps.getExeStack();
 
-        if (this.exp.evaluate(ps.getSymTable(), ps.getHeap()) != 0) {
+        if (this.exp.evaluate(ps.getTopSymTable(), ps.getHeap()) != 0) {
             exeStack.push(this);
             exeStack.push(stmt);
         }

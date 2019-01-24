@@ -16,7 +16,7 @@ public class CloseRFile implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        int fd = this.fileIdExp.evaluate(ps.getSymTable(), ps.getHeap());
+        int fd = this.fileIdExp.evaluate(ps.getTopSymTable(), ps.getHeap());
         Tuple<String, BufferedReader> br = ps.getFileTable().get(fd);
 
         if (br == null) {

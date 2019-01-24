@@ -17,9 +17,9 @@ public class NewStmt implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        int result = this.exp.evaluate(ps.getSymTable(), ps.getHeap());
+        int result = this.exp.evaluate(ps.getTopSymTable(), ps.getHeap());
         int loc = ps.getHeap().allocate(result);
-        ps.getSymTable().put(var, loc);
+        ps.getTopSymTable().put(var, loc);
 
         return null;
     }

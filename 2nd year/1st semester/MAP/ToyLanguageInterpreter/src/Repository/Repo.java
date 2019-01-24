@@ -42,7 +42,7 @@ public class Repo implements IRepo {
             printWriter.println("Execution stack:");
             printWriter.println(ps.getExeStack().toString());
             printWriter.println("Symbol table: ");
-            printWriter.println(ps.getSymTable().toString());
+            printWriter.println(ps.getTopSymTable().toString());
             printWriter.println("Output: ");
             printWriter.println(ps.getOutput().toString());
             printWriter.println("File table: ");

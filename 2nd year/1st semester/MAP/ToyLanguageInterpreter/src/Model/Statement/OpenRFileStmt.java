@@ -36,7 +36,7 @@ public class OpenRFileStmt implements IStatement {
 
         try {
             ps.getFileTable().put(newFileFd, new Tuple<String, BufferedReader>(this.fileName, new BufferedReader(new FileReader("C:\\Users\\necso\\Desktop\\926\\src\\" + this.fileName))));
-            ps.getSymTable().put(this.fileId, newFileFd);
+            ps.getTopSymTable().put(this.fileId, newFileFd);
         } catch (FileNotFoundException e) {
             System.out.println(e.toString());
         }

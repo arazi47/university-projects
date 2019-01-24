@@ -18,7 +18,7 @@ public class ReadFileStmt implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        int fd = this.fileIdExp.evaluate(ps.getSymTable(), ps.getHeap());
+        int fd = this.fileIdExp.evaluate(ps.getTopSymTable(), ps.getHeap());
 
         Tuple<String, BufferedReader> br = ps.getFileTable().get(fd);
 
@@ -38,7 +38,7 @@ public class ReadFileStmt implements IStatement {
             val = Integer.valueOf(line);
         }
 
-        ps.getSymTable().put(this.varName, val);
+        ps.getTopSymTable().put(this.varName, val);
         return null;
     }
 

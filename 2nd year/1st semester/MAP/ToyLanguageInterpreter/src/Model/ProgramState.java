@@ -5,15 +5,22 @@ import Model.Utils.*;
 
 import java.io.BufferedReader;
 import java.util.HashMap;
+import java.util.Stack;
+
 import Exception.CustomException;
 
 public class ProgramState {
     private MyStack<IStatement> exeStack;
     private MyList<Integer> output;
-    private IDictionary<String, Integer> symTable;
+
+    //private IDictionary<String, Integer> symTable;
+    private IStack<IDictionary<String, Integer>> stackSymTable;
+
     private IStatement program;
     private MyDictionary<Integer, Tuple<String, BufferedReader>> fileTable;
     private MyHeap<Integer> heap;
+
+    private IDictionary<String, MyPair> procTable;
 
     // TODO rename this to threadId or something
     private int id;
@@ -21,9 +28,14 @@ public class ProgramState {
     public ProgramState(IStatement program) {
         this.exeStack = new MyStack<>();
         this.output = new MyList<>();
-        this.symTable = new MyDictionary<>();
+
+        //this.symTable = new MyDictionary<>();
+        this.stackSymTable = new MyStack<>();
+        this.stackSymTable.push(new MyDictionary<>());
+
         this.program = program;
         this.fileTable = new MyDictionary<>();
+        this.procTable = new MyDictionary<>();
         this.heap = new MyHeap<Integer>(new HashMap<Integer, Integer>());
         this.id = 1;
 
@@ -33,27 +45,53 @@ public class ProgramState {
     public ProgramState(IStatement program,
                         MyStack<IStatement> exeStack,
                         MyList<Integer> output,
-                        IDictionary<String, Integer> symTable,
+                        //IDictionary<String, Integer> symTable,
+                        IStack<IDictionary<String, Integer>> stackSymTable,
                         MyDictionary<Integer, Tuple<String, BufferedReader>> fileTable,
+                        IDictionary<String, MyPair> procTable,
                         MyHeap<Integer> heap,
                         int threadId)
     {
         this.program = program;
         this.exeStack = exeStack;
         this.output = output;
-        this.symTable = symTable;
+        //this.symTable = symTable;
+        this.stackSymTable = stackSymTable;
         this.fileTable = fileTable;
+        this.procTable = procTable;
         this.heap = heap;
         this.id = threadId;
 
         this.exeStack.push(this.program);
     }
 
-    public IDictionary<String, Integer> getSymTable() {
-        return this.symTable;
+    public IDictionary<String, MyPair> getProcTable() {
+        return this.procTable;
     }
-    public void setSymTable(MyDictionary<String, Integer> symTable) {
-        this.symTable = symTable;
+
+    public void setProcTable(IDictionary<String, MyPair> procTable) {
+        this.procTable = procTable;
+    }
+
+    public IStack<IDictionary<String, Integer>> copyStackSymTable() {
+        IStack<IDictionary<String, Integer>> copiedStack = new MyStack<>();
+        for (IDictionary<String, Integer> el : this.getStackSymTable().getStack()) {
+            copiedStack.push(el.cloneDict());
+        }
+
+        return copiedStack;
+    }
+
+
+    public IStack<IDictionary<String, Integer>> getStackSymTable() {
+        return this.stackSymTable;
+    }
+    public void setStackSymTable(IStack<IDictionary<String, Integer>> stackSymTable) {
+        this.stackSymTable = stackSymTable;
+    }
+
+    public IDictionary<String, Integer> getTopSymTable() {
+        return this.stackSymTable.peek();
     }
 
     public MyStack<IStatement> getExeStack() {
@@ -97,8 +135,8 @@ public class ProgramState {
         String s = "";
         s += "exeStack:\n";
         s += this.exeStack.toString();
-        s += "\nsymTable:\n";
-        s += this.symTable.toString();
+        //s += "\nsymTable:\n";
+        //s += this.symTable.toString();
         s += "\noutput:\n";
         s += this.output.toString();
         s += "\nfileTable:\n";

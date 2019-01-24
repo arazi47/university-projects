@@ -1,6 +1,8 @@
 package Model.Statement;
 
 import Model.ProgramState;
+import Model.Utils.IDictionary;
+import Model.Utils.MyDictionary;
 import Model.Utils.MyStack;
 
 public class ForkStmt implements IStatement {
@@ -16,8 +18,10 @@ public class ForkStmt implements IStatement {
                 this.stmt,
                 new MyStack<IStatement>(),
                 ps.getOutput(),
-                ps.getSymTable().cloneDict(),
+                ps.copyStackSymTable(),
+                //ps.getStackSymTable(),
                 ps.getFileTable(),
+                ps.getProcTable().cloneDict(),
                 ps.getHeap(),
                 ps.getId() * 10);
     }

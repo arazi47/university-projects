@@ -1,26 +1,26 @@
 package Model.Statement;
 
+import Model.Expression.ConstExp;
 import Model.Expression.IExpression;
 import Model.ProgramState;
+import Model.Utils.MyList;
+import Model.Utils.MyStack;
 
-public class IfStm implements IStatement {
+public class SleepStmt implements IStatement {
     private IExpression exp;
-    private IStatement st1, st2;
 
-    public IfStm(IExpression exp, IStatement st1, IStatement st2) {
+    public SleepStmt(IExpression exp) {
         this.exp = exp;
-        this.st1 = st1;
-        this.st2 = st2;
     }
 
     @Override
     public ProgramState execute(ProgramState ps) {
+        MyStack<IStatement> exeStack = ps.getExeStack();
+
         int result = this.exp.evaluate(ps.getTopSymTable(), ps.getHeap());
 
         if (result != 0) {
-            this.st1.execute(ps);
-        } else {
-            this.st2.execute(ps);
+            exeStack.push(new SleepStmt(new ConstExp(result - 1)));
         }
 
         return null;
@@ -28,6 +28,6 @@ public class IfStm implements IStatement {
 
     @Override
     public String toString() {
-        return "if " + this.exp.toString() + " then " + this.st1.toString() + " else " + this.st2.toString();
+        return "sleep(" + this.exp.toString() + ")";
     }
 }
