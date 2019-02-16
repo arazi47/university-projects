@@ -1,0 +1,2 @@
+Messaging application using written in Python using TCP sockets.
+Threads are used because we need the client & server to be able to send multiple messages one after another without waiting for a reply.
