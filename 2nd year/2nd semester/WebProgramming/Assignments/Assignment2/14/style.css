@@ -1,0 +1,43 @@
+body {
+    background-color: #dddddd;
+}
+
+#bigpicture {
+    width: 800px;
+    height: 600px;
+    position: relative;
+    left: 5%;
+    border: 0px solid #dddddd;
+}
+
+/* Select al the img tags that are under class smallpicture */
+img {
+    border: 1px solid #dddddd;
+    width: 200px;
+    height: 200px;
+    margin: 0px 20px;
+}
+
+.smallpic:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+#sp1:hover ~ #bigpicture {
+    background: url("resources/1.jpg") no-repeat;
+}
+
+#sp2:hover ~ #bigpicture {
+    background: url("resources/2.jpg") no-repeat;
+}
+
+#sp3:hover ~ #bigpicture {
+    background: url("resources/3.jpg") no-repeat;
+}
+
+#sp4:hover ~ #bigpicture {
+    background: url("resources/4.jpg") no-repeat;
+}
+
+#sp5:hover ~ #bigpicture {
+    background: url("resources/5.jpg") no-repeat;
+}

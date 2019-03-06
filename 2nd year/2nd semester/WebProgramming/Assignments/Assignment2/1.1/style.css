@@ -1,0 +1,32 @@
+body {
+    background-color: #1CD3F8;
+}
+
+/*
+    If in HTML:
+    id="button" => CSS: #button
+    class="button" => CSS: .button 
+*/
+
+#button {
+    position: relative;
+    display: inline-block; /* ? */
+    text-decoration: none; /* Remove the underline of the button */
+    color:black; /* Text color */
+    background-color: #FFE800; /* Button color */
+    padding: 15px 40px; /* Spaces around button */
+    font-size: 24px; /* Button text font size */
+    border: 1px solid #2d6898; /* Button border */
+    text-transform: uppercase;
+    font-family: arial;
+    letter-spacing: 1px;
+
+    box-shadow: -5px 5px 0 #404040; /* Shadow to the left and to the right of given color of the button */
+    /*transition: all .15s linear 0s;*/
+}
+
+#button:hover {
+    top: 3px; /* Go to the left */ 
+    left: -3px; /* Go to the right */
+    box-shadow: -2px 2px 0 #404040; /* Reduce the shadow of the button */
+}
