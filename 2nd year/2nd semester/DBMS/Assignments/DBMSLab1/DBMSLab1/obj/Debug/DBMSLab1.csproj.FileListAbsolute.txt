@@ -1,0 +1,10 @@
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\bin\Debug\DBMSLab1.exe.config
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\bin\Debug\DBMSLab1.exe
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\bin\Debug\DBMSLab1.pdb
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\obj\Debug\DBMSLab1.csprojAssemblyReference.cache
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\obj\Debug\DBMSLab1.Form1.resources
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\obj\Debug\DBMSLab1.Properties.Resources.resources
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\obj\Debug\DBMSLab1.csproj.GenerateResource.cache
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\obj\Debug\DBMSLab1.csproj.CoreCompileInputs.cache
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\obj\Debug\DBMSLab1.exe
+C:\Users\necso\source\repos\DBMSLab1\DBMSLab1\obj\Debug\DBMSLab1.pdb
