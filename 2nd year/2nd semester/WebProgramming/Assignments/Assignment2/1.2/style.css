@@ -1,5 +1,5 @@
 body {
-    background-color: #1CD3F8;
+    background-color: #C6EDFF
 }
 
 /*
@@ -13,20 +13,22 @@ body {
     display: inline-block; /* ? */
     text-decoration: none; /* Remove the underline of the button */
     color:black; /* Text color */
-    background-color: #FFE800; /* Button color */
-    padding: 15px 40px; /* Spaces around button */
+    background-color: #C46A6A; /* Button color */
+    padding: 15px; /* Spaces around button */
     font-size: 24px; /* Button text font size */
-    border: 1px solid #2d6898; /* Button border */
+    font-weight: bold;
+    border: 1px solid; /* Button border */
     text-transform: uppercase;
     font-family: arial;
-    letter-spacing: 1px;
+    border-radius: 100% 50%;
+    margin: 4px 2px;
 
-    box-shadow: -5px 5px 0 #404040; /* Shadow to the left and to the right of given color of the button */
+    box-shadow: -5px 5px 0 #333; /* Shadow to the left and to the right of given color of the button */
     /*transition: all .15s linear 0s;*/
 }
 
-#button:hover {
-    top: 3px; /* Go to the left */ 
-    left: -3px; /* Go to the right */
-    box-shadow: -2px 2px 0 #404040; /* Reduce the shadow of the button */
+#button:active {
+    top: 3px;
+    left: -3px;
+    box-shadow: 0px 0px #333;
 }

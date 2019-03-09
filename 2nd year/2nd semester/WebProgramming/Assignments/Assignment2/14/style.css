@@ -10,7 +10,7 @@ body {
     border: 0px solid #dddddd;
 }
 
-/* Select al the img tags that are under class smallpicture */
+/* Select all the img tags that are under class smallpicture */
 img {
     border: 1px solid #dddddd;
     width: 200px;
