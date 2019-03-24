@@ -10,7 +10,7 @@ body {
     border: 0px solid #dddddd;
 }
 
-/* Select all the img tags that are under class smallpicture */
+/* Select all the img tags */
 img {
     border: 1px solid #dddddd;
     width: 200px;
@@ -19,7 +19,7 @@ img {
 }
 
 .smallpic:hover {
-    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    /*box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);*/
 }
 
 #sp1:hover ~ #bigpicture {

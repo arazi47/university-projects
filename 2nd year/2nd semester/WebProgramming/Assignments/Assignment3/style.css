@@ -1,0 +1,422 @@
+body {
+    background-color: #121212;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    /*display: inline-block;*/
+}
+
+p {
+    color: #FFFFFF;
+}
+
+#header {
+    background-color: #272727;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+    
+    width: 100%;
+}
+
+#menu-icon {
+    float: left;
+    margin-top: 8px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+#youtube-logo {
+    float: left;
+    margin-top: 6px;
+
+    width: 70px;
+    margin-right: 18%;
+}
+
+#search {
+    float: left;
+}
+
+#search-input {
+    margin-top: 6px;
+    background-color: #121212;
+    font-family: arial;
+    color: #FFFFFF;
+
+    float: left;
+    box-sizing: content-box;
+    width: 550px; /* Comment this out to fix leftnavbar when resizing */
+    /*width: 55%;*/
+    height: 26px;
+    padding: 2px 6px;
+}
+
+/* I'd like this to stay only when active and keep this state, how do I do this? */
+#search-input {
+    border: 0px;
+    /*border: 1px solid #1C62B9;*/
+}
+
+@media (max-width: 1000px) {
+    #search-input {
+      width: 150px;
+    }
+}
+
+#search-button {
+    margin-top: 6px;
+    background-color: #383838;
+    border: 0;
+}
+
+#search-button-icon {
+    width: 50px;
+    height: 25px;
+}
+
+#notifications-photo {
+    float: left;
+    margin-top: 12px;
+    margin-left: 25%;
+}
+
+#profile-picture-photo {
+    float: left;
+    margin-top: 6px;
+    margin-left: 12px;
+    border-radius: 100%;
+}
+
+/***************************/
+/* Left navigation bar */
+
+#leftnavbar {
+    background-color: #1C1C1C;
+    /*width: 15%;*/
+    width: 220px;
+    height: 100%;
+    float: left;
+    /*display: inline-block;*/
+    padding-top: 10px;
+}
+
+#home-button-div {
+    background-color: #333333;
+    float: left;
+}
+
+#home-photo {
+    float: left;
+    margin-top: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+#home-photo-text {
+    float: left;
+    font-family: arial;
+    color: #FFFFFF;
+    margin-top: 24px;
+    margin-right: 105px;
+    font-size: 16px;
+}
+
+#trending-button-div {
+    float: left;
+}
+
+#trending-photo {
+    float: left;
+    margin-top: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
+    float: left;
+}
+
+#trending-photo-text {
+    float: left;
+    font-family: arial;
+    color: #FFFFFF;
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+#subscriptions-button-div {
+    float: left;
+}
+
+#subscriptions-photo {
+    float: left;
+    margin-top: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
+    float: left;
+}
+
+#subscriptions-photo-text {
+    float: left;
+    font-family: arial;
+    color: #FFFFFF;
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+.navbar-hr {
+    border-color: gray;
+}
+
+#history-button-div {
+    float: left;
+}
+
+#history-photo {
+    float: left;
+    margin-top: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
+    float: left;
+}
+
+#history-photo-text {
+    float: left;
+    font-family: arial;
+    color: #FFFFFF;
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+#watch-later-button-div {
+    float: left;
+}
+
+#watch-later-photo {
+    float: left;
+    margin-top: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
+    float: left;
+}
+
+#watch-later-photo-text {
+    float: left;
+    font-family: arial;
+    color: #FFFFFF;
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+#liked-videos-button-div {
+    float: left;
+}
+
+#liked-videos-photo {
+    float: left;
+    margin-top: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
+    float: left;
+}
+
+#liked-videos-photo-text {
+    float: left;
+    font-family: arial;
+    color: #FFFFFF;
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+#playlist-play-button-div {
+    float: left;
+}
+
+#playlist-play-photo {
+    float: left;
+    margin-top: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
+    float: left;
+}
+
+#playlist-play-photo-text {
+    float: left;
+    font-family: arial;
+    color: #FFFFFF;
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+#subscriptions-text {
+    color: #aaa;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    padding-left: 24px;
+    font-weight: 600;
+}
+
+/* Videos */
+#videos * {
+    float: left;
+    margin-top: 12px;
+    margin-left: 54px;
+}
+
+#videos {
+    
+}
+
+@media (max-width: 1500px) {
+    #leftnavbar {
+      display: none;
+    }
+}
+
+#recommended-text {
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#video1-img {
+    margin-left: 0;
+    position: absolute;
+}
+
+#video1 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+#video2-img {
+    margin-top: 12px;
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video2 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+#video3-img {
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video3 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+#video4-img {
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video4 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+
+#video5-img {
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video5 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+/* Second row of videos */
+
+#video6-img {
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video6 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+#video7-img {
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video7 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+#video8-img {
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video8 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+
+#video9-img {
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video9 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+#video10-img {
+    margin-left: 12px;
+    position: absolute;
+}
+
+#video10 p {
+    margin-left: 0;
+    margin-top: 120px;
+    font-weight: bold;
+    max-width: 180px;
+}
+
+/* Recommended videos end */
+/**************************/
+
+#show-more-text {
+    color: #aaa;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 55px;
+}
+
+#videos-hr {
+    border-color: gray;
+    width: 1175px;
+    margin-top: -6px;
+}

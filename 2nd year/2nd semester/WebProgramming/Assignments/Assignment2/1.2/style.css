@@ -9,26 +9,28 @@ body {
 */
 
 #button {
-    position: relative;
-    display: inline-block; /* ? */
-    text-decoration: none; /* Remove the underline of the button */
-    color:black; /* Text color */
-    background-color: #C46A6A; /* Button color */
-    padding: 15px; /* Spaces around button */
-    font-size: 24px; /* Button text font size */
-    font-weight: bold;
-    border: 1px solid; /* Button border */
     text-transform: uppercase;
     font-family: arial;
+    font-weight: bold;
+    text-decoration: none; /* Remove the underline of the button */
+    font-size: 24px; /* Button text font size */
+
+    position: relative;
+    display: inline-block; /* ? */
+    
+    color:black; /* Text color */
+    background-color: #C46A6A; /* Button color */
+    padding: 15px; /* Size of button */
+    border: 1px solid; /* Button border */
     border-radius: 100% 50%;
-    margin: 4px 2px;
 
     box-shadow: -5px 5px 0 #333; /* Shadow to the left and to the right of given color of the button */
-    /*transition: all .15s linear 0s;*/
 }
 
-#button:active {
+#button:hover {
     top: 3px;
     left: -3px;
-    box-shadow: 0px 0px #333;
+    box-shadow: -5px 5px #333;
+    border-radius: 50% 100%;
+    transition: all .05s;
 }
