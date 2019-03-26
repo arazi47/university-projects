@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<script type="text/javascript">
+			function concatenateStuff() {
+				var myDiv = document.getElementById("myDiv");
+
+				myDiv.innerHTML = "";
+				var myInputs = document.getElementsByName("myInput");
+				for (var i = 0; i < myInputs.length; ++i) {
+					myDiv.innerHTML += myInputs[i].value;
+				}
+
+				myDiv.innerHTML += document.getElementsByClassName("mySpan")[0].innerText;
+				myDiv.style.backgroundColor = "pink";
+			}
+
+			function keyWasPressedBoi(event) {
+				document.getElementById("someOtherDiv").innerHTML += String.fromCharCode(event.keyCode);
+			}
+		</script>
+
+		<style>
+			body * {
+				display: flex;
+			}
+		</style>
+	</head>
+
+	<body onKeyPress="keyWasPressedBoi(event)">
+		<span class="mySpan">
+			some text
+		</span>
+
+		<input type="text" id="inputId" name="myInput" value="a1">
+		<input type="text" id="inputId" name="myInput" value="b2">
+		<input type="text" id="inputId" name="myInput" value="c3">
+		
+		<input type="button" onClick="concatenateStuff()" value="Concatenate">
+		<div id="myDiv"></div>
+		<div id="someOtherDiv"></div>
+	</body>
+</html>

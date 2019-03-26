@@ -1,0 +1,42 @@
+#divbg {
+    background-color: #ABCDEF;
+
+    height: 1%;
+    margin-bottom: 0.2%;
+}
+
+#div20percent {
+    background-color: pink;
+
+    width: 20%;
+    height: 98.6%;
+    float: left;
+}
+
+#divrest {
+    background-color: aqua;
+
+    float: left;
+    margin-left: 2px;
+    width: 79.8%;
+    height: 99%;
+}
+
+#divrestchildleft {
+    background-color: red;
+
+    float: left;
+    width: 45%;
+    height: 94%;
+    margin: 2%;
+}
+
+#divrestchildright {
+    background-color: yellow;
+
+    float: left;
+    width: 45%;
+    height: 94%;
+    margin: 2%;
+}
+

@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script type="text/javascript">
+			function validate() {
+			      var x = document.myForm;
+			      var inputByName = x.myInput.value;
+                  console.log(x);
+			      var inputById = x.inputId.value;
+
+			      console.log("inputByName=", inputByName);
+			      console.log("inputById=", inputById);
+
+			      if (inputById.length>5) {
+			      	document.getElementById('myDiv').innerHTML = "You have entered " + inputById.length + " chars. Please resume to 5 chars!";
+					return false;
+			      } else  {
+			        	return true;
+			      }
+			}
+
+			function doOnClick() {
+				alert("A button was clicked!");
+			}
+		</script>
+	</head>
+
+	<body>
+		<form name="myForm" action="#" onsubmit="return validate()">
+			In this input box you are not allowed to insert more than 5 characters:
+			<input type="text" id="inputId" name="myInput">
+			<input type="submit" value="Send input">
+		</form>
+		
+			<input type="button" onClick="doOnClick()" value="Test click">
+			<div id="myDiv">
+			
+			</div>
+	</body>
+</html>
