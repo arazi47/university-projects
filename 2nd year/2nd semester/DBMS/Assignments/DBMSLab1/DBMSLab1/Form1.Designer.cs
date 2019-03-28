@@ -38,6 +38,8 @@
             this.classTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.questIdTextBox = new System.Windows.Forms.TextBox();
+            this.upatePlayerButton = new System.Windows.Forms.Button();
+            this.deletePlayerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.parentTableDgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.childTableDgv)).BeginInit();
             this.SuspendLayout();
@@ -45,7 +47,7 @@
             // fillDgvButton
             // 
             this.fillDgvButton.Location = new System.Drawing.Point(12, 12);
-            this.fillDgvButton.Name = "button1";
+            this.fillDgvButton.Name = "fillDgvButton";
             this.fillDgvButton.Size = new System.Drawing.Size(109, 54);
             this.fillDgvButton.TabIndex = 0;
             this.fillDgvButton.Text = "Show parent table (GUILD)";
@@ -74,7 +76,7 @@
             // 
             this.addPlayerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.addPlayerButton.Location = new System.Drawing.Point(7, 609);
-            this.addPlayerButton.Name = "button2";
+            this.addPlayerButton.Name = "addPlayerButton";
             this.addPlayerButton.Size = new System.Drawing.Size(105, 42);
             this.addPlayerButton.TabIndex = 3;
             this.addPlayerButton.Text = "Add player";
@@ -123,11 +125,33 @@
             this.questIdTextBox.Size = new System.Drawing.Size(100, 22);
             this.questIdTextBox.TabIndex = 9;
             // 
+            // upatePlayerButton
+            // 
+            this.upatePlayerButton.Location = new System.Drawing.Point(129, 609);
+            this.upatePlayerButton.Name = "upatePlayerButton";
+            this.upatePlayerButton.Size = new System.Drawing.Size(102, 38);
+            this.upatePlayerButton.TabIndex = 10;
+            this.upatePlayerButton.Text = "Update";
+            this.upatePlayerButton.UseVisualStyleBackColor = true;
+            this.upatePlayerButton.Click += new System.EventHandler(this.upatePlayerButton_Click);
+            // 
+            // deletePlayerButton
+            // 
+            this.deletePlayerButton.Location = new System.Drawing.Point(129, 551);
+            this.deletePlayerButton.Name = "deletePlayerButton";
+            this.deletePlayerButton.Size = new System.Drawing.Size(102, 52);
+            this.deletePlayerButton.TabIndex = 11;
+            this.deletePlayerButton.Text = "Delete by ID";
+            this.deletePlayerButton.UseVisualStyleBackColor = true;
+            this.deletePlayerButton.Click += new System.EventHandler(this.deletePlayerButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1083, 659);
+            this.Controls.Add(this.deletePlayerButton);
+            this.Controls.Add(this.upatePlayerButton);
             this.Controls.Add(this.questIdTextBox);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.classTextBox);
@@ -159,6 +183,8 @@
         private System.Windows.Forms.TextBox classTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.TextBox questIdTextBox;
+        private System.Windows.Forms.Button upatePlayerButton;
+        private System.Windows.Forms.Button deletePlayerButton;
     }
 }
 
