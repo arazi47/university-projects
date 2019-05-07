@@ -1,0 +1,26 @@
+body {
+    background-color: #f8f9fa!important;
+    margin-top: 1%;
+    margin-left: 2%;
+}
+
+#add-new-gbentry-div {
+    display: inline-block;
+}
+
+#email-input {
+    margin-bottom: 10px;
+}
+
+#title-input {
+    margin-bottom: 10px;
+}
+
+#comment-input {
+    margin-bottom: 10px;
+    padding-bottom: 50px;
+}
+
+#add-gbentry-button {
+    padding: 10px 65px;
+}
