@@ -1,0 +1,7 @@
+﻿SELECT * FROM Player WHERE guild_id = 1;
+SELECT * FROM Player;
+INSERT INTO PLAYER(name, class, prof_id, guild_id, quest_id) VALUES ('scenario1', 1, 1, 1, 1);
+SELECT * FROM Player;
+SELECT * FROM Player WHERE guild_id = 1;
+DELETE FROM Player WHERE name = 'scenario1';
+SELECT * FROM Player;

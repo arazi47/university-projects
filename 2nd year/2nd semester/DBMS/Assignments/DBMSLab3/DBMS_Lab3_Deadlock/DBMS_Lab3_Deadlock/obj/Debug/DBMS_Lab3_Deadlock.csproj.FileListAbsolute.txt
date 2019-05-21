@@ -1,0 +1,10 @@
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\bin\Debug\DBMS_Lab3_Deadlock.exe.config
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\bin\Debug\DBMS_Lab3_Deadlock.exe
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\bin\Debug\DBMS_Lab3_Deadlock.pdb
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\obj\Debug\DBMS_Lab3_Deadlock.csprojAssemblyReference.cache
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\obj\Debug\DBMS_Lab3_Deadlock.Form1.resources
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\obj\Debug\DBMS_Lab3_Deadlock.Properties.Resources.resources
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\obj\Debug\DBMS_Lab3_Deadlock.csproj.GenerateResource.cache
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\obj\Debug\DBMS_Lab3_Deadlock.csproj.CoreCompileInputs.cache
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\obj\Debug\DBMS_Lab3_Deadlock.exe
+C:\Users\necso\source\repos\DBMS_Lab3_Deadlock\DBMS_Lab3_Deadlock\obj\Debug\DBMS_Lab3_Deadlock.pdb
