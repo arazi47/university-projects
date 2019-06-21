@@ -1,0 +1,184 @@
+﻿@using Assignment9.Models
+
+@model SubmitGBEntryModel
+@{
+    ViewData["Title"] = "Logged in";
+}
+
+<h2>Submit a guestbook entry</h2>
+
+@using (Html.BeginForm("SubmitGBEntry", "Home", FormMethod.Post, new { id = "SubmitGBEntry", @class = "enter_form" }))
+{
+    <fieldset>
+        Title:
+        @Html.TextBoxFor(model => model.Title)
+        @Html.ValidationMessageFor(model => model.Title)
+
+        Text:
+        @Html.TextBoxFor(model => model.Text)
+        @Html.ValidationMessageFor(model => model.Text)
+
+        <input type="submit" value="Add entry" />
+    </fieldset>
+}
+
+@{
+    @using MySql.Data.MySqlClient;
+    @using Assignment9.Controllers;
+
+    if (HomeController.username == "admin")
+    {
+        <br>
+
+        string connstring2 = string.Format("Server=localhost; database=weblab7; UID=root; password=root1234");
+        var connection2 = new MySqlConnection(connstring2);
+        connection2.Open();
+
+        string result = "<select id=\"filterSelect\" name=\"filterSelect\">";
+
+        string query2 = "SELECT DISTINCT author_email FROM guestbook";
+        var cmd2 = new MySqlCommand(query2, connection2);
+        var reader2 = cmd2.ExecuteReader();
+        while (reader2.Read())
+        {
+            string username2 = reader2.GetString(0);
+            result += "<option>" + username2 + "</option>";
+        }
+
+        connection2.Close();
+        result += "</select>";
+
+        @using (Html.BeginForm("ApplyFilter", "Home", FormMethod.Post, new { id = "applyfilter", @class = "applyfilter_form" }))
+        {
+            @Html.Raw(result);
+            <input type="submit" value="Apply filter" />
+        }
+
+        <br />
+        <br />
+    }
+}
+
+@{
+    @using Assignment9.Controllers;
+    if (HomeController.username == "admin")
+    {
+        <div id="update-gbentry-div">
+            @using (Html.BeginForm("Update", "Home", FormMethod.Post, new { id = "update", @class = "update_form" }))
+            {
+                <fieldset>
+                    @Html.TextBoxFor(model => model.Id, new { id = "id-input", placeholder = "ID", @readonly = true });
+                    @Html.ValidationMessageFor(model => model.Id);
+
+                    @Html.TextBoxFor(model => model.Email, new { id = "email-input", placeholder = "Email" })
+                    @Html.ValidationMessageFor(model => model.Email);
+
+                    @Html.TextBoxFor(model => model.TitleUpd, new { id = "title-input", placeholder = "Title" })
+                    @Html.ValidationMessageFor(model => model.TitleUpd);
+
+                    @Html.TextBoxFor(model => model.Comment, new { id = "comment-input", placeholder = "Comment" })
+                    @Html.ValidationMessageFor(model => model.Comment);
+
+                    <input type="submit" value="Update" />
+                </fieldset>
+            }
+
+            @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { id = "delete", @class = "delete_form" }))
+            {
+                @Html.TextBoxFor(model => model.Id, new { id = "id-input2", placeholder = "ID", @readonly = true, style = "display: none" });
+                @Html.ValidationMessageFor(model => model.Id);
+                <input type="submit" value="Delete" />
+            }
+
+
+        </div>
+
+    }
+
+}
+
+<br>
+<h2>Current entries</h2>
+
+@{
+    @using MySql.Data.MySqlClient;
+
+    string connstring = string.Format("Server=localhost; database=weblab7; UID=root; password=root1234");
+    var connection = new MySqlConnection(connstring);
+    connection.Open();
+
+    string query = "SELECT * FROM guestbook";
+    var cmd = new MySqlCommand(query, connection);
+    var reader = cmd.ExecuteReader();
+
+    string tableHTML = "<table id=\"gbentries-table\" border = \"1\"><tr><th>ID</th><th>Author's Email</th><th>Title</th><th>Description</th><th>Posted on</th></tr>";
+
+    while (reader.Read())
+    {
+        int id = reader.GetInt32(0);
+        string username = reader.GetString(1);
+        string title = reader.GetString(2);
+        string desc = reader.GetString(3);
+        tableHTML += "<tr>";
+        tableHTML += "<td>" + id + "</td>";
+        tableHTML += "<td>" + username + "</td>";
+        tableHTML += "<td>" + title + "</td>";
+        tableHTML += "<td>" + desc + "</td>";
+        // Date and time are split by space, we only need the date
+        tableHTML += "<td>" + reader.GetDateTime(4).ToString().Split(' ')[0] + "</td>";
+    }
+
+    tableHTML += "</table>";
+
+    connection.Close();
+}
+
+
+@Html.Raw(tableHTML)
+
+@{
+    @using Assignment9.Controllers;
+    if (HomeController.username == "admin")
+    {
+        <script>
+            var table = document.getElementById("gbentries-table");
+            var rows = table.getElementsByTagName("tr");
+            for (i = 1; i < rows.length; i++) {
+                var row = table.rows[i];
+                row.onclick = function (myrow) {
+                    return function () {
+                        var cell = myrow.getElementsByTagName("td")[0];
+                        var id = cell.innerHTML;
+                        //alert("stuff: "+ myrow.getElementsByTagName("td")[1].innerHTML);
+                        //alert("id:" + id);
+
+                        document.getElementById("id-input").value = myrow.getElementsByTagName("td")[0].innerHTML;
+                        document.getElementById("id-input2").value = myrow.getElementsByTagName("td")[0].innerHTML;
+                        document.getElementById("email-input").value = myrow.getElementsByTagName("td")[1].innerHTML;
+                        document.getElementById("title-input").value = myrow.getElementsByTagName("td")[2].innerHTML;
+                        document.getElementById("comment-input").value = myrow.getElementsByTagName("td")[3].innerHTML;
+                    };
+                }(row);
+            }
+        </script>
+
+        <script>
+            function clickedUpdate() {
+                @{
+                    @using Assignment9.Controllers;
+
+                }
+
+                var id = document.getElementById("id-input").value
+            }
+
+            function clickedDelete() {
+                @{
+                    @using Assignment9.Controllers;
+
+                    //HomeController.Delete()
+                }
+            }
+        </script>
+    }
+}

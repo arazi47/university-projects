@@ -1,0 +1,24 @@
+﻿@using Assignment9.Models
+
+@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<br /><br /><br />
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "login", @class = "enter_form" }))
+{
+    <span style="color:red">@Html.ValidationSummary(true, "Incorrect username and/or password.")</span>
+    <fieldset>
+        Username:
+        @Html.TextBoxFor(model => model.Username)
+        @Html.ValidationMessageFor(model => model.Username)
+
+        Password:
+        @Html.PasswordFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password)
+
+        <input type="submit" value="Log-in" />
+    </fieldset>
+}
