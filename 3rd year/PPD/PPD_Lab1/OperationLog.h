@@ -12,7 +12,7 @@ public:
 	void log(OperationType type, int amount);
 	void printAllOperations();
 
-private:
+//private:
 	std::vector<Operation> operations;
 };
 

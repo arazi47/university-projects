@@ -1,4 +1,4 @@
-﻿  Account.cpp
-  PPD_Lab1.cpp
-  Generating Code...
+﻿  PPD_Lab1.cpp
+c:\users\necso\desktop\pdplabs\ppd_lab1\ppd_lab1\ppd_lab1.cpp(81): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
+c:\users\necso\desktop\pdplabs\ppd_lab1\ppd_lab1\ppd_lab1.cpp(89): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
   PPD_Lab1.vcxproj -> C:\Users\necso\Desktop\PDPLabs\PPD_Lab1\Debug\PPD_Lab1.exe
