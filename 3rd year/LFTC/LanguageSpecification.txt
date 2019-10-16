@@ -1,0 +1,90 @@
+Language Specification:
+ 1 .Language Definition:
+  1.1 Alphabet:
+  1.1.a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
+      b. Decimal digits (0-9);
+  Lexic:
+      a.Special symbols, representing:
+	 - operators: + - * / = < <= == >= >
+	 - separators: ( ) { } ; space
+	 - reserved words:
+		bool int read print if else while
+      b.identifiers
+	   - Combination of letters and digits, but the first character must always be a letter
+			identifier = letter{letter | digit}
+			letter = "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
+			nonzero_digit = "1" | ... | "9"
+			digit = "0" | nonzero_digit
+      c.constants
+	 1.integer - rule:
+		nonzero_digit = "1" | ... | "9"
+		digit = "0" | nonzero_digit
+		integer = ["+" | "-"] nonzero_digit {digit} | "0"
+	 2.character
+	     character = letter | digit
+	 3.string
+	      string = """ {character} """
+
+2.2 Syntax:
+a) Syntactical rules:
+=====================
+program = {[declaration | compound_stmt]}
+declaration = identifier type  ["=" expression] ";"
+
+(int a;) (TODO: maybe add support for int a = 3)
+types_str = "bool" | "int" (char, float, string...?)
+
+expression = expression sign term | term
+sign = "+" | "-" | "*" | "/" | "%"
+term = term term_sign factor | factor
+term_sign = "*" | "/"
+factor = "(" expression ")" | identifier | integer
+
+nonzero_digit = "1" | ... | "9"
+digit = "0" | nonzero_digit
+integer = ["+" | "-"] nonzero_digit {digit} | "0"
+
+array = "(" [int_array | bool_array] ")"
+int_array = [integer] {"," integer}
+bool_array = [bool] {"," bool}
+
+assignment_stmt = identifier "=" expression ";"
+input_output_stmt = ("read" | "print") "(" identifier ")" ";"
+if_stmt = "if" condition "{" stmt "} ["else" "{" stmt "}"]
+while_stmt = "while" "(" condition ")" "{" stmt "}"
+condition = expression relation expression
+relation = "<" | ">" | "<=" | ">=" | "=="
+
+stmt = simple_stmt | struct_stmt
+simple_stmt = assignment_stmt | input_output_stmt
+struct_stmt = compound_stmt | if_stmt | while_stmt
+compound_stmt = stmt {";", stmt}
+
+b) Lexical rules:
+=================
+identifier = letter[{letter | digit}]
+letter = "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
+nonzero_digit = "1" | ... | "9"
+digit = "0" | nonzero_digit
+integer = ["+" | "-"] nonzero_digit {digit} | "0"
+
+==========
+Token : code
+constant : 0
+identifier : 1
+array : 2
+if : 3
+else : 4
+while : 5
++ : 6
+- : 7
+* : 8
+/ : 9 
+= : 10 
+< : 11
+<= : 12
+> : 13
+>= : 14
+== : 15
+( : 16
+) : 17
