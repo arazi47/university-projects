@@ -7,8 +7,8 @@
 #include <thread>
 #include <mutex>
 
-const int numAccounts = 5;
-const int numThreads = 2;
+const int numAccounts = 100;
+const int numThreads = 1;
 const long long int operations = 99999;
 
 std::vector<std::thread> threads;
@@ -85,10 +85,10 @@ int main()
 		threads[i].join();
 	int t1 = time(NULL);
 
-	printf("elapsed time %d\n", t1 - t0);
-
 	for (unsigned int i = 0; i < accounts.size(); ++i)
 		std::cout << "Balance for account ID " << i << " is " << accounts[i].balance << "." << std::endl;
+
+	std::cout << "Elapsed time: " << t1 - t0 << " seconds." << std::endl;
 
 	// One last consistency check
 	checkAccounts();
