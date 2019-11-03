@@ -1,0 +1,9 @@
+int x = 3;
+bool x = -14;
+read a;
+write max8ch__;
+#write max8ch___;
+
+int abc = -13;
+int bca = +13;
+write "asd"
