@@ -1,6 +1,7 @@
 package com.example.taxifinder
 
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -9,11 +10,18 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.taxifinder.adapters.TaxiCompaniesAdapter
+import com.example.taxifinder.model.AppDatabase
 import com.example.taxifinder.model.TaxiCompany
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_taxi_company_dialog.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
+var guid = 0
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,29 +34,42 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        val taxiCompanies = ArrayList<TaxiCompany>()
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "maindb1.db"
+        ).allowMainThreadQueries().build()
+
+        GlobalScope.launch {
+        //launch(Dispatchers.Default) {
+/*            db.taxiCompany().insertAll(
+                TaxiCompany(
+                    guid++,
+                    "Taxi STAR",
+                    "Str. Teodor Mihali nr. 1",
+                    "0712321232"
+                )
+            )*/
+        }
+        //}
+
+        val taxiCompanies = ArrayList<TaxiCompany>(db.taxiCompany().getAll())
 
         //adding some dummy data to the list
-        taxiCompanies.add(TaxiCompany("0", "Taxi STAR", "Str. Teodor Mihali nr. 1", "0712321232"))
-        taxiCompanies.add(TaxiCompany("1", "Taxi PLUS", "Str. B.P. Hasdeu nr. 58-60", "0712321232"))
-        taxiCompanies.add(TaxiCompany("2", "Taxi JMEK", "Str. Roman Ciorogariu nr. 18", "0712321232"))
+        //taxiCompanies.add(TaxiCompany(guid++, "Taxi STAR", "Str. Teodor Mihali nr. 1", "0712321232"))
+        //taxiCompanies.add(TaxiCompany(guid++, "Taxi PLUS", "Str. B.P. Hasdeu nr. 58-60", "0712321232"))
+        //taxiCompanies.add(TaxiCompany(guid++, "Taxi JMEK", "Str. Roman Ciorogariu nr. 18", "0712321232"))
 
         //creating our adapter
-        val adapter = TaxiCompaniesAdapter(taxiCompanies)
+        val adapter = TaxiCompaniesAdapter(db, taxiCompanies)
 
-        taxiCompanies.add(TaxiCompany("3", "Taxi JMEK", "Comp address", "0712321232"))
+        //taxiCompanies.add(TaxiCompany(guid++, "Taxi JMEK", "Comp address", "0712321232"))
 
         //now adding the adapter to recyclerview
         recyclerView.adapter = adapter
 
-        taxiCompanies.add(TaxiCompany("4", "Taxi DUPA ADAPTER", "Comp address", "0712321232"))
+        //taxiCompanies.add(TaxiCompany(guid++, "Taxi DUPA ADAPTER", "Comp address", "0712321232"))
 
         addBtn.setOnClickListener { view ->
-            /*Snackbar.make(view, "Taxi added", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-            taxiCompanies.add(TaxiCompany("5", "Taxi JMEK", "Comp address", "0712321232"))
-            adapter.notifyDataSetChanged();*/
-
             val dialog = LayoutInflater.from(this).inflate(R.layout.add_taxi_company_dialog, null);
             val builder = AlertDialog.Builder(this)
                 .setView(dialog)
@@ -61,7 +82,24 @@ class MainActivity : AppCompatActivity() {
                 val companyName = dialog.companyName.text.toString()
                 val companyPhoneNumber = dialog.companyPhoneNumber.text.toString()
                 val companyAddress = dialog.companyAddress.text.toString()
-                taxiCompanies.add(TaxiCompany("9", companyName, companyAddress, companyPhoneNumber))
+                taxiCompanies.add(TaxiCompany(guid++, companyName, companyAddress, companyPhoneNumber))
+                //GlobalScope.launch {
+                    //db.taxiCompany().delete(taxiCompanies.get(0))
+                    db.taxiCompany().deleteAll()
+                    for (tc in taxiCompanies) {
+                        db.taxiCompany().insertAll(tc)
+                    }
+                //}
+                /*GlobalScope.launch {
+                    db.taxiCompany().insertAll(
+                        TaxiCompany(
+                            guid++,
+                            companyName,
+                            companyAddress,
+                            companyPhoneNumber
+                        )
+                    )
+                }*/
                 adapter.notifyDataSetChanged()
             }
 

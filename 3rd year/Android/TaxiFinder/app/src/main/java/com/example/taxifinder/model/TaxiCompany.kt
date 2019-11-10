@@ -1,8 +1,14 @@
 package com.example.taxifinder.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class TaxiCompany (
-    var id: String = "0",
-    var name: String = "Default TaxiCompany name",
-    var address: String = "Default TaxiCompany address",
-    var phoneNumber: String = "Default TaxiCompany phone number"
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
+    @ColumnInfo(name = "name") var name: String = "Default TaxiCompany name",
+    @ColumnInfo(name = "address") var address: String = "Default TaxiCompany address",
+    @ColumnInfo(name = "phoneNumber") var phoneNumber: String = "Default TaxiCompany phone number"
 )
