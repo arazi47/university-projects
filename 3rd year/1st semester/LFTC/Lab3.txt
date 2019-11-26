@@ -7,8 +7,8 @@
 <factor> ::= ( <expression> ) | <identifier> | <integer>
 
 <array> ::= ( ) | ( <int_array> ) | ( <bool_array> )
-<int_array> ::= TODO
-<bool_array> ::= TODO
+<int_array> ::= <integer> | , <int_array> | E
+<bool_array> ::= <bool> | , <bool> | E
 
 <assignment_stmt> ::= <identifier> = <expression> ;
 <input_output_stmt> ::= read ( <identifier> ) | print ( <identifier> )
@@ -27,11 +27,44 @@
 <letter> ::= a | b | c | ... | z | A | B | C | ... | Z
 <nonzero_digit> ::= 1 | 2 | 3 | ... | 9
 <digit> ::= 0 | <nonzero_digit>
-<integer> ::= TODO probabil la seminar
+<integer> ::= - <unsigned> | + <unsigned> | <unsigned>
+<unsigned> ::= <nonzero_digit> | <digit> <unsigned>
 
 ===================
 G = (N, E, P, S)
 N = { program, declaration, types_str, expression, sign, term_sign, factor, array, int_array, bool_array, assignment_stmt, input_output_stmt, if_stmt, while_stmt, condition, relation, stmt, simple_stmt, struct_stmt, compound_stmt, identifier, identifier_noletterfirst, letter, nonzero_digit, digit, intger } # Nonterminals
 E = { +, -, *, /, =, ==, <, <=, >, >=, (, ), {, }, ' ', ;, '\"', bool, int, read, print, if, else, while }# Terminals
-P = # Productions
 S = program # Starting point
+
+P = # Productions
+program -> declaration | compound_stmt | E
+declaration -> identifier type ; | identifier type = expression ;
+types_str -> bool | int
+expression -> expression sign term | term
+sign -> + | - | * | / | %
+term_sign -> "*" | "/"
+factor -> ( expression ) | identifier | integer
+
+array -> ( ) | ( int_array ) | ( bool_array )
+int_array -> integer | , int_array | E
+bool_array -> bool | , bool | E
+
+assignment_stmt -> identifier = expression ;
+input_output_stmt -> read ( identifier ) | print ( identifier )
+if_stmt -> if condition stmt | if condition stmt else stmt
+while_stmt -> while ( condition { stmt }
+condition -> expression relation expression
+relation ->  |  | = | = | ==
+
+stmt -> simple_stmt | struct_stmt
+simple_stmt -> assignment_stmt | input_output_stmt
+struct_stmt -> compound_stmt | if_stmt | while_stmt
+compound_stmt -> stmt ; compound_stmt | E
+
+identifier -> letter identifier_noletterfirst | E
+identifier_noletterfirst -> letter | ... TODO
+letter -> a | b | c | ... | z | A | B | C | ... | Z
+nonzero_digit -> 1 | 2 | 3 | ... | 9
+digit -> 0 | nonzero_digit
+integer -> - unsigned | + unsigned | unsigned
+unsigned -> nonzero_digit | digit unsigned
