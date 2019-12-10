@@ -1,5 +1,7 @@
 package com.example.taxifinder
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -14,12 +16,23 @@ import androidx.room.Room
 import com.example.taxifinder.adapters.TaxiCompaniesAdapter
 import com.example.taxifinder.model.AppDatabase
 import com.example.taxifinder.model.TaxiCompany
+import com.example.taxifinder.networking.NetworkAPIAdapter
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_taxi_company_dialog.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.*
+import org.json.JSONObject
+import java.util.concurrent.TimeUnit
+import android.os.StrictMode
+import android.widget.Toast
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
 
 var guid = 0
 
@@ -36,10 +49,10 @@ class MainActivity : AppCompatActivity() {
 
         val db = Room.databaseBuilder(
             applicationContext,
-            AppDatabase::class.java, "maindb1.db"
+            AppDatabase::class.java, "maindb1_1.db"
         ).allowMainThreadQueries().build()
 
-        GlobalScope.launch {
+       // GlobalScope.launch {
         //launch(Dispatchers.Default) {
 /*            db.taxiCompany().insertAll(
                 TaxiCompany(
@@ -49,10 +62,34 @@ class MainActivity : AppCompatActivity() {
                     "0712321232"
                 )
             )*/
-        }
+       // }
         //}
 
-        val taxiCompanies = ArrayList<TaxiCompany>(db.taxiCompany().getAll())
+        // allow network calls on main thread
+        val policy = StrictMode.ThreadPolicy.Builder()
+            .permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        val client = NetworkAPIAdapter.instance
+        var taxiCompanies = ArrayList(db.taxiCompany().getAll())
+        if (checkOnline())
+            taxiCompanies = ArrayList(client.getAll())
+
+        //val testtc = TaxiCompany(guid++, "Taxi STAR", "Str. Teodor Mihali nr. 1", "0712321232")
+        //client.insert(testtc)
+        //client.update("1", testtc)
+        //client.delete("1")
+
+        // First sync server && local persistence
+        //db.taxiCompany().deleteAll()
+        //for (tc in taxiCompanies) {
+        //    db.taxiCompany().insertAll(tc)
+        //    guid = tc.id
+        //}
+
+        //++guid
+
+        //val taxiCompanies = ArrayList<TaxiCompany>(db.taxiCompany().getAll())
 
         //adding some dummy data to the list
         //taxiCompanies.add(TaxiCompany(guid++, "Taxi STAR", "Str. Teodor Mihali nr. 1", "0712321232"))
@@ -60,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         //taxiCompanies.add(TaxiCompany(guid++, "Taxi JMEK", "Str. Roman Ciorogariu nr. 18", "0712321232"))
 
         //creating our adapter
-        val adapter = TaxiCompaniesAdapter(db, taxiCompanies)
+        val adapter = TaxiCompaniesAdapter(db, taxiCompanies, this)
 
         //taxiCompanies.add(TaxiCompany(guid++, "Taxi JMEK", "Comp address", "0712321232"))
 
@@ -82,24 +119,22 @@ class MainActivity : AppCompatActivity() {
                 val companyName = dialog.companyName.text.toString()
                 val companyPhoneNumber = dialog.companyPhoneNumber.text.toString()
                 val companyAddress = dialog.companyAddress.text.toString()
-                taxiCompanies.add(TaxiCompany(guid++, companyName, companyAddress, companyPhoneNumber))
-                //GlobalScope.launch {
-                    //db.taxiCompany().delete(taxiCompanies.get(0))
-                    db.taxiCompany().deleteAll()
-                    for (tc in taxiCompanies) {
-                        db.taxiCompany().insertAll(tc)
-                    }
-                //}
-                /*GlobalScope.launch {
-                    db.taxiCompany().insertAll(
-                        TaxiCompany(
-                            guid++,
-                            companyName,
-                            companyAddress,
-                            companyPhoneNumber
-                        )
-                    )
-                }*/
+                val taxiCompany = TaxiCompany(guid++, companyName, companyAddress, companyPhoneNumber)
+                taxiCompanies.add(taxiCompany)
+                db.taxiCompany().insertAll(taxiCompany)
+
+                if (checkOnline()) {
+                    client.insert(taxiCompany)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({}, {}, {
+                            Toast.makeText(this, "Inserted online", Toast.LENGTH_LONG)
+                                .show()
+                        })
+                } else {
+                    NetworkAPIAdapter.serverNeedsToBeUpdated = true
+                }
+
                 adapter.notifyDataSetChanged()
             }
 
@@ -123,5 +158,18 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun checkOnline(): Boolean {
+        //Toast.makeText(context, "Not online!1", Toast.LENGTH_LONG).show()
+        val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = cm.activeNetworkInfo
+        if (networkInfo != null && networkInfo.isConnected) {
+            //Toast.makeText(context, "Not online!2", Toast.LENGTH_LONG).show()
+            return true
+        }
+        //Toast.makeText(context, "Not online3", Toast.LENGTH_LONG).show()
+        return false
+
     }
 }

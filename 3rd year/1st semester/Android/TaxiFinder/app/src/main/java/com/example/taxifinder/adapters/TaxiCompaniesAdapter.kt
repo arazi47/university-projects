@@ -1,5 +1,11 @@
 package com.example.taxifinder.adapters
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +17,72 @@ import androidx.room.RoomDatabase
 import com.example.taxifinder.R
 import com.example.taxifinder.model.AppDatabase
 import com.example.taxifinder.model.TaxiCompany
+import com.example.taxifinder.networking.NetworkAPIAdapter
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.add_taxi_company_dialog.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.HttpException
 
-class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiCompany>) : RecyclerView.Adapter<TaxiCompaniesAdapter.ViewHolder>() {
+class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiCompany>, val context: Context) : RecyclerView.Adapter<TaxiCompaniesAdapter.ViewHolder>() {
+
+    val client by lazy { NetworkAPIAdapter.instance }
+    init {
+        val mainHandler = Handler(Looper.getMainLooper())
+        mainHandler.post(object : Runnable {
+            @SuppressLint("CheckResult")
+            override fun run() {
+                Toast.makeText(context, "Called", Toast.LENGTH_LONG).show()
+
+                if (checkOnline()) {
+                    val serverList = client.getAll()
+                    val localList = ArrayList(db.taxiCompany().getAll())
+
+                    if (NetworkAPIAdapter.serverNeedsToBeUpdated) {
+                        NetworkAPIAdapter.serverNeedsToBeUpdated = false
+                        for (tc in serverList) {
+                            client.delete(tc.id.toString())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe( {}, {}, {
+                                   // Toast.makeText(context, "", Toast.LENGTH_LONG)
+                                     //   .show()
+                                })
+                        }
+
+                        for (tc in localList) {
+                            client.insert(tc)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe( {}, {}, {
+                                   // Toast.makeText(context, "Updated online!", Toast.LENGTH_LONG)
+                                     //   .show()
+                                })
+                        }
+                    } else {
+                        companyList.clear()
+                        db.taxiCompany().deleteAll()
+
+                        for (tc in serverList) {
+                            companyList.add(tc)
+                            db.taxiCompany().insertAll(tc)
+                        }
+
+                        //Toast.makeText(context, "Updated local list with server items", Toast.LENGTH_LONG).show()
+
+                        notifyDataSetChanged()
+                    }
+                }
+
+                mainHandler.postDelayed(this, 5000)
+            }
+        })
+    }
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaxiCompaniesAdapter.ViewHolder {
@@ -57,18 +122,27 @@ class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiC
                 dialog.addTaxiCompanyOkBtn.setOnClickListener {
                     alertDialog.dismiss()
 
-                    //GlobalScope.launch {
                         companyList[position].name =
                             dialog.companyName.text.toString()
                         companyList[position].phoneNumber =
                             dialog.companyPhoneNumber.text.toString()
                         companyList[position].address =
                             dialog.companyAddress.text.toString()
-                    //}
 
-                    db.taxiCompany().deleteAll()
-                    for (tc in companyList) {
-                        db.taxiCompany().insertAll(tc)
+                    db.taxiCompany().updateTaxiCompany(companyList[position])
+
+                    if (checkOnline()) {
+                        //Toast.makeText(context, "You are online, updating", Toast.LENGTH_LONG).show()
+                        client.update(companyList[position])
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe( {}, {}, {
+                                Toast.makeText(context, "Updated online!", Toast.LENGTH_LONG)
+                                    .show()
+                            })
+                    } else {
+                        NetworkAPIAdapter.serverNeedsToBeUpdated = true
+                        Toast.makeText(context, "Not online, updating locally!", Toast.LENGTH_LONG).show()
                     }
 
                     notifyDataSetChanged()
@@ -86,11 +160,26 @@ class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiC
 
             builder.setNeutralButton("Delete") { _, _ ->
 
-                companyList.removeAt(position)
-                db.taxiCompany().deleteAll()
-                for (tc in companyList) {
-                    db.taxiCompany().insertAll(tc)
+                db.taxiCompany().delete(companyList[position])
+
+                if (checkOnline()) {
+                    Toast.makeText(context, "Deleting online!", Toast.LENGTH_LONG)
+                        .show()
+
+                    client.delete(companyList[position].id.toString())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe( {}, {}, {
+                            Toast.makeText(context, "DELETE DONE!", Toast.LENGTH_LONG)
+                                .show()
+                        })
+                } else {
+                    NetworkAPIAdapter.serverNeedsToBeUpdated = true
                 }
+
+                companyList.removeAt(position)
+
+
                 notifyDataSetChanged()
             }
             builder.show()
@@ -119,5 +208,18 @@ class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiC
             textViewPhoneNumber.text = company.phoneNumber
             textViewCompanyAddress.text = company.address
         }
+    }
+
+    private fun checkOnline(): Boolean {
+        //Toast.makeText(context, "Not online!1", Toast.LENGTH_LONG).show()
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = cm.activeNetworkInfo
+        if (networkInfo != null && networkInfo.isConnected) {
+            //Toast.makeText(context, "Not online!2", Toast.LENGTH_LONG).show()
+            return true
+        }
+        //Toast.makeText(context, "Not online3", Toast.LENGTH_LONG).show()
+        return false
+
     }
 }
