@@ -1,0 +1,1 @@
+Usage: mpiexec -n <no_of_threads> py main.py
