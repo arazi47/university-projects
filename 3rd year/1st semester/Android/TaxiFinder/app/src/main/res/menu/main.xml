@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/refresh_entities"
+        android:orderInCategory="100"
+        android:title="Refresh entities"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/activity_2"
+        android:orderInCategory="100"
+        android:title="Start 2nd activity"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/activity_3"
+        android:orderInCategory="100"
+        android:title="Start 3rd activity"
+        app:showAsAction="never" />
+</menu>

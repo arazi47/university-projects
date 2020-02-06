@@ -24,18 +24,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
-    <Button
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addTaxiCompanyOkBtn"
             android:text="OK"
             style="@style/Widget.AppCompat.Button.Colored" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addTaxiCompanyCancelBtn"
-        android:text="Cancel"
-        style="@style/Widget.AppCompat.Button.Colored" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addTaxiCompanyCancelBtn"
+            android:text="Cancel"
+            style="@style/Widget.AppCompat.Button.Colored" />
     </LinearLayout>
 </LinearLayout>
