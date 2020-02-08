@@ -9,13 +9,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,13 +28,12 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.add_taxi_company_dialog.view.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
-var guid = 999
+var guid = 101
 
 class HomeFragment : Fragment() {
 
@@ -58,6 +54,11 @@ class HomeFragment : Fragment() {
 
         val progressBar = root.findViewById(R.id.indeterminateBar) as ProgressBar
         progressBar.bringToFront()
+        // Make progressbar visible for a second
+        progressBar.visibility = View.VISIBLE
+        Handler().postDelayed({
+            progressBar.visibility = View.INVISIBLE
+        }, 3000)
 
         val recyclerView = root.findViewById(R.id.recyclerView) as RecyclerView
 
@@ -65,7 +66,7 @@ class HomeFragment : Fragment() {
 
         val db = Room.databaseBuilder(
             root.context,
-            AppDatabase::class.java, "maindb1_1.db"
+            AppDatabase::class.java, "maindb1_1_1.db"
         ).allowMainThreadQueries().build()
 
         // allow network calls on main thread
@@ -77,6 +78,10 @@ class HomeFragment : Fragment() {
         var taxiCompanies = ArrayList(db.taxiCompany().getAll())
         if (checkOnline())
             taxiCompanies = ArrayList(client.getAll())
+        else {
+            Snackbar.make(root, "Not connected to the internet, sorry", Snackbar.LENGTH_LONG)
+               .setAction("Action", null).show()
+        }
 
         db.taxiCompany().deleteAll()
         for (tc in taxiCompanies)
@@ -97,7 +102,7 @@ class HomeFragment : Fragment() {
             val dialog = LayoutInflater.from(root.context).inflate(R.layout.add_taxi_company_dialog, null);
             val builder = AlertDialog.Builder(root.context)
                 .setView(dialog)
-                .setTitle("Add taxi company")
+                .setTitle("Record file")
 
             val alertDialog = builder.show()
 
@@ -110,10 +115,12 @@ class HomeFragment : Fragment() {
                     progressBar.visibility = View.INVISIBLE
                 }, 1000)
 
-                val companyName = dialog.companyName.text.toString()
-                val companyPhoneNumber = dialog.companyPhoneNumber.text.toString()
-                val companyAddress = dialog.companyAddress.text.toString()
-                val taxiCompany = TaxiCompany(guid++, companyName, companyAddress, companyPhoneNumber)
+                val inputName = dialog.inputName.text.toString()
+                val inputStatus = dialog.inputStatus.text.toString()
+                val inputSize = Integer.parseInt(dialog.inputSize.text.toString())
+                val inputLocation = dialog.inputLocation.text.toString()
+                //val inputUsage = Integer.parseInt(dialog.inputSize.text.toString())
+                val taxiCompany = TaxiCompany(guid++, inputName, inputStatus, inputSize, inputLocation, 0) // no usages so far
                 taxiCompanies.add(taxiCompany)
                 db.taxiCompany().insertAll(taxiCompany)
 
@@ -170,18 +177,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun checkOnline(): Boolean {
-        return true
-        /*
-
         //Toast.makeText(context, "Not online!1", Toast.LENGTH_LONG).show()
-        val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val cm = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = cm.activeNetworkInfo
         if (networkInfo != null && networkInfo.isConnected) {
             //Toast.makeText(context, "Not online!2", Toast.LENGTH_LONG).show()
             return true
         }
         //Toast.makeText(context, "Not online3", Toast.LENGTH_LONG).show()
-        return false*/
+        return false
 
     }
 }

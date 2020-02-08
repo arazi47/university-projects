@@ -98,6 +98,7 @@ class Adapter3(val companyList: ArrayList<TaxiCompany>, val context: Context) : 
         //    holder.bindItems(db.taxiCompany().getAll()[position])
         //}
 
+        /*
         holder.itemView.setOnClickListener { view ->
 
             val builder = AlertDialog.Builder(view.context)
@@ -183,7 +184,7 @@ class Adapter3(val companyList: ArrayList<TaxiCompany>, val context: Context) : 
                 notifyDataSetChanged()
             }
             builder.show()
-        }
+        }*/
     }
 
     // Hacky way of returning a value from globalscope.launch, lol
@@ -201,12 +202,13 @@ class Adapter3(val companyList: ArrayList<TaxiCompany>, val context: Context) : 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(company: TaxiCompany) {
+            /*
             val textViewName = itemView.findViewById(R.id.textViewCompanyName) as TextView
             val textViewPhoneNumber  = itemView.findViewById(R.id.textViewCompanyPhoneNumber) as TextView
             val textViewCompanyAddress = itemView.findViewById(R.id.textViewCompanyAddress) as TextView
             textViewName.text = company.name
             textViewPhoneNumber.text = company.phoneNumber
-            textViewCompanyAddress.text = company.address
+            textViewCompanyAddress.text = company.address*/
         }
     }
 

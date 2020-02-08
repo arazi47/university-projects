@@ -1,10 +1,8 @@
 package com.example.testappnavidrawer.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,21 +12,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.RoomDatabase
 import com.example.testappnavidrawer.R
 import com.example.testappnavidrawer.model.AppDatabase
 import com.example.testappnavidrawer.model.TaxiCompany
 import com.example.testappnavidrawer.networking.NetworkAPIAdapter
-import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.add_taxi_company_dialog.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import okhttp3.ResponseBody
-import org.json.JSONObject
-import retrofit2.HttpException
 
 class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiCompany>, val context: Context, val progressBar : ProgressBar) : RecyclerView.Adapter<TaxiCompaniesAdapter.ViewHolder>() {
 
@@ -99,6 +89,7 @@ class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiC
         //    holder.bindItems(db.taxiCompany().getAll()[position])
         //}
 
+
         holder.itemView.setOnClickListener { view ->
 
             val builder = AlertDialog.Builder(view.context)
@@ -113,13 +104,14 @@ class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiC
                 val dialog = LayoutInflater.from(view.context).inflate(R.layout.add_taxi_company_dialog, null);
                 val myBuilder = AlertDialog.Builder(view.context)
                     .setView(dialog)
-                    .setTitle("Update taxi company")
+                    .setTitle("Update record")
 
                 val alertDialog = myBuilder.show()
 
-                dialog.companyName.setText(db.taxiCompany().getAll()[position].name)
-                dialog.companyPhoneNumber.setText(db.taxiCompany().getAll()[position].phoneNumber)
-                dialog.companyAddress.setText(db.taxiCompany().getAll()[position].address)
+                dialog.inputName.setText(db.taxiCompany().getAll()[position].name)
+                dialog.inputStatus.setText(db.taxiCompany().getAll()[position].status)
+                dialog.inputSize.setText(db.taxiCompany().getAll()[position].size)
+                dialog.inputLocation.setText(db.taxiCompany().getAll()[position].location)
 
                 dialog.addTaxiCompanyOkBtn.setOnClickListener {
                     alertDialog.dismiss()
@@ -132,11 +124,13 @@ class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiC
                         }, 1000)
 
                         companyList[position].name =
-                            dialog.companyName.text.toString()
-                        companyList[position].phoneNumber =
-                            dialog.companyPhoneNumber.text.toString()
-                        companyList[position].address =
-                            dialog.companyAddress.text.toString()
+                            dialog.inputName.text.toString()
+                        companyList[position].status =
+                            dialog.inputStatus.text.toString()
+                        companyList[position].size =
+                            Integer.parseInt(dialog.inputSize.text.toString())
+                        companyList[position].location =
+                            dialog.inputLocation.text.toString()
 
                         db.taxiCompany().updateTaxiCompany(companyList[position])
 
@@ -151,6 +145,7 @@ class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiC
                             })
                     } else {
                         //NetworkAPIAdapter.serverNeedsToBeUpdated = true
+                        Log.d("[CRUD]", "Not online, cannot update!")
                         Toast.makeText(context, "Not online, cannot update!", Toast.LENGTH_LONG).show()
                     }
 
@@ -219,12 +214,20 @@ class TaxiCompaniesAdapter(var db: AppDatabase, val companyList: ArrayList<TaxiC
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(company: TaxiCompany) {
-            val textViewName = itemView.findViewById(R.id.textViewCompanyName) as TextView
-            val textViewPhoneNumber  = itemView.findViewById(R.id.textViewCompanyPhoneNumber) as TextView
-            val textViewCompanyAddress = itemView.findViewById(R.id.textViewCompanyAddress) as TextView
-            textViewName.text = company.name
-            textViewPhoneNumber.text = company.phoneNumber
-            textViewCompanyAddress.text = company.address
+
+            val id = itemView.findViewById(R.id.id) as TextView
+            val name = itemView.findViewById(R.id.name) as TextView
+            val status  = itemView.findViewById(R.id.status) as TextView
+            val size = itemView.findViewById(R.id.size) as TextView
+            val location = itemView.findViewById(R.id.location) as TextView
+            val usage = itemView.findViewById(R.id.usage) as TextView
+            id.text = company.id.toString()
+            name.text = company.name
+            status.text = company.status
+            size.text = company.size.toString()
+            location.text = company.location
+            usage.text = company.usage.toString()
+
         }
     }
 

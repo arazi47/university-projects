@@ -23,11 +23,11 @@ class NetworkAPIAdapter private constructor() {
     companion object {
         val instance: NetworkAPIAdapter by lazy { Holder.INSTANCE }
         var serverNeedsToBeUpdated: Boolean = false
-        const val BASE_URL: String = "http://10.0.2.2:2024"
-        private const val URL_ORDERS_ALL: String = "/get"
-        private const val URL_ADD_COMPANY: String = "/addcompany"
+        const val BASE_URL: String = "http://10.0.2.2:2702" // UPDATED exam
+        private const val URL_ORDERS_ALL: String = "/all" // UPDATED exam
+        private const val URL_ADD_COMPANY: String = "/file" // UPDATED exam
         private const val URL_UPDATE_INDIVIDUAL: String = "/update"
-        private const val URL_DELETE_INDIVIDUAL: String = "/delete/{id}"
+        private const val URL_DELETE_INDIVIDUAL: String = "/file/{id}"
     }
 
     private val bookService: BooksService
@@ -49,6 +49,10 @@ class NetworkAPIAdapter private constructor() {
         return bookService.fetchAll().execute().body()!!
     }
 
+    fun getAllLocations() : List<String> {
+        return bookService.getAllLocations().execute().body()!!
+    }
+
     fun insert(dto: TaxiCompany): Observable<TaxiCompany> {
         //Log.d("INSERT", dto.toString())
         return bookService.insert(dto)
@@ -65,6 +69,9 @@ class NetworkAPIAdapter private constructor() {
     interface BooksService {
         @GET(URL_ORDERS_ALL)
         fun fetchAll(): Call<List<TaxiCompany>>
+
+        @GET("/locations")
+        fun getAllLocations(): Call<List<String>>
 
         @POST(URL_ADD_COMPANY)
         //@FormUrlEncoded

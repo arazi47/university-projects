@@ -5,18 +5,23 @@
     android:padding="10dp">
 
     <EditText android:layout_height="wrap_content" android:layout_width="match_parent"
-        android:id="@+id/companyName"
-        android:hint="Company name"
+        android:id="@+id/inputName"
+        android:hint="name"
         android:inputType="textPersonName"/>
 
     <EditText android:layout_height="wrap_content" android:layout_width="match_parent"
-        android:id="@+id/companyPhoneNumber"
-        android:hint="Company phone number"
+        android:id="@+id/inputStatus"
+        android:hint="status"
         android:inputType="textPersonName"/>
 
     <EditText android:layout_height="wrap_content" android:layout_width="match_parent"
-        android:id="@+id/companyAddress"
-        android:hint="Company address"
+        android:id="@+id/inputSize"
+        android:hint="size"
+        android:inputType="number"/>
+
+    <EditText android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:id="@+id/inputLocation"
+        android:hint="location"
         android:inputType="textPersonName"/>
 
     <LinearLayout

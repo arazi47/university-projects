@@ -16,12 +16,12 @@
     <item
         android:id="@+id/activity_2"
         android:orderInCategory="100"
-        android:title="Start 2nd activity"
+        android:title="Manage section"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/activity_3"
         android:orderInCategory="100"
-        android:title="Start 3rd activity"
+        android:title="Start 3rd activity (UNUSED)"
         app:showAsAction="never" />
 </menu>

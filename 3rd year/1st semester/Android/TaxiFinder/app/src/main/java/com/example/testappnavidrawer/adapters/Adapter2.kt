@@ -29,7 +29,7 @@ import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.HttpException
 
-class Adapter2(val companyList: ArrayList<TaxiCompany>, val context: Context) : RecyclerView.Adapter<Adapter2.ViewHolder>() {
+class Adapter2(var db: AppDatabase, val companyList: ArrayList<TaxiCompany>, val context: Context) : RecyclerView.Adapter<Adapter2.ViewHolder>() {
 
     val client by lazy { NetworkAPIAdapter.instance }
     init {
@@ -94,65 +94,12 @@ class Adapter2(val companyList: ArrayList<TaxiCompany>, val context: Context) : 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: Adapter2.ViewHolder, position: Int) {
         holder.bindItems(companyList[position])
-        //GlobalScope.launch {
-        //    holder.bindItems(db.taxiCompany().getAll()[position])
-        //}
 
         holder.itemView.setOnClickListener { view ->
 
             val builder = AlertDialog.Builder(view.context)
-            builder.setTitle("Update or delete")
-            builder.setMessage("Do you want to update or delete this item?")
-
-            builder.setPositiveButton("Update") { _, _ ->
-                Toast.makeText(view.context.applicationContext,
-                    android.R.string.yes, Toast.LENGTH_SHORT).show()
-
-
-                val dialog = LayoutInflater.from(view.context).inflate(R.layout.add_taxi_company_dialog, null);
-                val myBuilder = AlertDialog.Builder(view.context)
-                    .setView(dialog)
-                    .setTitle("Update taxi company")
-
-                val alertDialog = myBuilder.show()
-
-                //dialog.companyName.setText(db.taxiCompany().getAll()[position].name)
-                //dialog.companyPhoneNumber.setText(db.taxiCompany().getAll()[position].phoneNumber)
-                //dialog.companyAddress.setText(db.taxiCompany().getAll()[position].address)
-
-                dialog.addTaxiCompanyOkBtn.setOnClickListener {
-                    alertDialog.dismiss()
-
-                    if (checkOnline()) {
-                        companyList[position].name =
-                            dialog.companyName.text.toString()
-                        companyList[position].phoneNumber =
-                            dialog.companyPhoneNumber.text.toString()
-                        companyList[position].address =
-                            dialog.companyAddress.text.toString()
-
-                        //db.taxiCompany().updateTaxiCompany(companyList[position])
-
-                        //Toast.makeText(context, "You are online, updating", Toast.LENGTH_LONG).show()
-                        client.update(companyList[position])
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe( {}, {}, {
-                                Toast.makeText(context, "Updated online!", Toast.LENGTH_LONG)
-                                    .show()
-                            })
-                    } else {
-                        //NetworkAPIAdapter.serverNeedsToBeUpdated = true
-                        Toast.makeText(context, "Not online, cannot update!", Toast.LENGTH_LONG).show()
-                    }
-
-                    notifyDataSetChanged()
-                }
-
-                dialog.addTaxiCompanyCancelBtn.setOnClickListener {
-                    alertDialog.dismiss()
-                }
-            }
+            builder.setTitle("Delete")
+            builder.setMessage("Do you want to delete this item?")
 
             builder.setNegativeButton("Cancel") { _, _ ->
                 Toast.makeText(view.context.applicationContext,
@@ -161,13 +108,22 @@ class Adapter2(val companyList: ArrayList<TaxiCompany>, val context: Context) : 
 
             builder.setNeutralButton("Delete") { _, _ ->
                 if (checkOnline()) {
+                    // Make progressbar visible for a second
+                    //progressBar.visibility = View.VISIBLE
+                    //Handler().postDelayed({
+                    //    progressBar.visibility = View.INVISIBLE
+                    //}, 1000)
+
+                    Log.d("[CRUD]", "Deleted online id = " + companyList[position].id.toString())
                     //Toast.makeText(context, "Deleting online!", Toast.LENGTH_LONG)
                     //    .show()
 
-                    //db.taxiCompany().delete(companyList[position])
+                    var companyId = companyList[position].id
+
+                    db.taxiCompany().delete(companyList[position])
                     companyList.removeAt(position)
 
-                    client.delete(companyList[position].id.toString())
+                    client.delete(companyId.toString())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe( {}, {}, {
@@ -176,6 +132,7 @@ class Adapter2(val companyList: ArrayList<TaxiCompany>, val context: Context) : 
                         })
                 } else {
                     //NetworkAPIAdapter.serverNeedsToBeUpdated = true
+                    Log.d("[CRUD]", "Not online, cannot delete!")
                     Toast.makeText(context, "Not online, cannot delete!", Toast.LENGTH_LONG).show()
                 }
 
@@ -201,12 +158,18 @@ class Adapter2(val companyList: ArrayList<TaxiCompany>, val context: Context) : 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(company: TaxiCompany) {
-            val textViewName = itemView.findViewById(R.id.textViewCompanyName) as TextView
-            val textViewPhoneNumber  = itemView.findViewById(R.id.textViewCompanyPhoneNumber) as TextView
-            val textViewCompanyAddress = itemView.findViewById(R.id.textViewCompanyAddress) as TextView
-            textViewName.text = company.name
-            textViewPhoneNumber.text = company.phoneNumber
-            textViewCompanyAddress.text = company.address
+            val id = itemView.findViewById(R.id.id) as TextView
+            val name = itemView.findViewById(R.id.name) as TextView
+            val status  = itemView.findViewById(R.id.status) as TextView
+            val size = itemView.findViewById(R.id.size) as TextView
+            val location = itemView.findViewById(R.id.location) as TextView
+            val usage = itemView.findViewById(R.id.usage) as TextView
+            id.text = company.id.toString()
+            name.text = company.name
+            status.text = company.status
+            size.text = company.size.toString()
+            location.text = company.location
+            usage.text = company.usage.toString()
         }
     }
 
