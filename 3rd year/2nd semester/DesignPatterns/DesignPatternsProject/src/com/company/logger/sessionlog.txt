@@ -1,0 +1,4 @@
+Internet is not connected!
+Successfully activated internet
+Port 80 is open
+A student connected to www.wikipedia.com
