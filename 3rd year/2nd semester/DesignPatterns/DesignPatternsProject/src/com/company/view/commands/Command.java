@@ -1,7 +1,7 @@
 package com.company.view.commands;
 
 /**
- * Command design pattern
+ * Command design pattern (behavioral)
  */
 public abstract class Command {
     private String key;

@@ -2,12 +2,15 @@ package com.company.logger;
 
 import java.io.*;
 
+/**
+ * Singleton design pattern (creational)
+ */
 public class Logger {
     private static OutputStream os;
 
     private static void initOS() {
         try {
-            os = new FileOutputStream(new File("C:\\Users\\necso\\Desktop\\PPD\\DesignPatternsProject\\src\\com\\company\\logger\\sessionlog.txt"));
+            os = new FileOutputStream(new File("D:\\DesignPatterns\\DesignPatternsProject\\src\\com\\company\\logger\\sessionlog.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

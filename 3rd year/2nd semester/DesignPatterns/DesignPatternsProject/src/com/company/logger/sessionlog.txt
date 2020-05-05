@@ -1,4 +1,4 @@
-Internet is not connected!
-Successfully activated internet
-Port 80 is open
+Internet connection OK
+A student tried to access a site that is not allowed: www.google.com
+Internet connection OK
 A student connected to www.wikipedia.com

@@ -7,6 +7,9 @@ import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * Facade design pattern (structural)
+ */
 public class InternetConnection {
     private boolean port80Opened = false;
     private boolean internetConnected = false;
@@ -28,17 +31,18 @@ public class InternetConnection {
             return true;
 
         try {
-            URL url = new URL("http://www.google.co1m");
+            URL url = new URL("http://www.google.com");
             URLConnection connection = url.openConnection();
             connection.connect();
-            this.port80Opened = true;
+            if (!isPort80Opened())
+                this.openPort80();
             return true;
         } catch (IOException e) {
             return false;
         }
     }
 
-    public void openPort80() {
+    private void openPort80() {
         Logger.log("Successfully opened port " + 80);
         port80Opened = true;
     }

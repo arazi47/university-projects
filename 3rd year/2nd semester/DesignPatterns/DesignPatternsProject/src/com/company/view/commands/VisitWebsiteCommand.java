@@ -1,6 +1,6 @@
 package com.company.view.commands;
 
-import com.company.proxy.ProxyWebConnection;
+import com.company.proxy.ProxyWebBrowser;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ public class VisitWebsiteCommand extends Command {
 
     @Override
     public void execute() {
-        ProxyWebConnection connection = new ProxyWebConnection();
+        ProxyWebBrowser connection = new ProxyWebBrowser();
         System.out.print("Enter URL: ");
         Scanner scanner = new Scanner(System.in);
         String url = scanner.nextLine();

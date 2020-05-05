@@ -2,6 +2,7 @@ package com.company.view;
 
 import com.company.view.commands.Command;
 import com.company.view.commands.ExitCommand;
+import com.company.view.commands.OpenPortsCommand;
 import com.company.view.commands.VisitWebsiteCommand;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class View {
     private void fillCommandsMap() {
         this.addCommand(new ExitCommand("0", "Exit"));
         this.addCommand(new VisitWebsiteCommand("1", "Visit website"));
+        this.addCommand(new OpenPortsCommand("2", "Open ports"));
     }
 
     public View() {
